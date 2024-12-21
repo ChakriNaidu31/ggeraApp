@@ -1,0 +1,25 @@
+.body-height{
+    height: 100%;
+    /* margin-top: 80px; */
+    background-color: #0D0D18;
+
+}
+.main-height{
+    background-color: #0D0D18;
+}
+
+
+
+@media(max-width:768px){
+    .main-height{
+           padding-left: 20px;
+           padding-right: 20px;
+       }
+    .hero-bg {
+    background-image: url(../assets/images/hero.svg);
+    height: 90vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+   }

@@ -1,0 +1,24 @@
+.slider-img{
+    width: 235px !important;
+    height: 300px;
+    margin: auto;
+}
+.owl-next {
+    position: absolute;
+    top: 45%;
+    right: -7px;
+  }
+  
+  .owl-prev {
+    position: absolute;
+    top: 45%;
+    left: -7px;
+  }
+  .p{
+    font-family: "Manrope", sans-serif;
+  }
+
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+

@@ -1,0 +1,29 @@
+.cardimg{
+        height: 200px;
+        background-repeat: no-repeat;
+  width: 100%;
+  border-radius: 20px;
+}
+.card1{
+        background-image: url('/assets/svg/card1.svg');
+
+}
+.card2{
+        background-image: url('/assets/svg/card2.svg');
+
+}
+.card3{
+        background-image: url('/assets/svg/card3.svg');
+
+}
+.card4{
+        background-image: url('/assets/svg/card4.svg');
+
+}
+.mt-100{
+        margin-top: 100px;
+}
+
+      .p{
+        font-family: "Manrope", sans-serif;
+      }
