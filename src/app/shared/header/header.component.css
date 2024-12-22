@@ -30,3 +30,6 @@ a.nav-link.text-color.me-3:hover {
 .navbar-nav , .navbar-nav .nav-link.show {
   color: #A5A5AB;
 }
+.dropdown-toggle.nav-link.text-color.me-3.cursor-pointer {
+  cursor: pointer;
+}

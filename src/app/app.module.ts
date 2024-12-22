@@ -12,6 +12,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SessionComponent } from './pages/session/session.component';
 import { PremadeComponent } from './pages/premade/premade.component';
 import { ProPlayersComponent } from './pages/pro-players/pro-players.component';
+import { PremadeAvailableComponent } from './pages/premade-available/premade-available.component';
+import { PremadeInprogressComponent } from './pages/premade-inprogress/premade-inprogress.component';
+import { PremadeCompletedComponent } from './pages/premade-completed/premade-completed.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { ProPlayersComponent } from './pages/pro-players/pro-players.component';
     CardCarousalComponent,
     SessionComponent,
     PremadeComponent,
-    ProPlayersComponent
+    ProPlayersComponent,
+    PremadeAvailableComponent,
+    PremadeInprogressComponent,
+    PremadeCompletedComponent
   ],
   imports: [
     BrowserModule,
