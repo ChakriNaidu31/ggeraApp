@@ -9,12 +9,11 @@ interface Order {
 }
 
 @Component({
-  selector: 'app-premade-completed',
-  templateUrl: './premade-completed.component.html',
-  styleUrls: ['./premade-completed.component.css']
+  selector: 'app-elite-orders-completed',
+  templateUrl: './elite-orders-completed.component.html',
+  styleUrls: ['./elite-orders-completed.component.css'],
 })
-export class PremadeCompletedComponent implements OnInit {
-
+export class EliteOrdersCompletedComponent implements OnInit {
   orders: Order[] = [
     { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
     { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },

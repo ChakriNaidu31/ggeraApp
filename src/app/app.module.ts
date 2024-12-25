@@ -15,6 +15,9 @@ import { ProPlayersComponent } from './pages/pro-players/pro-players.component';
 import { PremadeAvailableComponent } from './pages/premade-available/premade-available.component';
 import { PremadeInprogressComponent } from './pages/premade-inprogress/premade-inprogress.component';
 import { PremadeCompletedComponent } from './pages/premade-completed/premade-completed.component';
+import { EliteOrdersNewComponent } from './pages/elite-orders-new/elite-orders-new.component';
+import { EliteOrdersInprogressComponent } from './pages/elite-orders-inprogress/elite-orders-inprogress.component';
+import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/elite-orders-completed.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { PremadeCompletedComponent } from './pages/premade-completed/premade-com
     ProPlayersComponent,
     PremadeAvailableComponent,
     PremadeInprogressComponent,
-    PremadeCompletedComponent
+    PremadeCompletedComponent,
+    EliteOrdersNewComponent,
+    EliteOrdersInprogressComponent,
+    EliteOrdersCompletedComponent
   ],
   imports: [
     BrowserModule,
