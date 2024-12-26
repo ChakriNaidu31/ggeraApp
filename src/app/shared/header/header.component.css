@@ -33,3 +33,7 @@ a.nav-link.text-color.me-3:hover {
 .dropdown-toggle.nav-link.text-color.me-3.cursor-pointer {
   cursor: pointer;
 }
+
+.dropdown-item:hover {
+  background: linear-gradient(217deg, #41067A, #7A06D1) !important;
+}

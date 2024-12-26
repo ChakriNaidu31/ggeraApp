@@ -2203,4 +2203,6 @@
   .custom-select::after {
     color: #fff; /* White arrow */
   }
-  
+  .bg-darks {
+    background-color: #151520;
+  }

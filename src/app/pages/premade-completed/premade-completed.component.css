@@ -24,6 +24,9 @@
     font-size: 16px;
     line-height: 22.4px;
   }
+  .red-letter {
+    color: #A55EFF;
+  }
   
   .form-select:focus {
     box-shadow: none;
@@ -131,17 +134,24 @@ thead.bg-transparent > tr > th {
 }
 .pagination-container {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   gap: 10px;
 }
 
+button.btn.btn-secondary {
+  background: linear-gradient(217deg, #41067A, #7A06D1) !important;
+  border: 0 !important;
+}
 .pagination-container .btn {
   padding: 5px 15px;
   border-radius: 8px;
 }
 
 .pagination-container .page-numbers {
-  font-weight: bold;
+  font-weight: 400;
   color: #fff;
+}
+.bg-darks {
+  background-color: #151520;
 }

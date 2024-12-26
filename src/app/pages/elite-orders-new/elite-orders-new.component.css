@@ -1542,11 +1542,15 @@
   text-align: center;
   margin-bottom: 2rem;
 }
+button.btn.btn-choose.me-3.f-14.choosebtn {
+  padding: 10px 16px 10px 16px !important;
+  border-radius: 8px !important;
+  background: #1F1F2A !important;
+}
 .order-card {
   background-color: #171b25;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 .avatars {
   width: 40px;
@@ -1582,4 +1586,7 @@
 .choosebtn {
   font-weight: 600;
   color: #9949ff;
+}
+.bg-darks {
+  background-color: #151520;
 }

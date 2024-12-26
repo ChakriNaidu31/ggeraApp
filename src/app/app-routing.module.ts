@@ -9,8 +9,15 @@ import { PremadeCompletedComponent } from './pages/premade-completed/premade-com
 import { EliteOrdersNewComponent } from './pages/elite-orders-new/elite-orders-new.component';
 import { EliteOrdersInprogressComponent } from './pages/elite-orders-inprogress/elite-orders-inprogress.component';
 import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/elite-orders-completed.component';
+import { MessageComponent } from './pages/message/message.component';
+import { WalletTransactionComponent } from './pages/wallet-transaction/wallet-transaction.component';
+import { WalletAddmoneyComponent } from './pages/wallet-addmoney/wallet-addmoney.component';
+import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.component';
+import { EventComponent } from './pages/event/event.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' }, 
   { path: 'home', component: LandingComponent },
   { path: 'proplayers', component: ProPlayersComponent },
   { path: '1-1session', component: SessionComponent },
@@ -19,7 +26,14 @@ const routes: Routes = [
   { path: 'premade-completed', component: PremadeCompletedComponent },
   { path: 'eliteorder-new', component: EliteOrdersNewComponent },
   { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent },
-  { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent }
+  { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent },
+  { path: 'message', component: MessageComponent },
+  { path: 'wallet-transaction', component: WalletTransactionComponent },
+  { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
+  { path: 'wallet-coupon', component: WalletCouponComponent },
+  { path: 'event', component: EventComponent },
+  { path: 'user-profile', component: UserProfileComponent },
+  
 
 ];
 

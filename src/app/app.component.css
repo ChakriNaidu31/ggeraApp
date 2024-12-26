@@ -23,5 +23,7 @@
     background-size: cover;
 }
    }
-
-   
+   .br-16 {
+    border-radius: 16px;
+  }
+ 
