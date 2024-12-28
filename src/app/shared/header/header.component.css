@@ -1,35 +1,47 @@
-
-  .header-end{
-    justify-content: end;
+.header-end {
+  justify-content: end;
   display: flex;
   align-items: center;
-  }
-  button.btn.btn-primary-gg.money {
-    font-family: Manrope;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 21.86px;
-    letter-spacing: -0.01em;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
 }
+
+button.btn.btn-primary-gg.money {
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.86px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
 a.nav-link.text-color.me-3:hover {
   color: #fff;
 }
-.nav-link:focus, .nav-link:hover {
+
+.nav-link:focus,
+.nav-link:hover {
   color: #fff;
 }
+
 .m-b-3 {
   margin-bottom: 3px;
 }
-.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
   border: none !important;
 
 }
-.navbar-nav , .navbar-nav .nav-link.show {
+
+.navbar-nav,
+.navbar-nav .nav-link.show {
   color: #A5A5AB;
 }
+
 .dropdown-toggle.nav-link.text-color.me-3.cursor-pointer {
   cursor: pointer;
 }

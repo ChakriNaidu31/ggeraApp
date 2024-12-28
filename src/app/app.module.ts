@@ -18,6 +18,7 @@ import { PremadeCompletedComponent } from './pages/premade-completed/premade-com
 import { EliteOrdersNewComponent } from './pages/elite-orders-new/elite-orders-new.component';
 import { EliteOrdersInprogressComponent } from './pages/elite-orders-inprogress/elite-orders-inprogress.component';
 import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/elite-orders-completed.component';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/el
     PremadeCompletedComponent,
     EliteOrdersNewComponent,
     EliteOrdersInprogressComponent,
-    EliteOrdersCompletedComponent
+    EliteOrdersCompletedComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
