@@ -11,6 +11,11 @@ import { EliteOrdersInprogressComponent } from './pages/elite-orders-inprogress/
 import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/elite-orders-completed.component';
 
 const routes: Routes = [
+  // { path: 'index', component: LoginComponent },
+  // { path: 'otp', component: OtpPageComponent },
+  // { path: 'social', component: SocialLoginComponent },
+  // { path: 'register', component: RegisterNewUserComponent },
+  
   { path: 'home', component: LandingComponent },
   { path: 'proplayers', component: ProPlayersComponent },
   { path: '1-1session', component: SessionComponent },

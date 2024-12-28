@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer, map } from 'rxjs';
 import { AuthService } from './auth.service';
 import { PushNotificationService } from './push-notification.service';
+import { Chat } from '../models/chat';
+import { ChatMessage } from '../models/chat-message';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PushNotification } from '../models/push-notification';
 
 @Injectable({
   providedIn: 'root'
