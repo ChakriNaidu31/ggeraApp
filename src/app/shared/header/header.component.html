@@ -59,7 +59,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="dropdown-toggle nav-link text-color me-2" data-bs-toggle="dropdown" aria-expanded="false">Elite
+          <a class="dropdown-toggle nav-link text-color me-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">Elite
             Orders</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
@@ -71,19 +71,19 @@
 
 
         <li class="nav-item">
-          <a class="nav-link text-color me-2" href="#">Message</a>
+          <a class="nav-link text-color me-2" routerLink="message">Message</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-color me-2" href="#">Event</a>
+          <a class="nav-link text-color me-2" routerLink="event">Event</a>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="dropdown-toggle nav-link text-color me-2" data-bs-toggle="dropdown" aria-expanded="false">Wallet</a>
+          <a class="dropdown-toggle nav-link text-color me-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">Wallet</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" routerLink="wallet-transaction">Transaction</a></li>
+            <li><a class="dropdown-item" routerLink="wallet-addmoney">Add Money</a></li>
+            <li><a class="dropdown-item" routerLink="wallet-coupon">Coupons</a></li>
           </ul>
         </li>
 
@@ -108,16 +108,16 @@
             fill="white" />
         </svg>
 
-        <button type="button" class="btn btn-primary-gg money me-2 px-3 py-2"><span>$ 0.00</span> <img
+        <button type="button" class="btn btn-primary-gg money me-2 px-3 py-2 border-0"><span>$ 0.00</span> <img
             src="../../../assets/images/add.svg" class="img-fluid ms-2 m-b-3"></button>
 
         <div class="dropdown-center">
-          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn dropdown-toggle cursor-pointer" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="../../../assets/images/nouser.png" class="img-fluid dropdown-toggle" style="height: 40px;" />
           </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">My Profile</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" routerLink="user-profile">My Profile</a></li>
+            <li><a class="dropdown-item">Logout</a></li>
           </ul>
         </div>
       </div>

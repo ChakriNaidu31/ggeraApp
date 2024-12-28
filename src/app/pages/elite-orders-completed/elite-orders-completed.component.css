@@ -129,21 +129,29 @@ text-decoration-skip-ink: none;
 thead.bg-transparent > tr > th {
     background: #0c0c18 !important
 }
+.red-letter {
+    color: #A55EFF;
+  }
 
 .pagination-container {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     gap: 10px;
   }
-  
+  button.btn.btn-secondary {
+    background: linear-gradient(217deg, #41067A, #7A06D1) !important;
+    border: 0 !important;
+  }
   .pagination-container .btn {
     padding: 5px 15px;
     border-radius: 8px;
   }
   
   .pagination-container .page-numbers {
-    font-weight: bold;
+    font-weight: 400;
     color: #fff;
   }
-  
+  .bg-darks {
+    background-color: #151520;
+  }
