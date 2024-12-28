@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { PushNotificationService } from './push-notification.service';
 import { Chat } from '../models/chat';
 import { ChatMessage } from '../models/chat-message';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
