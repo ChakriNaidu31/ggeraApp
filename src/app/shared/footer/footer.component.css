@@ -1,14 +1,15 @@
-.footer{
+.footer {
     /* position: sticky;
     bottom: 0;
     display: flex; */
 }
-.p{
-    font-family: "Manrope", sans-serif;
-  }
 
-  @media(max-width:768px){
-    .footer-link ul{
-           justify-content: center;
-       }
-   }
+.p {
+    font-family: "Manrope", sans-serif;
+}
+
+@media(max-width:768px) {
+    .footer-link ul {
+        justify-content: center;
+    }
+}

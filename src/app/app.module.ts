@@ -18,13 +18,7 @@ import { PremadeCompletedComponent } from './pages/premade-completed/premade-com
 import { EliteOrdersNewComponent } from './pages/elite-orders-new/elite-orders-new.component';
 import { EliteOrdersInprogressComponent } from './pages/elite-orders-inprogress/elite-orders-inprogress.component';
 import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/elite-orders-completed.component';
-import { MessageComponent } from './pages/message/message.component';
-import { EventComponent } from './pages/event/event.component';
-import { WalletTransactionComponent } from './pages/wallet-transaction/wallet-transaction.component';
-import { WalletAddmoneyComponent } from './pages/wallet-addmoney/wallet-addmoney.component';
-import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { SessionLadingComponent } from './pages/session-lading/session-lading.component';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -42,14 +36,7 @@ import { SessionLadingComponent } from './pages/session-lading/session-lading.co
     EliteOrdersNewComponent,
     EliteOrdersInprogressComponent,
     EliteOrdersCompletedComponent,
-    MessageComponent,
-    EventComponent,
-    PremadeComponent,
-    WalletTransactionComponent,
-    WalletAddmoneyComponent,
-    WalletCouponComponent,
-    UserProfileComponent,
-    SessionLadingComponent
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
