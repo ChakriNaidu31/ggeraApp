@@ -19,6 +19,7 @@ import { EliteOrdersNewComponent } from './pages/elite-orders-new/elite-orders-n
 import { EliteOrdersInprogressComponent } from './pages/elite-orders-inprogress/elite-orders-inprogress.component';
 import { EliteOrdersCompletedComponent } from './pages/elite-orders-completed/elite-orders-completed.component';
 import { TruncatePipe } from './truncate.pipe';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TruncatePipe } from './truncate.pipe';
     EliteOrdersNewComponent,
     EliteOrdersInprogressComponent,
     EliteOrdersCompletedComponent,
+    UserProfileComponent,
     TruncatePipe
   ],
   imports: [
