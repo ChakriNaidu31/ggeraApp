@@ -198,12 +198,7 @@
   .input-group-text {
     background-color: "#00000" !important;
   }
-  
-  /* // premade party styling from here */
-  
-  @import "swiper/scss";
-  @import "swiper/scss/navigation";
-  @import "swiper/scss/pagination";
+
   
   .youtube-player-container {
     position: relative;

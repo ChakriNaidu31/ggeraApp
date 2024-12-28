@@ -1,1 +1,202 @@
-<p>user-profile works!</p>
+<div class="rounded text-body-emphasis bg-body-secondary">
+    <div class="col-lg-12 col-xs-12">
+        <div class="hero-bg">
+            <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
+
+                <h1 class="text-start mb-5 text-white mt-5">My Profile</h1>
+
+
+                <div class="bg-real mb-5">
+                    <div class="row mb-4">
+                        <div class="col-md-6 position-relative">
+                            <div class="update-cover" [ngStyle]="{'background-image': 'url(' + coverImage + ')'}">
+                                <input type="file" id="coverImageInput" class="d-none" accept="image/*"
+                                    (change)="onCoverImageChange($event)" />
+                                <button class="btn btn-outline-light btn-sm" (click)="triggerFileUpload()">
+                                    Update Cover <img src="../../../assets/images/edit2.png" class="ms-2 img-fluid" />
+                                </button>
+
+                                <div class="update-profile-overlay" (click)="triggerProfileUpload()">
+                                    <span>Update<br> Profile</span>
+                                </div>
+                                <input type="file" id="profileImageInput" class="d-none" accept="image/*"
+                                    (change)="onProfileImageChange($event)" />
+
+                                <img [src]="profileImage" alt="Profile" class="profile-pic">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="upgrade-banner d-flex align-items-center justify-content-center">
+                                <h5><span class="st-1">Upgrade<br> to </span> <span class="st-2">Pro <svg
+                                            _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26="" width="24"
+                                            height="24" viewBox="0 0 17 17" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
+                                                clip-path="url(#clip0_5344_406)">
+                                                <path _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
+                                                    d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
+                                                    fill="#fff"></path>
+                                                <path _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
+                                                    d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
+                                                    fill="#6906b7"></path>
+                                            </g>
+                                            <defs _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26="">
+                                                <linearGradient _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                                    _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708"
+                                                    y1="14.1194" x2="-2.09236" y2="6.05188"
+                                                    gradientUnits="userSpaceOnUse">
+                                                    <stop _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                                        _ngcontent-doa-c26="" stop-color="#41067A"></stop>
+                                                    <stop _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                                        _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1">
+                                                    </stop>
+                                                </linearGradient>
+                                                <clipPath _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                                    _ngcontent-doa-c26="" id="clip0_5344_406">
+                                                    <rect _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                                        _ngcontent-doa-c26="" width="16" height="16" fill="black"
+                                                        transform="translate(0.5 0.332031)"></rect>
+                                                </clipPath>
+                                            </defs>
+                                        </svg></span></h5>
+
+                                <img src="../../../assets/images/profilecover.png" class="img-fluid profile-cover" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name*</label>
+                                <input type="text" id="name" class="form-control" placeholder="Gio">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="gio@gmail.com">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="gamerTag" class="form-label">Gamer Tag*</label>
+                                <input type="text" id="gamerTag" class="form-control" placeholder="Pro">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="activationId" class="form-label">Activision ID</label>
+                                <input type="text" id="activationId" class="form-control" placeholder="12345678">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" rows="4" class="form-control"></textarea>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="region" class="form-label">Region</label>
+                                <input type="text" id="region" class="form-control" placeholder="Bangladesh">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="platform" class="form-label">Platform</label>
+                                <select id="platform" class="form-select">
+                                    <option>Select</option>
+                                    <option>PC</option>
+                                    <option>Console</option>
+                                    <option>Mobile</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="winRatio" class="form-label">Win Ratio</label>
+                                <input type="text" id="winRatio" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="kd" class="form-label">KD</label>
+                                <input type="number" id="kd" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="wins" class="form-label">Wins</label>
+                                <input type="number" id="wins" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="kills" class="form-label">Kills</label>
+                                <input type="number" id="kills" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-12  mb-3">
+                            <label for="youtubelink" class="form-label">You tube Video Link</label>
+                            <input type="text" id="youtubelink" class="form-control" placeholder="">
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="twitch" class="form-label">Twitch ID</label>
+                                <input type="text" id="twitch" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="insta" class="form-label">Insta ID</label>
+                                <input type="text" id="insta" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="twitter" class="form-label">Twitter ID</label>
+                                <input type="text" id="twitter" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="discord" class="form-label">Discord ID</label>
+                                <input type="text" id="discord" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div><button class="btn make">Make Me Pro <svg
+                                _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26="" width="15"
+                                height="15" viewBox="0 0 17 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
+                                    clip-path="url(#clip0_5344_406)">
+                                    <path _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
+                                        d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
+                                        fill="#fff"></path>
+                                    <path _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
+                                        d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
+                                        fill="#6906b7"></path>
+                                </g>
+                                <defs _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26="">
+                                    <linearGradient _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                        _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708"
+                                        y1="14.1194" x2="-2.09236" y2="6.05188"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                            _ngcontent-doa-c26="" stop-color="#41067A"></stop>
+                                        <stop _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                            _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1">
+                                        </stop>
+                                    </linearGradient>
+                                    <clipPath _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                        _ngcontent-doa-c26="" id="clip0_5344_406">
+                                        <rect _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                            _ngcontent-doa-c26="" width="16" height="16" fill="black"
+                                            transform="translate(0.5 0.332031)"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg></button></div>
+                            <div><button class="btn cancel">Cancel</button> <button class="btn save">Submit</button></div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
