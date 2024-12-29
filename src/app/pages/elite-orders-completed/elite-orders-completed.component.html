@@ -47,10 +47,10 @@
                   <tbody class="text-center">
                     <tr *ngFor="let order of paginatedOrders">
                       <td class="red-letter">{{ order.orderNumber }}</td>
-                      <td>{{ order.partyName }}</td>
+                      <td>{{ order.createdBy }}</td>
                       <td>{{ order.amount }}</td>
-                      <td>{{ order.loggedTime }}</td>
-                      <td class="red-letter">{{ order.completedDate }}</td>
+                      <td>{{ order.prosPlayed }}</td>
+                      <td class="red-letter">{{ order.startedTime }}</td>
                     </tr>
                   </tbody>
                 </table>
