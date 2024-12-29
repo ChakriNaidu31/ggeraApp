@@ -2088,7 +2088,8 @@
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    /* border: 5px solid rgba(255,255,255,0.5); */
+    border: 3px solid #7a06d1;
+    object-fit: cover;
 }
 .card-body-s{
     top: -32px;

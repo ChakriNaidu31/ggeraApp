@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-pro-players',
   templateUrl: './pro-players.component.html',
@@ -224,6 +226,25 @@ export class ProPlayersComponent implements OnInit {
         }
       });
 
+  }
+
+  openModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
+
+  // Function to close a modal
+  closeModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
   }
 
 }

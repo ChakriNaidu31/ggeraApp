@@ -38,19 +38,19 @@
                   <thead class="bg-transparent">
                     <tr>
                       <th scope="col">Order#</th>
-                      <th scope="col">Party Name</th>
+                      <th scope="col">Created by</th>
                       <th scope="col">Amount</th>
-                      <th scope="col">Logged Time</th>
-                      <th scope="col">Completed Date</th>
+                      <th scope="col">PROs Played</th>
+                      <th scope="col">Started Time</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let order of paginatedOrders">
-                      <td>{{ order.orderNumber }}</td>
+                      <td class="red-letter">{{ order.orderNumber }}</td>
                       <td>{{ order.partyName }}</td>
                       <td>{{ order.amount }}</td>
                       <td>{{ order.loggedTime }}</td>
-                      <td>{{ order.completedDate }}</td>
+                      <td class="red-letter">{{ order.completedDate }}</td>
                     </tr>
                   </tbody>
                 </table>

@@ -2249,3 +2249,14 @@
 .modal-body {
   position: relative;
 }
+.busy {
+  padding: 4px;
+  background: red;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 0 3px red;
+}
