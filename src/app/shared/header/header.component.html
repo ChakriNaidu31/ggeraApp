@@ -102,11 +102,29 @@
           </defs>
         </svg>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="27" viewBox="0 0 22 27" fill="none" class="me-3">
-          <path
-            d="M20.8989 18.6303C19.2684 17.2519 18.3334 15.2373 18.3334 13.1032V10.0965C18.3334 6.30161 15.5143 3.16009 11.8628 2.63385V1.46899C11.8628 0.872633 11.3796 0.390625 10.7842 0.390625C10.1891 0.390625 9.70588 0.872633 9.70588 1.46899V2.63385C6.05313 3.16009 3.23529 6.30161 3.23529 10.0965V13.1032C3.23529 15.2373 2.30029 17.2519 0.65995 18.6387C0.45288 18.8157 0.286651 19.0355 0.172718 19.2829C0.0587852 19.5303 -0.000141155 19.7995 2.53908e-07 20.0719C2.53908e-07 21.1128 0.846535 21.9593 1.88719 21.9593H19.6813C20.7222 21.9593 21.5687 21.1128 21.5687 20.0719C21.5687 19.5198 21.3282 18.998 20.8989 18.6303ZM10.7842 26.273C12.7374 26.273 14.3712 24.8806 14.7464 23.0377H6.82207C7.19747 24.8806 8.83129 26.273 10.7842 26.273Z"
-            fill="white" />
-        </svg>
+        <div class="dropdown notification-container me-3">
+         
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="27" viewBox="0 0 22 27" fill="none" class="bell-icon dropdown-toggle position-relative" id="notificationDropdown" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false">
+              <path d="M20.8989 18.6303C19.2684 17.2519 18.3334 15.2373 18.3334 13.1032V10.0965C18.3334 6.30161 15.5143 3.16009 11.8628 2.63385V1.46899C11.8628 0.872633 11.3796 0.390625 10.7842 0.390625C10.1891 0.390625 9.70588 0.872633 9.70588 1.46899V2.63385C6.05313 3.16009 3.23529 6.30161 3.23529 10.0965V13.1032C3.23529 15.2373 2.30029 17.2519 0.65995 18.6387C0.45288 18.8157 0.286651 19.0355 0.172718 19.2829C0.0587852 19.5303 -0.000141155 19.7995 2.53908e-07 20.0719C2.53908e-07 21.1128 0.846535 21.9593 1.88719 21.9593H19.6813C20.7222 21.9593 21.5687 21.1128 21.5687 20.0719C21.5687 19.5198 21.3282 18.998 20.8989 18.6303ZM10.7842 26.273C12.7374 26.273 14.3712 24.8806 14.7464 23.0377H6.82207C7.19747 24.8806 8.83129 26.273 10.7842 26.273Z" fill="white"></path>
+            </svg>
+            <span class="position-absolute translate-middle badge rounded-pill ">
+              
+            </span>
+          
+          <ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="notificationDropdown">
+            <li><a class="dropdown-item" href="#">🎮 New game update released !!</a></li>
+            <li><a class="dropdown-item" href="#">📢 Clan event starts tomorrow</a></li>
+            <li><a class="dropdown-item" href="#">🏆 You reached a new high score</a></li>
+            <li><a class="dropdown-item" href="#">👥 Friend request from Gamer123</a></li>
+            <li><a class="dropdown-item" href="#">⚡ Double XP weekend starts now</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
+          </ul>
+        </div>
+        
+        
 
         <button type="button" class="btn btn-primary-gg money me-2 px-3 py-2 border-0" (click)="navigateToPricing()"><span>${{walletBalance}}</span> <img
             src="../../../assets/images/add.svg" class="img-fluid ms-2 m-b-3"></button>
@@ -114,7 +132,8 @@
         <div class="dropdown-center">
           <button class="btn dropdown-toggle cursor-pointer" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <img src="../../../assets/images/nouser.png" src="{{ profileImageUrl ? profileImageUrl : '../../../assets/images/nouser.png' }}" class="img-fluid dropdown-toggle" style="height: 40px;" />
+            <img src="../../../assets/images/nouser.png" src="{{ profileImageUrl ? profileImageUrl : '../../../assets/images/nouser.png' }}" class="img-fluid dropdown-toggle" style="height: 40px;border-radius: 50%;
+    object-fit: cover;" />
           </button>
           <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item" type="button" (click)="updateProfile()">My Profile</a></li>

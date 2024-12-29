@@ -12,8 +12,8 @@
               <div class="me-2">
                 <select class="form-select custom-select" aria-label="Select option">
                   <option selected>All</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
+                  <option value="1">Pro user</option>
+                  <option value="2">Client user</option>
                 </select>
               </div>
 
@@ -21,8 +21,8 @@
               <div class="me-2">
                 <select class="form-select custom-select" aria-label="Select option">
                   <option selected>Date</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
+                  <option value="1">Yesterday</option>
+                  <option value="2">today</option>
                 </select>
               </div>
             </div>
@@ -46,11 +46,11 @@
                 </thead>
                 <tbody class="text-center">
                   <tr *ngFor="let order of paginatedOrders">
-                    <td>{{ order.orderNumber }}</td>
-                    <td>{{ order.partyName }}</td>
-                    <td>{{ order.amount }}</td>
-                    <td>{{ order.loggedTime }}</td>
-                    <td>{{ order.completedDate }}</td>
+                    <td class="red-letter">{{ order.orderNumber }}</td>
+                    <td class="text-white">{{ order.partyName }}</td>
+                    <td  class="text-white">{{ order.amount }}</td>
+                    <td class="red-letter">{{ order.loggedTime }}</td>
+                    <td  class="text-white">{{ order.completedDate }}</td>
                   </tr>
                 </tbody>
               </table>

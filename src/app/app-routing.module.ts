@@ -21,6 +21,7 @@ import { SocialLoginComponent } from './pages/social-login/social-login.componen
 import { RegisterNewUserComponent } from './pages/register-new-user/register-new-user.component';
 import { clientUserGuard } from './guards/client-user.guard';
 import { chooseGameGuard } from './guards/choose-game.guard';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
 
@@ -50,6 +51,7 @@ const routes: Routes = [
       { path: 'wallet-coupon', component: WalletCouponComponent },
       { path: 'event', component: EventComponent,},
       { path: 'user-profile', component: UserProfileComponent },
+      { path: '404', component: PagenotfoundComponent },    
     ], 
     // canActivate: [ clientUserGuard ]
   },

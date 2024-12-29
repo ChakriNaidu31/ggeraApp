@@ -2087,6 +2087,7 @@
  
  .form-control:focus {
    color: #fff !important;
+   box-shadow: none;
  }
  
  .custom-input::placeholder {
