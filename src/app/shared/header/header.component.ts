@@ -14,14 +14,12 @@ import { ResponseMessageService } from 'src/app/services/response-message.servic
 export class HeaderComponent implements OnInit {
 
   walletBalance: string = "0.00";
-  profileImageUrl: string = 'assets/img/no-profile-picture-icon.webp';
+  profileImageUrl: string = 'assets/images/nouser.png';
   notifications: Notification[] = [];
-  tokenInSession: string = '';
 
   constructor(private _auth: AuthService, private _router: Router, private ref: ChangeDetectorRef, private toaster: ResponseMessageService, private _chatService: ChatService) { }
 
   ngOnInit() {
-    this.tokenInSession = this._auth.getTokenFromSession();
     this._auth.getMyWallet().subscribe((data: any) => {
       this.walletBalance = data.data?.wallet?.currentBalance ? data.data?.wallet?.currentBalance : "0.00";
       this.ref.detectChanges();
