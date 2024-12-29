@@ -71,7 +71,7 @@ export class OtpPageComponent implements OnInit {
             this._auth.setTokenToSession(data?.data?.token, data.data?.email, data?.data?.username, data.data?.userType);
             if (data.data?.isProfileFilled) {
               if (data.data?.userType === 'CLIENT') {
-                this.router.navigate(['/client/premade-available']);
+                this.router.navigate(['/client/home']);
               } else if (data.data?.userType === 'PRO') {
                 this.router.navigate(['/pro/order-progress']);
               }

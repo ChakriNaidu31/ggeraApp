@@ -172,6 +172,14 @@ export class AuthService {
   markAllNotificationsAsRead() {
     return this.http.post<any>(`${this.apiUrl}/notification/read`, {}, { headers: this.getHttpHeaders() });
   }
+
+  getAvailableGames() {
+    return this.http.get<any>(`${this.apiUrl}/game`, { headers: this.getHttpHeaders() });
+  }
+
+  chooseGame(gameId: string) {
+    return this.http.post<any>(`${this.apiUrl}/game/choose`, { gameId: gameId }, { headers: this.getHttpHeaders() });
+  }
   /*********************************** END OTHERS ***********************************/
 
 
@@ -328,6 +336,18 @@ export class AuthService {
 
   setTempEmailToSession(email: string) {
     sessionStorage.setItem('ggTempEmail', email);
+  }
+
+  setChosenGameToSession(gameId: string) {
+    sessionStorage.setItem('ggChosenGame', gameId);
+  }
+
+  getChosenGameFromSession(): string {
+    const valueFromSession = sessionStorage.getItem('ggChosenGame');
+    if (!valueFromSession) {
+      return '';
+    }
+    return valueFromSession;
   }
 
   getTempEmailFromSession() {
