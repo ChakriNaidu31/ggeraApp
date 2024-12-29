@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary p-3 text-bg-dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-3 text-bg-dark" *ngIf="tokenInSession">
   <div class="container">
     <a routerLink="/" class="navbar-brand" href="javascript:void(0)">
       <svg width="72" height="51" viewBox="0 0 72 51" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,17 +108,17 @@
             fill="white" />
         </svg>
 
-        <button type="button" class="btn btn-primary-gg money me-2 px-3 py-2 border-0"><span>$ 0.00</span> <img
+        <button type="button" class="btn btn-primary-gg money me-2 px-3 py-2 border-0" (click)="navigateToPricing()"><span>${{walletBalance}}</span> <img
             src="../../../assets/images/add.svg" class="img-fluid ms-2 m-b-3"></button>
 
         <div class="dropdown-center">
           <button class="btn dropdown-toggle cursor-pointer" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <img src="../../../assets/images/nouser.png" class="img-fluid dropdown-toggle" style="height: 40px;" />
+            <img src="../../../assets/images/nouser.png" src="{{ profileImageUrl ? profileImageUrl : '../../../assets/images/nouser.png' }}" class="img-fluid dropdown-toggle" style="height: 40px;" />
           </button>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" routerLink="user-profile">My Profile</a></li>
-            <li><a class="dropdown-item">Logout</a></li>
+            <li><a class="dropdown-item" type="button" (click)="updateProfile()">My Profile</a></li>
+            <li><a class="dropdown-item" type="button" (click)="logout()">Logout</a></li>
           </ul>
         </div>
       </div>

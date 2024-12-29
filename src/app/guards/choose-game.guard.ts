@@ -8,7 +8,7 @@ export const chooseGameGuard: CanActivateFn = (route, state) => {
   if (chosenGameId) {
     return true;
   } else {
-    inject(Router).navigate(['/home']);
+    inject(Router).navigate(['/client/home']);
     return false;
   }
 
