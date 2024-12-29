@@ -1,6 +1,4 @@
-<div class="about" style="font-family: popins">
-
-
+<div class="about pt-5">
     <div class="container d-flex justify-content-center align-items-center pt-5">
         <div class="card">
             <div class="card-body">
@@ -50,18 +48,12 @@
                                 <div class="col" style="padding-right: 0;">
                                     <input autofocus type="text" formControlName="email" class="form-control color-form"
                                         placeholder="E-mail/Username*">
-                                    <label class="text-light mt-2"
-                                        *ngIf="form.touched && form.get('email')?.hasError('required')">We need
-                                        an
-                                        email or username to log you in</label>
-                                    <label class="text-light mt-2"
-                                        *ngIf="form.touched && form.get('email')?.hasError('email')">Enter a
-                                        valid
-                                        email to login</label>
+                                        
+                                    
                                 </div>
 
                                 <div class="col-auto">
-                                    <button type="submit" class="btn text-light font"
+                                    <button type="submit" class="btn text-light font login"
                                         style="background-color: #F15232; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px;    display: flex
                                         ;
                                             align-items: center;">SEND
@@ -75,17 +67,27 @@
                                     </button>
 
                                 </div>
+                                <div class="mt-2">
+                                    <label class="text-light"
+                                    *ngIf="form.touched && form.get('email')?.hasError('required')">We need
+                                    an
+                                    email or username to log you in</label>
+                                <label class="text-light"
+                                    *ngIf="form.touched && form.get('email')?.hasError('email')">Enter a
+                                    valid
+                                    email to login</label>
+                                </div>
                             </div>
 
 
-                            <div class="d-flex justify-content-center pt-3 pb-3">
+                            <div class="d-flex justify-content-center pt-2 pb-3">
                                 <h5 class="text-light font-weight-bold mb-0">OR</h5> <br>
                             </div>
 
 
                             <div class="row p-1">
                                 <div class="col">
-                                    <button type="button" class="btn text-dark font"
+                                    <button type="button" class="btn text-dark font login"
                                         style="background-color: #ffff; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px; width: 100%;font-weight: 500;"
                                         (click)="openGoogleLogin()">
                                         <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px; " width="18"
@@ -109,19 +111,17 @@
                                                     <rect width="17.59" height="18" fill="white" />
                                                 </clipPath>
                                             </defs>
-                                        </svg>
-
-                                        LOGIN WITH GOOGLE
+                                        </svg>LOGIN WITH GOOGLE
                                     </button>
                                 </div>
 
 
                             </div>
                             <div class="row p-1 ">
-                                <div class="col">
+                                <div class="col mb-2">
 
                                
-                                    <button type="button" class="btn text-light font text-center justify-content-center"
+                                    <button type="button" class="btn text-light font text-center justify-content-center login"
                                         style="background-color: #2196F3; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px; width: 100%;font-weight: 400;"
                                         (click)="openDiscordLogin()">
                                         <svg style="width: 22px;margin-right: 5px;" width="32" height="28" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@
 
 
     </div>
-    <div class="d-flex justify-content-center mt-5" *ngIf="errorMessage !== ''">
+    <div class="d-flex justify-content-center mt-2" *ngIf="errorMessage !== ''">
         <div class="row p-1">
             <div class="col">
                 <button type="button" class="btn text-dark font "
@@ -164,7 +164,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center mt-5 " style="margin-bottom: 5% !important;">
+    <div class="d-flex justify-content-center mt-5 mb-5">
         <div class="text-light text" style="cursor: pointer;" (click)="redirectToHome()">
             Back to home
         </div>

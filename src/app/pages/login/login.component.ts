@@ -55,28 +55,30 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToHome() {
-    window.location.href = environment.webUrl;
+    // window.location.href = environment.webUrl;
   }
 
   sendOtp() {
+    debugger
+    this.router.navigate(['/otp']);
 
-    if (this.form.valid) {
-      this._auth.sendOtp({ email: this.form.controls['email'].value })
-        .pipe(
-          catchError((error) => {
-            this.errorMessage = error.error?.meta?.message;
-            return '';
-          }))
-        .subscribe((data: any) => {
-          if (data?.data?.user?.username) {
-            this.errorMessage = '';
-            this._auth.setTempEmailToSession(this.form.controls['email'].value);
-            this.router.navigate(['/otp']);
-          } else {
-            this.errorMessage = "OTP could not be sent at this time. Please try again later";
-          }
-        });
-    }
+    // if (this.form.valid) {
+    //   this._auth.sendOtp({ email: this.form.controls['email'].value })
+    //     .pipe(
+    //       catchError((error) => {
+    //         this.errorMessage = error.error?.meta?.message;
+    //         return '';
+    //       }))
+    //     .subscribe((data: any) => {
+    //       if (data?.data?.user?.username) {
+    //         this.errorMessage = '';
+    //         this._auth.setTempEmailToSession(this.form.controls['email'].value);
+    //         this.router.navigate(['/otp']);
+    //       } else {
+    //         this.errorMessage = "OTP could not be sent at this time. Please try again later";
+    //       }
+    //     });
+    // }
 
   }
 

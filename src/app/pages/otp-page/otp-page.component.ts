@@ -44,15 +44,15 @@ export class OtpPageComponent implements OnInit {
     this.userEmail = this._auth.getTempEmailFromSession();
     const token = this._auth.getTokenFromSession();
     const userType = this._auth.getUserTypeFromSession();
-    if (token) {
-      if (userType === 'CLIENT' || userType === 'PRO') {
-        this.router.navigate(['/register']);
-      } else {
-        this.router.navigate(['/admin/home']);
-      }
-    } else if (!this.userEmail) {
-      this.router.navigate(['/index']);
-    }
+    // if (token) {
+    //   if (userType === 'CLIENT' || userType === 'PRO') {
+    //     this.router.navigate(['/register']);
+    //   } else {
+    //     this.router.navigate(['/admin/home']);
+    //   }
+    // } else if (!this.userEmail) {
+    //   this.router.navigate(['/index']);
+    // }
 
   }
 
@@ -102,7 +102,7 @@ export class OtpPageComponent implements OnInit {
   }
 
   redirectToHome() {
-    window.location.href = environment.webUrl;
+    // window.location.href = environment.webUrl;
   }
 
 }
