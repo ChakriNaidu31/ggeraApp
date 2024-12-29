@@ -43,9 +43,9 @@ export class RegisterNewUserComponent {
     });
     this.userEmail = this._auth.getEmailFromSession();
 
-    if (!this.userEmail) {
-      this.router.navigate(['/index']);
-    }
+    // if (!this.userEmail) {
+    //   this.router.navigate(['/index']);
+    // }
 
     this._auth.getSelfProfile()
       .pipe(

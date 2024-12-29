@@ -102,7 +102,7 @@ export class OtpPageComponent implements OnInit {
   }
 
   redirectToHome() {
-    // window.location.href = environment.webUrl;
+    window.location.href = environment.webUrl;
   }
 
 }
