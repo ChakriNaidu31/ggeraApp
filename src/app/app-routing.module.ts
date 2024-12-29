@@ -19,7 +19,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { OtpPageComponent } from './pages/otp-page/otp-page.component';
 import { SocialLoginComponent } from './pages/social-login/social-login.component';
 import { RegisterNewUserComponent } from './pages/register-new-user/register-new-user.component';
-import { ClientUserGuard } from './guards/client-user.guard';
+import { clientUserGuard } from './guards/client-user.guard';
 
 const routes: Routes = [
 
@@ -31,11 +31,12 @@ const routes: Routes = [
 
   {
     path: 'client', children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: LandingComponent },
-      { path: 'proplayers', component: ProPlayersComponent },
-      { path: '1-1session', component: SessionComponent },
+      { path: 'pro-players', component: ProPlayersComponent },
+      { path: 'order-progress', component: SessionComponent },
       { path: 'premade-available', component: PremadeAvailableComponent },
-      { path: 'premade-inprogress', component: PremadeInprogressComponent },
+      { path: 'premade-progress', component: PremadeInprogressComponent },
       { path: 'premade-completed', component: PremadeCompletedComponent },
       { path: 'eliteorder-new', component: EliteOrdersNewComponent },
       { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent },
@@ -46,7 +47,7 @@ const routes: Routes = [
       { path: 'wallet-coupon', component: WalletCouponComponent },
       { path: 'event', component: EventComponent },
       { path: 'user-profile', component: UserProfileComponent },
-    ], canActivate: [ ClientUserGuard ]
+    ], canActivate: [ clientUserGuard ]
   },
 
   

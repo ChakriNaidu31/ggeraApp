@@ -21,9 +21,9 @@ export class SocialLoginComponent implements OnInit {
     const userType = this._auth.getUserTypeFromSession();
     if (token) {
       if (userType === 'CLIENT') {
-        this.router.navigate(['/premade-available']);
+        this.router.navigate(['/client/premade-available']);
       } else if (userType === 'PRO') {
-        this.router.navigate(['/order-progress']);
+        this.router.navigate(['/pro/order-progress']);
       } else {
         this.router.navigate(['/admin/home']);
       }
@@ -43,9 +43,9 @@ export class SocialLoginComponent implements OnInit {
               if (data.data?.isProfileFilled) {
                 const userType = this._auth.getUserTypeFromSession();
                 if (userType === 'CLIENT') {
-                  this.router.navigate(['/premade-available']);
+                  this.router.navigate(['/client/premade-available']);
                 } else if (userType === 'PRO') {
-                  this.router.navigate(['/order-progress']);
+                  this.router.navigate(['/pro/order-progress']);
                 } else {
                   this.router.navigate(['/admin/home']);
                 }

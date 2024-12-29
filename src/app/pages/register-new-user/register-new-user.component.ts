@@ -56,9 +56,9 @@ export class RegisterNewUserComponent {
       .subscribe((data: any) => {
         if (data.data?.username && data.data?.gamerId) {
           if (data.data?.userType === 'CLIENT') {
-            this.router.navigate(['/premade-available']);
+            this.router.navigate(['/client/premade-available']);
           } else if (data.data?.userType === 'PRO') {
-            this.router.navigate(['/order-progress']);
+            this.router.navigate(['/pro/order-progress']);
           }
         }
       })
@@ -85,7 +85,7 @@ export class RegisterNewUserComponent {
             this.toaster.showSuccess('Basic profile update completed', '', {
               duration: 3000
             });
-            this.router.navigate(['/pro-players']);
+            this.router.navigate(['/client/pro-players']);
           } else {
             this.errorMessage = 'Profile could not be updated';
           }
