@@ -84,6 +84,8 @@ margin-top: 3.5rem !important;
   left: 40%;
   top: -14%;
   position: absolute !important;
+  border: 3px solid #7a06d1;
+  object-fit: cover;
 }
 .info-rows {
   background: #1c1c26;

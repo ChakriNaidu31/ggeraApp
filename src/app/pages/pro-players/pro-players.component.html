@@ -5,7 +5,7 @@
       <div class="hero-bg">
         <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
 
-          <h1 class="text-center mb-5 text-white mt-5">Book your <span class="h1-font">1-1</span> Session</h1>
+          <h1 class="text-left mb-5 text-white mt-5">Pro Players</h1>
           <div class="row">
             <form [formGroup]="form">
               <div class="d-flex align-items-center justify-content-between p-3 rounde12 bg-darks text-light mb-5">
@@ -138,10 +138,9 @@
                   </div>
 
                   <div class="session-text mt-4">
-                    <button type="button" class="btn btn-primary-gg p-3  w-100" data-bs-toggle="modal"
-                      data-bs-target="#firstModal">
-                      <h5 class="pe-4 px-4 mb-0 f-14">Play with This Pro</h5>
-                    </button>
+                    <button type="button" class="btn btn-primary-gg p-3  w-100" (click)="openModal('firstModal')">
+                    <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png" class="ms-2 mb-1 img-fluid"/></h5>
+                  </button>
                   </div>
                 </div>
               </div>
@@ -160,8 +159,8 @@
                   <div>
                     <div class="d-flex justify-content-between align-items-center">
                       <h3 class="text-light">
-                        Adam1
-                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        Adam<span class="h1-font">1</span>
+                        <svg class="ms-2" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_5344_406)">
                             <path
                               d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
@@ -183,7 +182,9 @@
                         </svg>
                       </h3>
                       <div>
-                        <span class="me-2 text-white">Online </span><img src="../../../assets/images/online.png"
+                        <!-- <img src="../../../assets/images/online.png"
+                          class="img-fluid mb-1" /> -->
+                          <img src="../../../assets/images/busy.png"
                           class="img-fluid mb-1" />
                       </div>
 
@@ -221,10 +222,9 @@
                   </div>
 
                   <div class="session-text mt-4">
-                    <button type="button" class="btn btn-primary-gg p-3  w-100" data-bs-toggle="modal"
-                      data-bs-target="#firstModal">
-                      <h5 class="pe-4 px-4 mb-0 f-14">Play with This Pro</h5>
-                    </button>
+                    <button type="button" class="btn btn-primary-gg p-3  w-100" (click)="openModal('firstModal')">
+                    <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png" class="ms-2 mb-1 img-fluid"/></h5>
+                  </button>
                   </div>
                 </div>
               </div>
@@ -235,108 +235,110 @@
           <!-- modal -->
 
           <div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content">
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
 
-                <div class="modal-body p-5">
-                  <div>
-                    <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#firstModal">
+              <div class="modal-body p-5">
+                <div>
+                  <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#firstModal">
 
-                      <div class="text-center">
-                        <img alt="" src="/assets/images/user.png">
+                    <div class="text-center mt-3">
+                      <img alt="" src="/assets/images/user.png">
+                    </div>
+                     <div class="onli">
+                      <span class="me-2 text-white">Online </span><img src="../../../assets/images/online.png"
+                        class="img-fluid mb-1" />
+                    </div>
+                    <h3 class="text-light text-center mt-3">
+                      Adam
+                    </h3>
+
+                    <div class=" container card-body-s">
+                      <div>
+                        <p class="text-color-light text-center mt-2">
+                          I'm in the top 50 players in the world / Caldera Trios
+                          World.
+                        </p>
                       </div>
-                      <h3 class="text-light text-center">
-                        Adam
-                      </h3>
-
-                      <div class=" container card-body-s">
-                        <div>
-                          <p class="text-color-light text-center mt-2">
-                            I'm in the top 50 players in the world / Caldera Trios
-                            World.
-                          </p>
+                      <div class=" modal-stream streamLobbySlotTagsWrapper mt-3 text-center px-4">
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Win Ratio</span>
+                          <span class="fw-bold"> 18.65</span>
                         </div>
-                        <div class=" modal-stream streamLobbySlotTagsWrapper mt-3 text-center px-4">
-                          <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">Win Ratio</span>
-                            <span class="fw-bold"> 18.65</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2 ">
-                            <span class="red-letter me-2">5.41</span>
-                            <span class="fw-bold">KD</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">Kill</span>
-                            <span class="fw-bold">65219</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2 ">
-                            <span class="red-letter me-2">Wins</span>
-                            <span class="fw-bold">KD</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">Platform</span>
-                            <span class="fw-bold"> 1782</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">Platform</span>
-                            <span class="fw-bold"> PC</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">0</span>
-                            <span class="fw-bold">Order <span>0</span> ⭐ <span>0.0</span></span>
-                          </div>
+                        <div class="streamLobbySlotTag p-2 ">
+                          <span class="red-letter me-2">5.41</span>
+                          <span class="fw-bold">KD</span>
                         </div>
-                        <div class="session-text my-auto mb-4 pb-4 mt-4">
-                          <button type="button" class="btn btn-primary-gg p-3" data-bs-toggle="modal"
-                            data-bs-target="#secondModal">
-                            <h5 class="pe-4 px-4 mb-0 f-14">Play with This Pro</h5>
-                          </button>
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Kill</span>
+                          <span class="fw-bold">65219</span>
                         </div>
+                        <div class="streamLobbySlotTag p-2 ">
+                          <span class="red-letter me-2">Wins</span>
+                          <span class="fw-bold">KD</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Platform</span>
+                          <span class="fw-bold"> 1782</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Platform</span>
+                          <span class="fw-bold"> PC</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">0</span>
+                          <span class="fw-bold">Order <span>0</span> ⭐ <span>0.0</span></span>
+                        </div>
+                      </div>
+                      <div class="session-text my-auto mb-4 pb-4 mt-4">
+                        <button type="button" class="btn btn-primary-gg p-3" (click)="openModal('secondModal')">
+                          <h5 class="pe-4 px-4 mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png" class="ms-2 mb-1 img-fluid"/></h5>
+                        </button>
                       </div>
                     </div>
                   </div>
-
-
                 </div>
 
+
               </div>
+
             </div>
           </div>
+        </div>
 
-          <!-- Second Modal (Inside the first modal) -->
-          <div class="modal fade modal-card" id="secondModal" tabindex="-1" aria-labelledby="secondModalLabel"
-            data-keyboard="false" data-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content">
-
-                <div class="modal-body p-5">
-                  <div>
-                    <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#secondModal">
-
-
-                      <div class=" container card-body-s">
-
-                        <div class=" modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
-                          <h5 class="text-white">Waiting for Adam to accept <br> your <span class="h1-font">1-1</span>
-                            session request</h5>
-
-                        </div>
-
-                        <div class="session-text my-auto mb-4 pb-4 mt-4">
-                          <button type="button" class="btn btn-outline-light p-3 " data-bs-toggle="modal"
-                            data-bs-target="#secondModal">
-                            <h5 class="pe-4 px-4 mb-0 f-14">CANCEL REQUEST</h5>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
+            <!-- Second Modal (Inside the first modal) -->
+            <div class="modal fade modal-card" id="secondModal" tabindex="-1" aria-labelledby="secondModalLabel"
+            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+         <div class="modal-dialog modal-dialog-centered modal-lg">
+           <div class="modal-content">
+       
+             <div class="modal-body p-5">
+               <div>
+                 <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#firstModal">
+       
+                   <div class="container card-body-s">
+                     <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
+                       <h5 class="text-white">
+                         <img src="../../../assets/images/clock.png" class="img-fluid me-1">
+                         for Adam to accept <br> your <span class="h1-font">1-1</span> session request
+                       </h5>
+                     </div>
+       
+                     <div class="session-text my-auto mb-4 pb-4 mt-4">
+                       <button type="button" class="btn btn-outline-light p-3" (click)="closeModal('firstModal')">
+                         <h5 class="pe-4 px-4 mb-0 f-14">CANCEL REQUEST</h5>
+                       </button>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+       
+             </div>
+           </div>
+         </div>
+       </div>
+       
         </div>
       </div>
     </div>
