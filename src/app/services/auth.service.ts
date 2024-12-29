@@ -338,8 +338,8 @@ export class AuthService {
     sessionStorage.setItem('ggTempEmail', email);
   }
 
-  setChosenGameToSession(gameId: string) {
-    sessionStorage.setItem('ggChosenGame', gameId);
+  setChosenGameToSession(game: any) {
+    sessionStorage.setItem('ggChosenGame', JSON.stringify(game));
   }
 
   getChosenGameFromSession(): string {
@@ -347,7 +347,15 @@ export class AuthService {
     if (!valueFromSession) {
       return '';
     }
-    return valueFromSession;
+    return JSON.parse(valueFromSession).id;
+  }
+
+  getChosenGameNameFromSession(): string {
+    const valueFromSession = sessionStorage.getItem('ggChosenGame');
+    if (!valueFromSession) {
+      return '';
+    }
+    return JSON.parse(valueFromSession).title;
   }
 
   getTempEmailFromSession() {
