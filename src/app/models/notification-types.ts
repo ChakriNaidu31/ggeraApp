@@ -1,4 +1,4 @@
-export interface NotificationTypes {
+export const NotificationTypes = {
     MATCH_REQUEST: 'MATCH_REQUEST',
     MATCH_APPROVE: 'MATCH_APPROVE',
     MATCH_REJECT: 'MATCH_REJECT',
