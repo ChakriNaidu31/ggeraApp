@@ -1,0 +1,94 @@
+<div class="about" style="font-family: popins">
+
+    <div class="showcase">
+        <canvas class="overlap overlap-about" id="c"></canvas>
+    </div>
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center align-items-center" style="height: 500px;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="login-form">
+                        <div class="d-flex justify-content-center pt-4">
+                            <img src="../../../assets/img/era.png" id="imagebutton" class="img-fluid"
+                                alt="ggera logo" />
+                        </div>
+
+                        <div class="d-flex justify-content-center pt-3">
+                            <h3 class="text-light font-weight-bold">Welcome back</h3>
+                            <br />
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p class="text-light font-weight-normal font text-center">
+                                Sign in with your E-mail/Username below
+                            </p>
+                        </div>
+
+                        <form [formGroup]="otpFormGroup" (ngSubmit)="validateOtp()">
+                            <div class="form-group pt-3">
+                                <!-- <label for="email">Email</label> -->
+                                <div class="row p-1 otp">
+                                    <div class="col" style="padding-right: 0">
+                                        <input autofocus type="text" formControlName="otp"
+                                            class="form-control color-form" placeholder="OTP*" />
+                                        <label class="text-light mt-2"
+                                            *ngIf="otpFormGroup.touched && (otpFormGroup.get('otp')?.hasError('required') || otpFormGroup.get('otp')?.hasError('minlength'))">Enter
+                                            valid OTP</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn text-light font" style="
+                          background-color: #f15232;
+                          font-size: small;
+                          padding: 9px;
+                          padding-left: 20px;
+                          padding-right: 20px;
+                        ">
+                                            VERIFY OTP
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                                class="bi bi-play-circle-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center pt-3 pb-3">
+                                    <p class="text-light" style="font-weight: 100; cursor: pointer;"
+                                        (click)="resendOtp()">
+                                        Click here to resend OTP
+                                    </p>
+                                    <br />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="d-flex justify-content-center" style="cursor: pointer;" (click)="redirectToHome()">
+                <p class="text-light">Back to home</p>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="d-flex justify-content-center">
+                <div class="row p-1">
+                    <div class="col">
+                        <button type="button" class="btn text-dark font otpm ">
+                            {{ errorMessage !== '' ? errorMessage : 'OTP sent to your mail' }}
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<!-- <div class="container" style="bottom: 0px !important; margin-top: 25%;">
+    <app-footer></app-footer>
+</div> -->

@@ -15,36 +15,50 @@ import { WalletAddmoneyComponent } from './pages/wallet-addmoney/wallet-addmoney
 import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.component';
 import { EventComponent } from './pages/event/event.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { LoginComponent } from './pages/login/login.component';
+import { OtpPageComponent } from './pages/otp-page/otp-page.component';
+import { SocialLoginComponent } from './pages/social-login/social-login.component';
+import { RegisterNewUserComponent } from './pages/register-new-user/register-new-user.component';
+import { ClientUserGuard } from './guards/client-user.guard';
 
 const routes: Routes = [
-  // { path: 'index', component: LoginComponent },
-  // { path: 'otp', component: OtpPageComponent },
-  // { path: 'social', component: SocialLoginComponent },
-  // { path: 'register', component: RegisterNewUserComponent },
+
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: 'index', component: LoginComponent },
+  { path: 'otp', component: OtpPageComponent },
+  { path: 'social', component: SocialLoginComponent },
+  { path: 'register', component: RegisterNewUserComponent },
+
+  {
+    path: 'client', children: [
+      { path: 'home', component: LandingComponent },
+      { path: 'proplayers', component: ProPlayersComponent },
+      { path: '1-1session', component: SessionComponent },
+      { path: 'premade-available', component: PremadeAvailableComponent },
+      { path: 'premade-inprogress', component: PremadeInprogressComponent },
+      { path: 'premade-completed', component: PremadeCompletedComponent },
+      { path: 'eliteorder-new', component: EliteOrdersNewComponent },
+      { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent },
+      { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent },
+      { path: 'message', component: MessageComponent },
+      { path: 'wallet-transaction', component: WalletTransactionComponent },
+      { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
+      { path: 'wallet-coupon', component: WalletCouponComponent },
+      { path: 'event', component: EventComponent },
+      { path: 'user-profile', component: UserProfileComponent },
+    ], canActivate: [ ClientUserGuard ]
+  },
+
   
-  { path: 'home', component: LandingComponent },
-  { path: 'proplayers', component: ProPlayersComponent },
-  { path: '1-1session', component: SessionComponent },
-  { path: 'premade-available', component: PremadeAvailableComponent },
-  { path: 'premade-inprogress', component: PremadeInprogressComponent },
-  { path: 'premade-completed', component: PremadeCompletedComponent },
-  { path: 'eliteorder-new', component: EliteOrdersNewComponent },
-  { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent },
-  { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent },
-  { path: 'message', component: MessageComponent },
-  { path: 'wallet-transaction', component: WalletTransactionComponent },
-  { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
-  { path: 'wallet-coupon', component: WalletCouponComponent },
-  { path: 'event', component: EventComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  
+  // { path: '**', component: PageNotFoundComponent } TODO:
+
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes) ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
 
- }
+}

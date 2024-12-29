@@ -1,0 +1,154 @@
+<div class="about" style="font-family: popins">
+    <div class="showcase">
+        <canvas class="overlap overlap-about" id="c"></canvas>
+    </div>
+
+    <div class="container d-flex justify-content-center align-items-center " style="margin-top: 20vh;">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="login-form">
+                    <div class="d-flex justify-content-center pt-4">
+                        <img src="../../../assets/img/era.png" id="imagebutton" class="img-fluid " alt="ggera logo">
+                    </div>
+
+                    <div class="d-flex justify-content-center pt-3">
+                        <h3 class="text-light font-weight-bold">Welcome back</h3> <br>
+
+
+                    </div>
+                    <div class="d-flex justify-content-center text-center">
+                        <p class="text-light font-weight-normal font">Sign in with your E-mail/Username below</p>
+                    </div>
+
+
+                    <form [formGroup]="form" (ngSubmit)="sendOtp()">
+                        <div class="form-group pt-3">
+                            <div class="row p-1 d-sm-flex otp">
+                                <div class="col" style="padding-right: 0;">
+                                    <input autofocus type="text" formControlName="email" class="form-control color-form"
+                                        placeholder="E-mail/Username*">
+                                    <label class="text-light mt-2"
+                                        *ngIf="form.touched && form.get('email')?.hasError('required')">We need
+                                        an
+                                        email or username to log you in</label>
+                                    <label class="text-light mt-2"
+                                        *ngIf="form.touched && form.get('email')?.hasError('email')">Enter a
+                                        valid
+                                        email to login</label>
+                                </div>
+
+                                <div class="col-auto">
+                                    <button type="submit" class="btn text-light font"
+                                        style="background-color: #F15232; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px;">SEND
+                                        OTP
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                            class="bi bi-play-circle-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+                                        </svg>
+
+                                    </button>
+
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex justify-content-center pt-3 pb-3">
+                                <h5 class="text-light font-weight-bold">OR</h5> <br>
+                            </div>
+
+
+                            <div class="row p-1">
+                                <div class="col">
+                                    <button type="button" class="btn text-dark font"
+                                        style="background-color: #ffff; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px; width: 100%;font-weight: 500;"
+                                        (click)="openGoogleLogin()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px; " width="18"
+                                            height="18" viewBox="0 0 18 18" fill="none">
+                                            <g clip-path="url(#clip0_597_416)">
+                                                <path
+                                                    d="M17.5805 9.16838C17.5805 8.43093 17.5207 7.89279 17.3912 7.33472H8.97021V10.6632H13.9131C13.8135 11.4904 13.2754 12.7361 12.0795 13.5732L12.0627 13.6846L14.7253 15.7472L14.9097 15.7657C16.6039 14.201 17.5805 11.899 17.5805 9.16838Z"
+                                                    fill="#4285F4" />
+                                                <path
+                                                    d="M8.97017 17.9381C11.3918 17.9381 13.4248 17.1408 14.9097 15.7656L12.0794 13.5731C11.3221 14.1013 10.3055 14.47 8.97017 14.47C6.59836 14.47 4.58531 12.9055 3.86772 10.7429L3.76253 10.7519L0.99397 12.8945L0.957764 12.9951C2.43266 15.925 5.46223 17.9381 8.97017 17.9381Z"
+                                                    fill="#34A853" />
+                                                <path
+                                                    d="M3.86785 10.743C3.67851 10.1849 3.56893 9.58692 3.56893 8.96908C3.56893 8.35117 3.67851 7.75325 3.85789 7.19519L3.85288 7.07633L1.04962 4.89929L0.9579 4.94292C0.350022 6.15874 0.0012207 7.52406 0.0012207 8.96908C0.0012207 10.4141 0.350022 11.7793 0.9579 12.9952L3.86785 10.743Z"
+                                                    fill="#FBBC05" />
+                                                <path
+                                                    d="M8.97017 3.46802C10.6543 3.46802 11.7904 4.19551 12.4382 4.80346L14.9695 2.33196C13.4149 0.886946 11.3918 0 8.97017 0C5.46223 0 2.43266 2.01305 0.957764 4.94292L3.85776 7.19519C4.58531 5.03265 6.59836 3.46802 8.97017 3.46802Z"
+                                                    fill="#EB4335" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_597_416">
+                                                    <rect width="17.59" height="18" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                        LOGIN WITH GOOGLE
+                                    </button>
+                                </div>
+
+
+                            </div>
+                            <div class="row p-1 pb-5">
+                                <div class="col">
+                                    <button type="button" class="btn text-light font "
+                                        style="background-color: #2196F3; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px; width: 100%;font-weight: 400;"
+                                        (click)="openDiscordLogin()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            style="margin-right: 5px;" viewBox="0 0 20 20" fill="none">
+                                            <g clip-path="url(#clip0_597_424)">
+                                                <path
+                                                    d="M8.14812 9.07406H0.785156C1.24997 4.39535 5.19719 0.740723 9.99812 0.740723C15.112 0.740723 19.2574 4.88609 19.2574 9.99998C19.2574 15.1139 15.112 19.2592 9.99812 19.2592C5.19719 19.2592 1.24997 15.6046 0.785156 10.9259H8.14627V13.7037L12.7759 9.99998L8.14627 6.29628V9.07406H8.14812Z"
+                                                    fill="white" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_597_424">
+                                                    <rect width="20" height="20" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        LOGIN WITH DISCORD
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="d-flex justify-content-center mt-5" *ngIf="errorMessage !== ''">
+        <div class="row p-1">
+            <div class="col">
+                <button type="button" class="btn text-dark font "
+                    style="background-color: #ffff; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px; width : 435px;;font-weight: 500;">
+                    {{errorMessage}}
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-5 " style="margin-bottom: 5% !important;">
+        <div class="text-light text" style="cursor: pointer;" (click)="redirectToHome()">
+            Back to home
+        </div>
+    </div>
+
+
+    <!-- <div class="mt-5">
+        <app-footer></app-footer>
+    </div> -->
+
+
+</div>

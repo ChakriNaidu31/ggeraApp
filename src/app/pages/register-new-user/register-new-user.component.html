@@ -1,0 +1,111 @@
+<div class="about" style="font-family: popins">
+
+    <div class="showcase">
+        <canvas class="overlap overlap-about" id="c"></canvas>
+    </div>
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center align-items-center" style="height: 500px;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="login-form">
+                        <div class="d-flex justify-content-center pt-4">
+                            <img src="../../../assets/img/era.png" id="imagebutton" class="img-fluid"
+                                alt="ggera logo" />
+                        </div>
+
+                        <div class="d-flex justify-content-center pt-3">
+                            <h3 class="text-light font-weight-bold">Welcome back</h3>
+                            <br />
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p class="text-light font-weight-normal font text-center">
+                                We need the following information to let you in! Please fill in the details below
+                            </p>
+                        </div>
+
+                        <form [formGroup]="formGroup" (ngSubmit)="updateProfile()">
+                            <div class="form-group pt-3">
+                                <!-- <label for="email">Email</label> -->
+                                <div class="row p-1">
+                                    <div class="col" style="padding-right: 0">
+                                        <input autofocus type="text" formControlName="username"
+                                            class="form-control color-form" placeholder="Username" />
+                                        <label class="text-light mt-2"
+                                            *ngIf="formGroup.touched && formGroup.get('username')?.hasError('required')">Enter
+                                            valid Username</label>
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col" style="padding-right: 0">
+                                        <input autofocus type="text" formControlName="gamerId"
+                                            class="form-control color-form" placeholder="Gamer Tag" />
+                                        <label class="text-light mt-2"
+                                            *ngIf="formGroup.touched && formGroup.get('gamerId')?.hasError('required')">Enter
+                                            valid Gamer Tag</label>
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col" style="padding-right: 0">
+                                        <input autofocus type="text" formControlName="activisionId"
+                                            class="form-control color-form" placeholder="Activision ID" />
+                                        <label class="text-light mt-2"
+                                            *ngIf="formGroup.touched && formGroup.get('activisionId')?.hasError('required')">Enter
+                                            valid Activision ID</label>
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col" style="padding-right: 0">
+                                        <input autofocus type="text" formControlName="region"
+                                            class="form-control color-form" placeholder="Region" />
+                                        <label class="text-light mt-2"
+                                            *ngIf="formGroup.touched && formGroup.get('region')?.hasError('required')">Enter
+                                            valid Region</label>
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn text-light font" style="
+                          background-color: #f15232;
+                          font-size: small;
+                          padding: 9px;
+                          padding-left: 20px;
+                          padding-right: 20px;
+                        ">
+                                            UPDATE PROFILE
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                                class="bi bi-play-circle-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center" *ngIf="errorMessage !== ''">
+        <div class="row p-1">
+            <div class="col">
+                <button type="button" class="btn text-dark font "
+                    style="background-color: #ffff; font-size: small; padding: 9px; padding-left: 20px;padding-right: 20px; width : 435px;;font-weight: 500;">
+                    {{ errorMessage }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-5 " style="margin-bottom: 5% !important;">
+        <div class="text-light text" style="cursor: pointer;" (click)="redirectToHome()">
+            Back to home
+        </div>
+    </div>
+
+</div>
+<!-- <div class="container" style="bottom: 0px !important; margin-top: 25%;">
+    <app-footer></app-footer>
+</div> -->
