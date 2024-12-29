@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToHome() {
-    // window.location.href = environment.webUrl;
+    window.location.href = environment.webUrl;
   }
 
   sendOtp() {
