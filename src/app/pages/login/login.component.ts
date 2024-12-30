@@ -37,13 +37,13 @@ export class LoginComponent implements OnInit {
 
     const token = this._auth.getTokenFromSession();
     const userType = this._auth.getUserTypeFromSession();
-    // if (token) {
-    //   if (userType === 'CLIENT' || userType === 'PRO') {
-    //     this.router.navigate(['/register']);
-    //   } else {
-    //     this.router.navigate(['/admin/home']);
-    //   }
-    // }
+    if (token) {
+      if (userType === 'CLIENT' || userType === 'PRO') {
+        this.router.navigate(['/register']);
+      } else {
+        this.router.navigate(['/admin/home']);
+      }
+    }
   }
 
   openGoogleLogin() {
@@ -59,24 +59,24 @@ export class LoginComponent implements OnInit {
   }
 
   sendOtp() {
-    this.router.navigate(['/otp']);
-    // if (this.form.valid) {
-    //   this._auth.sendOtp({ email: this.form.controls['email'].value })
-    //     .pipe(
-    //       catchError((error) => {
-    //         this.errorMessage = error.error?.meta?.message;
-    //         return '';
-    //       }))
-    //     .subscribe((data: any) => {
-    //       if (data?.data?.user?.username) {
-    //         this.errorMessage = '';
-    //         this._auth.setTempEmailToSession(this.form.controls['email'].value);
-    //         this.router.navigate(['/otp']);
-    //       } else {
-    //         this.errorMessage = "OTP could not be sent at this time. Please try again later";
-    //       }
-    //     });
-    // }
+    // this.router.navigate(['/otp']);
+    if (this.form.valid) {
+      this._auth.sendOtp({ email: this.form.controls['email'].value })
+        .pipe(
+          catchError((error) => {
+            this.errorMessage = error.error?.meta?.message;
+            return '';
+          }))
+        .subscribe((data: any) => {
+          if (data?.data?.user?.username) {
+            this.errorMessage = '';
+            this._auth.setTempEmailToSession(this.form.controls['email'].value);
+            this.router.navigate(['/otp']);
+          } else {
+            this.errorMessage = "OTP could not be sent at this time. Please try again later";
+          }
+        });
+    }
 
   }
 
