@@ -84,16 +84,12 @@
                     </div>            </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center mt-5 mb-2">
-        <div class="text-light text" style="cursor: pointer;" (click)="redirectToHome()">
-            Back to home
-        </div>
-    </div>
-        <div class="container ">
+    
+        <div class="container my-3 ">
             <div class="d-flex justify-content-center">
                 <div class="row p-1">
                     <div class="col">
-                        <button type="button" class="btn text-dark font otpm ">
+                        <button type="button" class="btn text-dark font otpm bg-white">
                             {{ errorMessage !== '' ? errorMessage : 'OTP sent to your mail' }}
                         </button>
                     </div>
@@ -103,6 +99,11 @@
             </div>
         </div>
  
+        <div class="d-flex justify-content-center my-3 mb-2">
+            <div class="text-light text" style="cursor: pointer;" (click)="redirectToHome()">
+                Back to home
+            </div>
+        </div>
 
 
 
