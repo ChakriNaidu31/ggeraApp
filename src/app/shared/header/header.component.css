@@ -51,38 +51,9 @@ a.nav-link.text-color.me-3:hover {
 .notification-container {
   position: relative;
   display: inline-block;
-}
-
-.bell-icon {
-  display: block;
-}
-
-.notification-badge {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  
-  color: white;
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  font-size: 12px;
-  display: flex
-;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  border: 0;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
-.notification-container {
-  position: relative;
   cursor: pointer;
 }
 
-.bell-icon {
-  vertical-align: middle;
-}
 .badge {
   font-size: 10px;
   padding: 4px;
@@ -100,4 +71,50 @@ a.nav-link.text-color.me-3:hover {
   font-weight: bold;
   border: 1px solid white;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+li.notification-item.d-flex.mb-3:hover {
+  background: #4a4a4a;
+  padding: 10px 15px;
+}
+.bell-icon {
+  display: block;
+  vertical-align: middle;
+}
+
+.dropdown-menu {
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #2a2a2a;
+  border: none;
+}
+.f-14 {
+  font-size: 14px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.avatar {
+  width: 40px;
+  height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-secondary {
+  color: #b5b5b5;
+  font-size: 12px;
+}
+
+.dropdown-divider {
+  border-color: #4b4b4b;
 }
