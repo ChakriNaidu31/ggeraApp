@@ -35,27 +35,25 @@ const routes: Routes = [
     path: 'client', children: [
       { path: '', redirectTo: 'index', pathMatch: 'full' },
       { path: 'home', component: LandingComponent },
-      { path: 'pro-players', component: ProPlayersComponent, canActivate: [ chooseGameGuard ] },
-      { path: 'order-progress', component: SessionComponent, canActivate: [ chooseGameGuard ] },
-      { path: 'premade-available', component: PremadeAvailableComponent,canActivate: [ chooseGameGuard ] },
-      { path: 'premade-progress', component: PremadeInprogressComponent,canActivate: [ chooseGameGuard ]  },
-      { path: 'premade-completed', component: PremadeCompletedComponent,canActivate: [ chooseGameGuard ]  },
-      { path: 'eliteorder-new', component: EliteOrdersNewComponent,canActivate: [ chooseGameGuard ]  },
-      { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent,canActivate: [ chooseGameGuard ] },
-      { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent,canActivate: [ chooseGameGuard ] },
-      { path: 'message', component: MessageComponent,canActivate: [ chooseGameGuard ] },
-      { path: 'wallet-transaction', component: WalletTransactionComponent,canActivate: [ chooseGameGuard ] },
-      { path: 'wallet-addmoney', component: WalletAddmoneyComponent,canActivate: [ chooseGameGuard ] },
-      { path: 'wallet-coupon', component: WalletCouponComponent,canActivate: [ chooseGameGuard ]},
-      { path: 'event', component: EventComponent,canActivate: [ chooseGameGuard ]},
-      { path: 'user-profile', component: UserProfileComponent,canActivate: [ chooseGameGuard ] },
-      { path: '404', component: PagenotfoundComponent,canActivate: [ chooseGameGuard ] },    
-    ], 
-    // canActivate: [ clientUserGuard ]
+      { path: 'pro-players', component: ProPlayersComponent, canActivate: [chooseGameGuard] },
+      { path: 'order-progress', component: SessionComponent, },
+      { path: 'premade-available', component: PremadeAvailableComponent, canActivate: [chooseGameGuard] },
+      { path: 'premade-progress', component: PremadeInprogressComponent, canActivate: [chooseGameGuard] },
+      { path: 'premade-completed', component: PremadeCompletedComponent, canActivate: [chooseGameGuard] },
+      { path: 'eliteorder-new', component: EliteOrdersNewComponent, canActivate: [chooseGameGuard] },
+      { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent, canActivate: [chooseGameGuard] },
+      { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent, canActivate: [chooseGameGuard] },
+      { path: 'message', component: MessageComponent, canActivate: [chooseGameGuard] },
+      { path: 'wallet-transaction', component: WalletTransactionComponent },
+      { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
+      { path: 'wallet-coupon', component: WalletCouponComponent },
+      { path: 'event', component: EventComponent, canActivate: [chooseGameGuard] },
+      { path: 'user-profile', component: UserProfileComponent },
+    ],
+    canActivate: [ clientUserGuard ]
   },
 
-  
-  // { path: '**', component: PageNotFoundComponent } TODO:
+  { path: '**', component: PagenotfoundComponent }
 
 
 ];
