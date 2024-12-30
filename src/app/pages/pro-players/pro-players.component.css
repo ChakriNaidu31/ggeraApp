@@ -536,7 +536,11 @@
     .game-button {
       width: 130px;
     }
-  }
+  }.btn-primary-gg {
+    color: white;
+   border: 0 !important;
+   border-radius: 8px;
+}
   
   .customSliderNextBtn,
   .customSliderPrevBtn {
@@ -2100,7 +2104,8 @@
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    /* border: 5px solid rgba(255,255,255,0.5); */
+  border-radius: 50%;
+    border: 3px solid #985eff;;
 }
 .card-body-s{
     top: -32px;
@@ -2194,18 +2199,16 @@
 }
 
 .form-select {
-  width: 150px;
   height: 40px;
   border: none;
   color: #fff;
-  padding: 0.375rem 0.75rem;
   border-radius: 8px;
   font-size: 16px;
   line-height: 22.4px;
 }
 
 .form-select:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .form-check-input:checked {
@@ -2237,4 +2240,23 @@
 }
 .bg-darks {
   background-color: #151520;
+}
+.onli {
+  position: absolute;
+  right: 35px;
+  top: 50px;
+}
+.modal-body {
+  position: relative;
+}
+.busy {
+  padding: 4px;
+  background: red;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 0 3px red;
 }

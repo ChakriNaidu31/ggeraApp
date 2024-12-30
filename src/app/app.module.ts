@@ -11,6 +11,7 @@ import { CardsComponent } from './pages/cards/cards.component';
 import { CardCarousalComponent } from './pages/card-carousal/card-carousal.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { SessionLadingComponent } from './pages/session-lading/session-lading.component';
 import { SessionComponent } from './pages/session/session.component';
 import { ProPlayersComponent } from './pages/pro-players/pro-players.component';
 import { PremadeComponent } from './pages/premade/premade.component';
@@ -43,7 +44,9 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HeaderComponent,
     FooterComponent,
     LandingComponent,
+    PremadeComponent,
     CardsComponent,
+    SessionLadingComponent,
     CardCarousalComponent,
     SessionComponent,
     ProPlayersComponent,

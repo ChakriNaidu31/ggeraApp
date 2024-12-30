@@ -1,3 +1,6 @@
+.navbar {
+  font-family: Manrope;
+}
 .header-end {
   justify-content: end;
   display: flex;
@@ -44,4 +47,57 @@ a.nav-link.text-color.me-3:hover {
 
 .dropdown-toggle.nav-link.text-color.me-3.cursor-pointer {
   cursor: pointer;
+}
+.notification-container {
+  position: relative;
+  display: inline-block;
+}
+
+.bell-icon {
+  display: block;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  
+  color: white;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  font-size: 12px;
+  display: flex
+;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.notification-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.bell-icon {
+  vertical-align: middle;
+}
+.badge {
+  font-size: 10px;
+  padding: 4px;
+  position: absolute;
+  top: 3px !important;
+  right: -6px !important;
+  background: linear-gradient(217deg, #41067A, #7A06D1);
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 1px solid white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }

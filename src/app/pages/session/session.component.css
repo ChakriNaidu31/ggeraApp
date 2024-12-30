@@ -26,6 +26,7 @@ font-weight: 400;
 line-height: 22.8px;
 text-underline-position: from-font;
 text-decoration-skip-ink: none;
+margin-top: 3.5rem !important;
 }
 .card-header {
   font-size: 1.5rem;
@@ -80,6 +81,11 @@ text-decoration-skip-ink: none;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  left: 40%;
+  top: -14%;
+  position: absolute !important;
+  border: 3px solid #7a06d1;
+  object-fit: cover;
 }
 .info-rows {
   background: #1c1c26;
