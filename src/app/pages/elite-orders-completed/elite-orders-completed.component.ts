@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 interface Order {
   orderNumber: string;
-  partyName: string;
+  createdBy: string;
   amount: string;
-  loggedTime: string;
-  completedDate: string;
+  prosPlayed: string;
+  startedTime: string;
 }
 
 @Component({
@@ -14,24 +14,25 @@ interface Order {
   styleUrls: ['./elite-orders-completed.component.css'],
 })
 export class EliteOrdersCompletedComponent implements OnInit {
+
   orders: Order[] = [
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-  ];
+    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
+    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
+    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
+    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
+    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
+    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
+    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
+    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
+    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
+    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
+    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
+    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
+    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
+    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
+    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
+    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
+];
 
   paginatedOrders: Order[] = [];
   currentPage: number = 1;

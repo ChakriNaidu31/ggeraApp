@@ -89,6 +89,7 @@
 .form-control {
     background-color: #4e4e4e !important;
     color: #ffff;
+    border: none;
 }
 
 input::placeholder {
