@@ -1,5 +1,6 @@
 export interface Transaction {
     amount: string;
+    gameId: string;
     orderId: string;
     currentBalance: string;
     description: string;

@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Order {
-  orderNumber: string;
-  partyName: string;
-  amount: string;
-  loggedTime: string;
-  completedDate: string;
-}
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
+import { Transaction } from 'src/app/models/transaction';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-wallet-transaction',
@@ -14,54 +10,94 @@ interface Order {
   styleUrls: ['./wallet-transaction.component.css']
 })
 export class WalletTransactionComponent implements OnInit {
-  orders: Order[] = [
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-  ];
 
-  paginatedOrders: Order[] = [];
-  currentPage: number = 1;
-  rowsPerPage: number = 5;
+  p: number = 1;
+  transactions: Transaction[] = [];
+  visibleTransactions: Transaction[] = [];
+  pageSize: number = 25;
   totalPages: number = 0;
+  form: UntypedFormGroup;
+  games: any[] = [];
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.totalPages = Math.ceil(this.orders.length / this.rowsPerPage);
-    this.updatePaginatedOrders();
+  constructor(
+    private _auth: AuthService,
+    private title: Title,
+    private meta: Meta,
+    private fb: UntypedFormBuilder) {
   }
 
-  updatePaginatedOrders(): void {
-    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
-    const endIndex = startIndex + this.rowsPerPage;
-    this.paginatedOrders = this.orders.slice(startIndex, endIndex);
+  ngOnInit() {
+    this.title.setTitle("GGera - Wallet - Transaction");
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Unlock your gaming potential with GGera Play with a pro and be a pro'
+    });
+
+    this.form = this.fb.group({
+      transactionType: ['ALL'],
+      transactionDate: [''],
+      game: ['']
+    });
+
+    this._auth.getMyTransactions().subscribe((data) => {
+      this.transactions = data?.data?.transactions;
+      this.paginateItems();
+    });
+
+    this._auth.getAvailableGames().subscribe((data) => {
+      if (data?.data?.games) {
+        this.games = data.data.games;
+      }
+    });
+
   }
 
-  goToPreviousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePaginatedOrders();
+  filterData() {
+    let filtered: Transaction[] = this.transactions;
+
+    // Filter by Transaction Type
+    if (this.form.controls['transactionType'].value === 'ALL') {
+      // Do nothing
+    } else if (this.form.controls['transactionType'].value === 'DEBIT') {
+      filtered = this.transactions.filter((t) => t.type === 'DEBIT');
+    } else if (this.form.controls['transactionType'].value === 'CREDIT') {
+      filtered = this.transactions.filter((t) => t.type === 'CREDIT');
+    }
+
+    // Filter by game type
+    if (this.form.controls['game'].value !== '') {
+      filtered = filtered.filter((t) => t.gameId === this.form.controls['game'].value);
+    }
+
+    // Filter by Date
+    if (this.form.controls['transactionDate'].value !== '') {
+      filtered = filtered.filter((t) => t.modifiedDate === this.form.controls['transactionDate'].value);
+    }
+
+    this.paginateItems(filtered);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.p = page;
+      this.paginateItems();
     }
   }
 
-  goToNextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePaginatedOrders();
+  paginateItems(items?: Transaction[]): void {
+    const startIndex = (this.p - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    if (items) {
+      this.visibleTransactions = items.slice(startIndex, endIndex);
+      this.totalPages = Math.ceil(items.length / this.pageSize);
+    } else {
+      this.visibleTransactions = this.transactions.slice(startIndex, endIndex);
+      this.totalPages = Math.ceil(this.transactions.length / this.pageSize);
     }
   }
+
+  getPageRange(): number[] {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
 }

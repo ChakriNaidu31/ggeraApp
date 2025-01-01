@@ -36,6 +36,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { SocialLoginComponent } from './pages/social-login/social-login.component';
 import { OtpPageComponent } from './pages/otp-page/otp-page.component';
 import { RegisterNewUserComponent } from './pages/register-new-user/register-new-user.component';
+import { WalletTransactionComponent } from './pages/wallet-transaction/wallet-transaction.component';
+import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -44,6 +46,10 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HeaderComponent,
     FooterComponent,
     LandingComponent,
+    WalletTransactionComponent,
+    WalletCouponComponent,
+
+
     PremadeComponent,
     CardsComponent,
     SessionLadingComponent,

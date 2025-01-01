@@ -1,32 +1,44 @@
-<div class="rounded text-body-emphasis bg-body-secondary">
+<app-header></app-header>
+<main class="body-height">
+  <div class="rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-12 col-xs-12">
       <div class="hero-bg">
         <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
-  
+
           <h1 class="text-start mb-5 text-white mt-5">Wallet</h1>
           <div class="row">
             <div class="d-flex align-items-center justify-content-between p-3 rounde12 bg-darks text-light mb-5">
-  
-              <div class="d-flex">
-                <!-- Select 1 -->
-                <div class="me-2">
-                  <select class="form-select custom-select" aria-label="Select option">
-                    <option selected>All</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                  </select>
+
+              <form [formGroup]="form">
+                <div class="d-flex">
+                  <!-- Select 1 -->
+                  <div class="me-2">
+                    <select class="form-select custom-select" aria-label="Select option"
+                      formControlName="transactionType" (change)="filterData()">
+                      <option value="ALL">All</option>
+                      <option value="DEBIT">Debit Only</option>
+                      <option value="CREDIT">Credit Only</option>
+                    </select>
+                  </div>
+
+                  <div class="me-2">
+                    <select class="form-select custom-select" aria-label="Select option" formControlName="game" (change)="filterData()">
+                      <option value="">All</option>
+                      <option *ngFor="let game of games" value="{{game.id}}">{{game.title}}</option>
+                    </select>
+                  </div>
+
+                  <!-- Select 2 -->
+                  <!-- <div class="me-2">
+                <select class="form-select custom-select" aria-label="Select option" formControlName="transactionDate">
+                  <option selected>Date</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                </select>
+              </div> -->
                 </div>
-  
-                <!-- Select 2 -->
-                <div class="me-2">
-                  <select class="form-select custom-select" aria-label="Select option">
-                    <option selected>Date</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                  </select>
-                </div>
-              </div>
-  
+              </form>
+
             </div>
           </div>
 
@@ -34,42 +46,52 @@
 
           <div class="row mt-3">
             <div class="table-responsive">
-                <table class="table text-light">
-                  <thead class="bg-transparent">
+              <table class="table text-light">
+                <thead class="bg-transparent">
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Order#</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Prev. Balance</th>
+                    <th scope="col">Crnt. Balance</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <ng-container *ngIf="visibleTransactions && visibleTransactions.length > 0; else noItemsFound">
+                    <tr *ngFor="let tran of visibleTransactions">
+                      <td>{{ tran.modifiedDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+                      <td>{{ tran.orderId }}</td>
+                      <td>{{ tran.description | truncate: 30}}</td>
+                      <td>{{ tran.type }}</td>
+                      <td align="right">${{ tran?.amount }}</td>
+                      <td align="right">${{ tran?.previousBalance }}</td>
+                      <td align="right">${{ tran?.currentBalance }}</td>
+                    </tr>
+                  </ng-container>
+                  <ng-template #noItemsFound>
                     <tr>
-                      <th scope="col">Date</th>
-                      <th scope="col">Order#</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Amount</th>
-                      <th scope="col">Prev. Balance</th>
-                      <th scope="col">Crnt. Balance</th>
+                      <td colspan="7">No Transactions Found</td>
                     </tr>
-                  </thead>
-                  <tbody class="text-center">
-                    <tr *ngFor="let order of paginatedOrders">
-                      <td>{{ order.orderNumber }}</td>
-                      <td>{{ order.partyName }}</td>
-                      <td>{{ order.amount }}</td>
-                      <td>{{ order.loggedTime }}</td>
-                      <td>{{ order.completedDate }}</td>
-                      <td>{{ order.loggedTime }}</td>
-                      <td>{{ order.completedDate }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              <div class="pagination-container text-center mt-4">
-                <span class="page-numbers">Page <span class="fw-bold red-letter">{{ currentPage }}</span> of {{ totalPages }}</span>4               
-                 <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="goToPreviousPage()">Previous</button>
+                  </ng-template>
+                </tbody>
+              </table>
+            </div>
 
-                <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="goToNextPage()">Next</button>
-              </div>
+            <div class="pagination-container text-center mt-4"
+              *ngIf="visibleTransactions && visibleTransactions.length > 0">
+              <span class="page-numbers">Page <span class="fw-bold red-letter">{{ p }}</span> of {{ totalPages
+                }}</span>
+              <button class="btn btn-secondary" [disabled]="p === 1" (click)="goToPage(p - 1)">Previous</button>
+
+              <button class="btn btn-secondary" [disabled]="p === totalPages" (click)="goToPage(p + 1)">Next</button>
+            </div>
           </div>
 
 
-         
         </div>
       </div>
     </div>
+  </div>
+</main>
