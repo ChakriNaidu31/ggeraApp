@@ -42,7 +42,7 @@ const routes: Routes = [
       { path: 'premade-completed', component: PremadeCompletedComponent, canActivate: [chooseGameGuard] },
       { path: 'eliteorder-new', component: EliteOrdersNewComponent, canActivate: [chooseGameGuard] },
       { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent, canActivate: [chooseGameGuard] },
-      { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent, canActivate: [chooseGameGuard] },
+      { path: 'elite-order-completed', component: EliteOrdersCompletedComponent, canActivate: [chooseGameGuard] },
       { path: 'message', component: MessageComponent, canActivate: [chooseGameGuard] },
       { path: 'transactions', component: WalletTransactionComponent },
       { path: 'wallet-addmoney', component: WalletAddmoneyComponent },

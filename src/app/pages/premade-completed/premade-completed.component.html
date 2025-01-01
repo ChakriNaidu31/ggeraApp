@@ -34,38 +34,47 @@
 
         <div class="row mt-3">
           <div class="table-responsive">
-              <table class="table text-light">
-                <thead class="bg-transparent">
+            <table class="table text-light">
+              <thead class="bg-transparent">
+                <tr>
+                  <th scope="col">Order#</th>
+                  <th scope="col">Party Name</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Logged Time</th>
+                  <th scope="col">Completed Date</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <ng-container *ngIf="visibleParties && visibleParties.length > 0; else noItemsFound">
+                  <tr *ngFor="let order of visibleParties">
+                    <td class="red-letter">{{ order?.orderId }}</td>
+                    <td class="text-white">{{ order?.name }}</td>
+                    <td class="text-white">{{ order?.clientUser?.amount }}</td>
+                    <td class="red-letter">{{ order?.clientUser?.loggedTime }}</td>
+                    <td class="text-white">{{ order?.clientUser?.completedDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                    <td>Action buttons</td>
+                  </tr>
+                </ng-container>
+                <ng-template #noItemsFound>
                   <tr>
-                    <th scope="col">Order#</th>
-                    <th scope="col">Party Name</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Logged Time</th>
-                    <th scope="col">Completed Date</th>
+                    <td colspan="6" class="text-white">No Parties Found</td>
                   </tr>
-                </thead>
-                <tbody class="text-center">
-                  <tr *ngFor="let order of paginatedOrders">
-                    <td class="red-letter">{{ order.orderNumber }}</td>
-                    <td class="text-white">{{ order.partyName }}</td>
-                    <td  class="text-white">{{ order.amount }}</td>
-                    <td class="red-letter">{{ order.loggedTime }}</td>
-                    <td  class="text-white">{{ order.completedDate }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <div class="pagination-container text-center mt-4">
-              <span class="page-numbers">Page <span class="fw-bold red-letter">{{ currentPage }}</span> of {{ totalPages }}</span>4               
-              <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="goToPreviousPage()">Previous</button>
+                </ng-template>
+              </tbody>
+            </table>
+          </div>
 
-              <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="goToNextPage()">Next</button>
-            </div>
+          <div class="pagination-container text-center mt-4" *ngIf="visibleParties && visibleParties.length > 0">
+            <span class="page-numbers">Page <span class="fw-bold red-letter">{{ p }}</span> of {{ totalPages }}</span>
+            <button class="btn btn-secondary" [disabled]="p === 1" (click)="goToPage(p - 1)">Previous</button>
+
+            <button class="btn btn-secondary" [disabled]="p === totalPages" (click)="goToPage(p + 1)">Next</button>
+          </div>
         </div>
 
 
-       
+
       </div>
     </div>
   </div>

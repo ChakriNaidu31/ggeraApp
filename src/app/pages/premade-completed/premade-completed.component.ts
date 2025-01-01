@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { PremadeParty } from 'src/app/models/premade-party';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface Order {
   orderNumber: string;
@@ -15,54 +18,85 @@ interface Order {
 })
 export class PremadeCompletedComponent implements OnInit {
 
-  orders: Order[] = [
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-    { orderNumber: '#2107532468', partyName: 'Call of Duty', amount: '$100', loggedTime: '03:38:17', completedDate: '29/11/24' },
-    { orderNumber: '#2107532469', partyName: 'Battlefield', amount: '$150', loggedTime: '04:22:11', completedDate: '30/11/24' },
-    { orderNumber: '#2107532470', partyName: 'Halo', amount: '$200', loggedTime: '05:18:09', completedDate: '01/12/24' },
-    { orderNumber: '#2107532471', partyName: 'FIFA', amount: '$120', loggedTime: '06:12:25', completedDate: '02/12/24' },
-  ];
-
-  paginatedOrders: Order[] = [];
-  currentPage: number = 1;
-  rowsPerPage: number = 5;
+  p: number = 1;
+  userType: string = '';
+  // allProUsers: any[] = [];
+  premadeParties: PremadeParty[] = [];
+  visibleParties: PremadeParty[] = [];
+  pageSize: number = 25;
   totalPages: number = 0;
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.totalPages = Math.ceil(this.orders.length / this.rowsPerPage);
-    this.updatePaginatedOrders();
+  constructor(
+    // private dialog: MatDialog,
+    private _auth: AuthService,
+    private title: Title,
+    private meta: Meta) {
   }
 
-  updatePaginatedOrders(): void {
-    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
-    const endIndex = startIndex + this.rowsPerPage;
-    this.paginatedOrders = this.orders.slice(startIndex, endIndex);
+  ngOnInit() {
+    this.title.setTitle("GGera - Premade Parties - Completed");
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Get ready to play with our premade parties and join a community of pro players'
+    });
+    this.userType = this._auth.getUserTypeFromSession();
+
+    this._auth.completedPartiesList().subscribe(parties => {
+      this.premadeParties = parties?.data?.party;
+      this.paginateItems();
+    });
+
+    // this._auth.fetchProUsers().subscribe((response: any) => {
+    //   this.allProUsers = [{
+    //     email: '', username: 'All'
+    //   }, ...response?.data];
+    // });
+
   }
 
-  goToPreviousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePaginatedOrders();
+  openDetails(partyId: string = '') {
+    // if (partyId) {
+    //   this.dialog.open(PremadePartyDetailsComponent, {
+    //     data: { party: { "id": partyId } }
+    //   });
+    // }
+  }
+
+  viewReviews(order: PremadeParty) {
+    // this.dialog.open(PremadePartyReviewListComponent, {
+    //   data: { partyId: order.id }
+    // });
+  }
+
+  addReview(order: PremadeParty) {
+    // this.dialog.open(PremadePartyReviewComponent, {
+    //   data: { partyId: order.id }
+    // }).afterClosed().subscribe((data) => {
+    //   if (data?.submitted) {
+    //     this._auth.completedPartiesList().subscribe(parties => {
+    //       this.premadeParties = parties?.data?.party;
+    //       this.paginateItems();
+    //     });
+    //   }
+    // });
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.p = page;
+      this.paginateItems();
     }
   }
 
-  goToNextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePaginatedOrders();
-    }
+  paginateItems() {
+    const startIndex = (this.p - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.visibleParties = this.premadeParties.slice(startIndex, endIndex);
+    this.totalPages = Math.ceil(this.premadeParties.length / this.pageSize);
   }
+
+  getPageRange(): number[] {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
 }

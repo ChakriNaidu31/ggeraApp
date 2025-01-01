@@ -1,32 +1,26 @@
-<div class="rounded text-body-emphasis bg-body-secondary">
+<app-header></app-header>
+<main class="body-height">
+  <div class="rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-12 col-xs-12">
       <div class="hero-bg">
         <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
-  
+
           <h1 class="text-start mb-5 text-white mt-5">Completed Elite Orders</h1>
           <div class="row">
             <div class="d-flex align-items-center justify-content-between p-3 rounde12 bg-darks text-light mb-5">
-  
+
               <div class="d-flex">
-                <!-- Select 1 -->
-                <div class="me-2">
-                  <select class="form-select custom-select" aria-label="Select option">
-                    <option selected>All</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                  </select>
-                </div>
-  
-                <!-- Select 2 -->
-                <div class="me-2">
-                  <select class="form-select custom-select" aria-label="Select option">
-                    <option selected>Date</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                  </select>
-                </div>
+                <form [formGroup]="form">
+                  <div class="me-2">
+                    <!-- <select class="form-select custom-select" aria-label="Select option" formControlName="startedDate">
+                  <option selected>Date</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                </select> -->
+                  </div>
+                </form>
               </div>
-  
+
             </div>
           </div>
 
@@ -34,38 +28,45 @@
 
           <div class="row mt-3">
             <div class="table-responsive">
-                <table class="table text-light">
-                  <thead class="bg-transparent">
+              <table class="table text-light">
+                <thead class="bg-transparent">
+                  <tr>
+                    <th scope="col">Order#</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">PROs Played</th>
+                    <th scope="col">Started Time</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <ng-container *ngIf="visibleOrders && visibleOrders.length > 0; else noItemsFound">
+                    <tr *ngFor="let order of visibleOrders">
+                      <td class="red-letter">{{ order.orderId }}</td>
+                      <td>{{ order.totalAmountTransferred }}</td>
+                      <td>{{ order.numberOfUsersInvolved }}</td>
+                      <td class="red-letter">{{ order?.startedTime | date: 'dd/MM/yyyy HH:mm a' }}</td>
+                    </tr>
+                  </ng-container>
+                  <ng-template #noItemsFound>
                     <tr>
-                      <th scope="col">Order#</th>
-                      <th scope="col">Created by</th>
-                      <th scope="col">Amount</th>
-                      <th scope="col">PROs Played</th>
-                      <th scope="col">Started Time</th>
+                      <td colspan="4">No Orders Found</td>
                     </tr>
-                  </thead>
-                  <tbody class="text-center">
-                    <tr *ngFor="let order of paginatedOrders">
-                      <td class="red-letter">{{ order.orderNumber }}</td>
-                      <td>{{ order.createdBy }}</td>
-                      <td>{{ order.amount }}</td>
-                      <td>{{ order.prosPlayed }}</td>
-                      <td class="red-letter">{{ order.startedTime }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              <div class="pagination-container text-center mt-4">
-                <span class="page-numbers">Page <span class="fw-bold red-letter">{{ currentPage }}</span> of {{ totalPages }}</span>4               
-                 <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="goToPreviousPage()">Previous</button>
+                  </ng-template>
+                </tbody>
+              </table>
+            </div>
 
-                <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="goToNextPage()">Next</button>
-              </div>
+            <div class="pagination-container text-center mt-4" *ngIf="visibleOrders && visibleOrders.length > 0">
+              <span class="page-numbers">Page <span class="fw-bold red-letter">{{ p }}</span> of {{ totalPages
+                }}</span>
+              <button class="btn btn-secondary" [disabled]="p === 1" (click)="goToPage(p - 1)">Previous</button>
+              <button class="btn btn-secondary" [disabled]="p === totalPages" (click)="goToPage(p + 1)">Next</button>
+            </div>
           </div>
 
 
-         
+
         </div>
       </div>
     </div>
+  </div>
+</main>

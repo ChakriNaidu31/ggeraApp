@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Order {
-  orderNumber: string;
-  createdBy: string;
-  amount: string;
-  prosPlayed: string;
-  startedTime: string;
-}
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
+import { EliteOrder } from 'src/app/models/elite-order';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-elite-orders-completed',
@@ -15,54 +11,79 @@ interface Order {
 })
 export class EliteOrdersCompletedComponent implements OnInit {
 
-  orders: Order[] = [
-    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
-    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
-    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
-    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
-    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
-    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
-    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
-    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
-    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
-    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
-    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
-    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
-    { orderNumber: '#2107532468', createdBy: 'Call of Duty', amount: '$100', prosPlayed: '03:38:17', startedTime: '29/11/24' },
-    { orderNumber: '#2107532469', createdBy: 'Battlefield', amount: '$150', prosPlayed: '04:22:11', startedTime: '30/11/24' },
-    { orderNumber: '#2107532470', createdBy: 'Halo', amount: '$200', prosPlayed: '05:18:09', startedTime: '01/12/24' },
-    { orderNumber: '#2107532471', createdBy: 'FIFA', amount: '$120', prosPlayed: '06:12:25', startedTime: '02/12/24' },
-];
-
-  paginatedOrders: Order[] = [];
-  currentPage: number = 1;
-  rowsPerPage: number = 5;
+  p: number = 1;
+  eliteOrders: EliteOrder[] = [];
+  visibleOrders: EliteOrder[] = [];
+  pageSize: number = 25;
   totalPages: number = 0;
+  form: UntypedFormGroup;
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.totalPages = Math.ceil(this.orders.length / this.rowsPerPage);
-    this.updatePaginatedOrders();
+  constructor(
+    // private dialog: MatDialog,
+    private _auth: AuthService,
+    private title: Title,
+    private meta: Meta,
+    private fb: UntypedFormBuilder) {
   }
 
-  updatePaginatedOrders(): void {
-    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
-    const endIndex = startIndex + this.rowsPerPage;
-    this.paginatedOrders = this.orders.slice(startIndex, endIndex);
+  ngOnInit() {
+    this.title.setTitle("GGera - Premade Parties - Completed");
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Get ready to play with our premade parties and join a community of pro players'
+    });
+
+    this._auth.fetchCompletedEliteOrders().subscribe(orders => {
+      this.eliteOrders = orders?.data?.orders;
+      this.paginateItems();
+    });
+
+    this.form = this.fb.group({
+      startedDate: ['']
+    });
+
   }
 
-  goToPreviousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePaginatedOrders();
+  filterData() {
+    let filtered: EliteOrder[] = this.eliteOrders;
+
+    // Filter by Date
+    if (this.form.controls['startedDate'].value !== '') {
+      filtered = filtered.filter((t) => t.modifiedDate === this.form.controls['startedDate'].value);
+    }
+
+    this.paginateItems(filtered);
+  }
+
+  openDetails(orderId: string = '') {
+    // if (orderId) {
+    //   this.dialog.open(EliteOrderDetailsComponent, {
+    //     data: { order: { "id": orderId } }
+    //   });
+    // }
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.p = page;
+      this.paginateItems();
     }
   }
 
-  goToNextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePaginatedOrders();
+  paginateItems(items?: EliteOrder[]) {
+    const startIndex = (this.p - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    if (items) {
+      this.visibleOrders = items.slice(startIndex, endIndex);
+      this.totalPages = Math.ceil(items.length / this.pageSize);
+    } else {
+      this.visibleOrders = this.eliteOrders.slice(startIndex, endIndex);
+      this.totalPages = Math.ceil(this.eliteOrders.length / this.pageSize);
     }
   }
+
+  getPageRange(): number[] {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
 }
