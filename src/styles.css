@@ -10,7 +10,8 @@ h2,
 h3,
 h4,
 h5,
-h6,.login {
+h6,
+.login {
   font-family: 'MyFont';
   font-style: normal;
 }

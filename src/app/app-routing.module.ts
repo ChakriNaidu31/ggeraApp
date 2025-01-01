@@ -33,7 +33,7 @@ const routes: Routes = [
 
   {
     path: 'client', children: [
-      { path: '', redirectTo: 'index', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: LandingComponent },
       { path: 'pro-players', component: ProPlayersComponent, canActivate: [chooseGameGuard] },
       { path: 'order-progress', component: SessionComponent, },
@@ -50,33 +50,10 @@ const routes: Routes = [
       { path: 'event', component: EventComponent, canActivate: [chooseGameGuard] },
       { path: 'user-profile', component: UserProfileComponent },
     ],
-    canActivate: [ clientUserGuard ]
+    canActivate: [clientUserGuard]
   },
-  // {
-  //   path: 'client', children: [
-  //     { path: '', redirectTo: 'index', pathMatch: 'full' },
-  //     { path: 'home', component: LandingComponent },
-  //     { path: 'pro-players', component: ProPlayersComponent, },
-  //     { path: 'order-progress', component: SessionComponent, },
-  //     { path: 'premade-available', component: PremadeAvailableComponent, },
-  //     { path: 'premade-progress', component: PremadeInprogressComponent, },
-  //     { path: 'premade-completed', component: PremadeCompletedComponent,},
-  //     { path: 'eliteorder-new', component: EliteOrdersNewComponent, },
-  //     { path: 'eliteorder-inprogress', component: EliteOrdersInprogressComponent,  },
-  //     { path: 'eliteorder-completed', component: EliteOrdersCompletedComponent,  },
-  //     { path: 'message', component: MessageComponent,  },
-  //     { path: 'wallet-transaction', component: WalletTransactionComponent },
-  //     { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
-  //     { path: 'wallet-coupon', component: WalletCouponComponent },
-  //     { path: 'event', component: EventComponent,  },
-  //     { path: 'user-profile', component: UserProfileComponent },
-  //   ],
-    
-  // },
 
   { path: '**', component: PagenotfoundComponent }
-
-
 ];
 
 @NgModule({

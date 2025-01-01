@@ -1,6 +1,7 @@
 .navbar {
   font-family: Manrope;
 }
+
 .header-end {
   justify-content: end;
   display: flex;
@@ -48,6 +49,7 @@ a.nav-link.text-color.me-3:hover {
 .dropdown-toggle.nav-link.text-color.me-3.cursor-pointer {
   cursor: pointer;
 }
+
 .notification-container {
   position: relative;
   display: inline-block;
@@ -77,6 +79,7 @@ li.notification-item.d-flex.mb-3:hover {
   background-color: #41067A;
   padding: 10px 15px;
 }
+
 .bell-icon {
   display: block;
   vertical-align: middle;
@@ -89,6 +92,7 @@ li.notification-item.d-flex.mb-3:hover {
   background-color: #2a2a2a;
   border: none;
 }
+
 .f-14 {
   font-size: 14px;
 }
