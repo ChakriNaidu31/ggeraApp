@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-pagenotfound',
-  standalone: true,
-  imports: [],
   templateUrl: './pagenotfound.component.html',
   styleUrl: './pagenotfound.component.css'
 })
-export class PagenotfoundComponent {
+export class PagenotfoundComponent implements OnInit {
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+  }
+
   redirectToHome() {
-    window.location.href = environment.webUrl;
+    this.router.navigate(['/']);
   }
 }
