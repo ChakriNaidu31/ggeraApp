@@ -85,7 +85,7 @@ li.notification-item.d-flex.mb-3:hover {
   vertical-align: middle;
 }
 
-.dropdown-menu {
+.dropdown-menu.notiy {
   width: 300px;
   max-height: 400px;
   overflow-y: auto;

@@ -21,37 +21,55 @@
                             
                         </div>
                 
-                        
+                        <div class="my-5">
                             <h5 class="hcolor">Add money to your wallet</h5>
                             <div class="d-flex gap-3 my-4">
-                                <button class="btn money">$50.00</button>
-                                <button class="btn money">$100.00</button>
-                                <button class="btn money">$500.00</button>
+                                <button class="btn money ">$ 50.00</button>
+                                <button class="btn money">$ 100.00</button>
+                                <button class="btn money">$ 500.00</button>
                                 <button class="btn money">Custom</button>
                                 <button class="btn btn-purple"><h5>Add Money</h5></button>
                             </div>
+                        </div>
+                           
                             
                         
                 
-                        <div class="card p-4 mb-4">
-                            <h5>Select Payment Method</h5>
-                            
-                            <div class="d-flex flex-wrap">
-                                <input type="radio" id="paypal" name="payment" />
-                                <label for="paypal">PayPal</label>
-                                <input type="radio" id="payoneer" name="payment" />
-                                <label for="payoneer">Payoneer</label>
-                                <input type="radio" id="gpay" name="payment" />
-                                <label for="gpay">G Pay</label>
-                                <input type="radio" id="mastercard" name="payment" />
-                                <label for="mastercard">MasterCard</label>
-                                <input type="radio" id="bank" name="payment" />
-                                <label for="bank">Bank Transfer</label>
+                        <div class="card p-4 my-5">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" class="me-2 custom-radio" id="paypal" name="payment" />
+                                    <label for="paypal">
+                                        <img src="../../../assets/images/paypal.png" class="img-fluid" />
+                                    </label>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" class="me-2 custom-radio" id="payoneer" name="payment" />
+                                    <label for="payoneer">
+                                        <img src="../../../assets/images/payoneer.png" class="img-fluid" />
+                                    </label>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" class="me-2 custom-radio" id="gpay" name="payment" />
+                                    <label for="gpay">
+                                        <img src="../../../assets/images/googlepay.png" class="img-fluid" />
+                                    </label>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" class="me-2 custom-radio" id="mastercard" name="payment" />
+                                    <label for="mastercard">
+                                        <img src="../../../assets/images/mastercard.png" class="img-fluid" />
+                                    </label>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" class="me-2 custom-radio" id="bank" name="payment" />
+                                    <label class="transfer" for="bank">Bank Transfer</label>
+                                </div>
                             </div>
                         </div>
                 
                         <div class="card p-4">
-                            <h5>New Payment Method</h5>
+                            <h5 class="mb-4 text-white"><img src="../../../assets/images/dot.png" class="img-fluid ms-2"> New Payment method</h5>
                             <form>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
@@ -63,12 +81,12 @@
                                         <input type="text" id="last-name" class="form-control" placeholder="Last Name">
                                     </div>
                                 </div>
-                
+                            
                                 <div class="mb-3">
                                     <label for="country" class="form-label">Country</label>
                                     <input type="text" id="country" class="form-control" placeholder="Bangladesh">
                                 </div>
-                
+                            
                                 <div class="mb-3">
                                     <label for="credit-card" class="form-label">Credit Card Details</label>
                                     <div class="input-group">
@@ -77,8 +95,7 @@
                                         <input type="text" class="form-control" placeholder="CVV">
                                     </div>
                                 </div>
-                
-                                <button type="submit" class="btn btn-purple">Save Payment Method</button>
+                            
                             </form>
                         </div>
                     </div>

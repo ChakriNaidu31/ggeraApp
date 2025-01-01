@@ -44,9 +44,18 @@ button.btn.btn-purple > h5 {
     color: #fff;
 }
 .form-control {
-    background-color: #3a3a5c;
-    border: none;
-    color: #fff;
+    padding: 16px 20px;
+    border-radius: 8px;
+background-color: #151520;
+font-family: Manrope;
+font-size: 16px;
+font-weight: 600;
+line-height: 21.86px;
+letter-spacing: -0.01em;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: #777980;
+    border: 0;
 }
 .form-control:focus {
     box-shadow: none;
@@ -110,6 +119,7 @@ button.btn.money {
     opacity: 0px;
     background: #151520;
     color: #E9E9EA;
+    font-family: Manrope;
 }
 .hcolor {
     color: #E9E9EA;
@@ -122,4 +132,92 @@ border-color: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
 
 color: #A55DFF;
 background: #151520;
+}
+.transfer {
+    font-family: Manrope;
+font-size: 18px;
+font-weight: 700;
+letter-spacing: -0.01em;
+text-align: center;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: #A5A5AB;
+}
+.gap-65 {
+    gap: 65px;
+
+}
+
+label.form-label {
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 25.6px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #E9E9EA;
+}
+.custom-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Default unselected radio button style */
+.custom-radio:before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: auto;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for selected radio button */
+.custom-radio:checked {
+    border-color: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
+}
+
+/* Inner circle for selected radio button */
+.custom-radio:checked:before {
+    background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
+
+}.custom-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #626262;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Default unselected radio button style */
+.custom-radio:before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12.6px;
+    margin: auto;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+label > img {
+    cursor: pointer;
 }
