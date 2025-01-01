@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   sendOtp() {
-
+    // this.router.navigate(['/otp']);
     if (this.form.valid) {
       this._auth.sendOtp({ email: this.form.controls['email'].value })
         .pipe(

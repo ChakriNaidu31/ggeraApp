@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-pagenotfound',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './pagenotfound.component.css'
 })
 export class PagenotfoundComponent {
-
+  redirectToHome() {
+    window.location.href = environment.webUrl;
+  }
 }

@@ -58,18 +58,20 @@
 
           <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-3" *ngFor="let contact of selectedProUsers">
-              <div class="card hovercard mt-5 rounded" data-bs-toggle="modal" data-bs-target="#firstModal">
-                <div class="cardheader">
-                </div>
-                <div class="avatar">
-                  <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
-                    alt="Profile Image">
-                  <ng-template #noImage>
-                    <img src="../../../assets/images/nouser.png" alt="No Profile Image" class="img-fluid pro-log-img" />
-                  </ng-template>
+              <div class="card hovercard mt-5 rounded">
+                <div  (click)="openModal('firstModal')">
+                  <div class="cardheader">
+                  </div>
+                  <div class="avatar">
+                    <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
+                      alt="Profile Image">
+                    <ng-template #noImage>
+                      <img src="../../../assets/images/nouser.png" alt="No Profile Image" class="img-fluid pro-log-img" />
+                    </ng-template>
+                  </div>
                 </div>
                 <div class=" container card-body-s">
-                  <div>
+                  <div  (click)="openModal('firstModal')">
                     <div class="d-flex justify-content-between align-items-center">
                       <h3 class="text-light">
                         <span class="h1-font">{{ contact.username | truncate: 8 }}</span>
@@ -112,7 +114,7 @@
                       {{ contact.summary | truncate: 60 }}
                     </p>
                   </div>
-                  <div class=" streamLobbySlotTagsWrapper mt-3">
+                  <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openModal('firstModal')">
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Country</span>
                       <span class="fw-bold">{{contact?.region}}</span>
@@ -148,6 +150,13 @@
               </div>
             </div>
 
+
+
+            <!-- user not found -->
+        
+            <!-- <div class="text-center">
+              <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No user found</p>
+            </div> -->
           </div>
 
           <!-- modal -->

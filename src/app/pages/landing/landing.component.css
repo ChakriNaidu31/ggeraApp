@@ -8,9 +8,9 @@
 .hero-sec {
   color: #fff;
   text-align: center;
-  position: absolute;
+  position: relative;
   left: 0;
-  top: 50%;
+  top: 40%;
   width: 100%;
   text-align: center;
 
