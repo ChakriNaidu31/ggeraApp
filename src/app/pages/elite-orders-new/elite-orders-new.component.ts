@@ -7,7 +7,7 @@ import { ProUser } from 'src/app/models/pro-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-elite-orders-new',
   templateUrl: './elite-orders-new.component.html',
@@ -45,7 +45,13 @@ export class EliteOrdersNewComponent implements OnInit {
   ngOnDestroy() {
     clearInterval(this.timer);
   }
-
+  openModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
   setMetaInfo() {
     this.title.setTitle("GGera - Elite Order");
     this.meta.updateTag({

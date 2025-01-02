@@ -10,7 +10,7 @@ interface Order {
   loggedTime: string;
   completedDate: string;
 }
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-premade-completed',
   templateUrl: './premade-completed.component.html',
@@ -60,6 +60,14 @@ export class PremadeCompletedComponent implements OnInit {
     //     data: { party: { "id": partyId } }
     //   });
     // }
+  }
+
+  openModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
   }
 
   viewReviews(order: PremadeParty) {
