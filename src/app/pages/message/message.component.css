@@ -350,3 +350,6 @@ opacity: 0px;
     margin-left: -26px;
     color: #6F737A;
   }
+  textarea::placeholder {
+    color: #e6e0e0 !important;
+  }
