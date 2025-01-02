@@ -180,3 +180,45 @@ button.btn.btn-secondary {
 .bg-darks {
   background-color: #151520;
 }
+
+
+/* Modal */
+
+.modal-content {
+  border-radius: 45px;
+}
+
+.modal-card>.modal-dialog>.modal-content>.modal-body {
+  background-image: url("../../../assets/images/modal-bg.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 24px;
+}
+
+.card.modal-cards.hovercard {
+  border-radius: 0;
+  background-image: url("../../../assets/images/modal-bg-blur.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 0;
+}
+
+.modal-stream.streamLobbySlotTagsWrapper {
+  flex-flow: wrap;
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+
+
+.modal-stream {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Center align items horizontally */
+  gap: 10px;
+  /* Space between items */
+}
