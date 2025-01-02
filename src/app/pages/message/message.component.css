@@ -81,10 +81,10 @@
     background-color: #5a46d1;
   }
   .chat-messages {
-    max-height: 473px;
+    max-height: 31vh;
     overflow-y: auto;
-    padding: 30px;
-    background-color: #151520;
+    padding: 0px 30px;
+    background: #151520;
   }
   .chat-message {
     margin-bottom: 10px;
@@ -163,7 +163,7 @@
 
   }
   .text-box {
-    padding: 0px 45px 30px 30px;
+    padding: 0px 45px 25px 30px;
     background-color: #151520;
   }
   
@@ -358,8 +358,8 @@ opacity: 0px;
   }
 
   .max_he8 {
-    max-height: 500px;
-    height: 485px;
+    min-height: 32vh;
+    height: 30vh;
     overflow-y: scroll;
 }
 
@@ -401,4 +401,9 @@ input.form-control.msg {
   top: -22px;
   position: relative;
   padding: 8px;
+}
+
+.dummy {
+  height: 93px;
+  background-color: red;
 }
