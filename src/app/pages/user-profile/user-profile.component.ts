@@ -9,6 +9,11 @@ export class UserProfileComponent {
   coverImage: string = '../../../assets/images/proplayershero.svg'; // Default cover image
   profileImage: string = '../../assets/images/user.png'; // Default profile image
 
+  userData = {
+    name: 'GIO',
+    email: 'gio@gmail.com'
+  };
+
   // Cover image logic
   triggerFileUpload(): void {
     const fileInput = document.getElementById('coverImageInput') as HTMLInputElement;

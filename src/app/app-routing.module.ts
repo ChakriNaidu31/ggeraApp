@@ -47,7 +47,7 @@ const routes: Routes = [
       { path: 'transactions', component: WalletTransactionComponent },
       { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
       { path: 'coupon', component: WalletCouponComponent },
-      { path: 'event', component: EventComponent, },
+      { path: 'event', component: EventComponent },
       { path: 'user-profile', component: UserProfileComponent },
     ],
     canActivate: [clientUserGuard]
