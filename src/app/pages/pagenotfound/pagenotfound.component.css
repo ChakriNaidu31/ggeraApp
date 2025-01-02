@@ -1,25 +1,28 @@
 /* stylelint-disable @stylistic/selector-list-comma-newline-after */
 
 .body-height {
-  background-color: #000;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90vh;
-  margin: 0;
-  }
-  
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    margin: 0;
+}
+
 .error-container {
     text-align: center;
 }
+
 .error-code {
     font-size: 6rem;
     font-weight: bold;
 }
+
 .error-message {
     font-size: 1.5rem;
 }
+
 .error-description {
     font-size: 1rem;
     margin-top: 10px;

@@ -38,6 +38,7 @@ import { OtpPageComponent } from './pages/otp-page/otp-page.component';
 import { RegisterNewUserComponent } from './pages/register-new-user/register-new-user.component';
 import { WalletTransactionComponent } from './pages/wallet-transaction/wallet-transaction.component';
 import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.component';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -48,6 +49,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     LandingComponent,
     WalletTransactionComponent,
     WalletCouponComponent,
+    PagenotfoundComponent,
+    EliteOrdersCompletedComponent,
 
 
     PremadeComponent,
@@ -61,7 +64,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     PremadeCompletedComponent,
     EliteOrdersNewComponent,
     EliteOrdersInprogressComponent,
-    EliteOrdersCompletedComponent,
+    
     UserProfileComponent,
     LoginComponent,
     SocialLoginComponent,
