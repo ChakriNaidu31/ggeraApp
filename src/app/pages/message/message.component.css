@@ -407,3 +407,8 @@ padding: 8px;
 height: 93px;
 background-color: red;
 }
+
+
+textarea::placeholder {
+  color: #e1e1e1 !important;
+}
