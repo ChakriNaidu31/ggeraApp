@@ -1626,7 +1626,8 @@ button.btn.btn-choose.me-3.f-14.choosebtn {
 }
 
 .modal-card>.modal-dialog>.modal-content>.modal-body {
-  background-image: url("../../../assets/images/modal-bg.png");
+  /* background-image: url("../../../assets/images/modal-bg.png"); */
+  background: #1c1c26;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1635,7 +1636,8 @@ button.btn.btn-choose.me-3.f-14.choosebtn {
 
 .card.modal-cards.hovercard {
   border-radius: 0;
-  background-image: url("../../../assets/images/modal-bg-blur.png");
+  /* background-image: url("../../../assets/images/modal-bg-blur.png"); */
+  background: transparent;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;

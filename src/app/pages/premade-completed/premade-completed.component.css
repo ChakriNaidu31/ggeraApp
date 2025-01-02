@@ -189,7 +189,9 @@ button.btn.btn-secondary {
 }
 
 .modal-card>.modal-dialog>.modal-content>.modal-body {
-  background-image: url("../../../assets/images/modal-bg.png");
+  /* background-image: url("../../../assets/images/modal-bg.png"); */
+  /* background-image: url("../../../assets/images/modal-bg-blur.png"); */
+  background: #1c1c26;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -198,7 +200,8 @@ button.btn.btn-secondary {
 
 .card.modal-cards.hovercard {
   border-radius: 0;
-  background-image: url("../../../assets/images/modal-bg-blur.png");
+  /* background-image: url("../../../assets/images/modal-bg-blur.png"); */
+  background: transparent;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -221,4 +224,28 @@ button.btn.btn-secondary {
   /* Center align items horizontally */
   gap: 10px;
   /* Space between items */
+}
+.rating {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: .5rem;
+	font-size: 2rem;
+	color: var(--yellow);
+	margin-bottom: 2rem;
+}
+.rating .star {
+	cursor: pointer;
+}
+.rating .star.active {
+	opacity: 0;
+	animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+}
+
+textarea{
+  background-color: #212529;;
+  /* #1c1c26; */
+}
+.bg-darkk{
+  background-color: #1c1c26;
 }
