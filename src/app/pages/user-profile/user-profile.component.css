@@ -60,6 +60,7 @@ body {
     background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
     background-size: cover;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 /* Cover Image Styling */
@@ -215,4 +216,18 @@ button.btn.save {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+
+
   color: #A55EFF;}
+
+.user-data {
+  font-family: Manrope;
+font-size: 20px;
+font-weight: 600;
+line-height: 21.86px;
+letter-spacing: -0.01em;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: #777980;
+}

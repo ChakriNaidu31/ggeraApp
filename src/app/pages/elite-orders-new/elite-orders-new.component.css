@@ -1428,6 +1428,12 @@ element.style {
   left: 30px;
   margin-bottom: -95px;
 }
+.card.hovercard .avatarr {
+  position: relative;
+  top: -70px;
+  left: 30px;
+  margin-bottom: -95px;
+}
 
 .card.hovercard .avatar img {
   width: 100px;
@@ -1442,7 +1448,7 @@ element.style {
 }
 
 .card-body-s {
-  top: -32px;
+  top: 6px;
   position: relative;
   padding: 30px 23px 0 30px;
 }
