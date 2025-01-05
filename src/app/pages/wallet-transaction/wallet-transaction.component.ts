@@ -13,6 +13,7 @@ export class WalletTransactionComponent implements OnInit {
 
   p: number = 1;
   transactions: Transaction[] = [];
+  filteredTransactions: Transaction[] = [];
   visibleTransactions: Transaction[] = [];
   pageSize: number = 25;
   totalPages: number = 0;
@@ -41,7 +42,7 @@ export class WalletTransactionComponent implements OnInit {
 
     this._auth.getMyTransactions().subscribe((data) => {
       this.transactions = data?.data?.transactions;
-      this.paginateItems();
+      this.filterData();
     });
 
     this._auth.getAvailableGames().subscribe((data) => {
@@ -59,9 +60,9 @@ export class WalletTransactionComponent implements OnInit {
     if (this.form.controls['transactionType'].value === 'ALL') {
       // Do nothing
     } else if (this.form.controls['transactionType'].value === 'DEBIT') {
-      filtered = this.transactions.filter((t) => t.type === 'DEBIT');
+      filtered = filtered.filter((t) => t.type === 'DEBIT');
     } else if (this.form.controls['transactionType'].value === 'CREDIT') {
-      filtered = this.transactions.filter((t) => t.type === 'CREDIT');
+      filtered = filtered.filter((t) => t.type === 'CREDIT');
     }
 
     // Filter by game type
@@ -71,10 +72,16 @@ export class WalletTransactionComponent implements OnInit {
 
     // Filter by Date
     if (this.form.controls['transactionDate'].value !== '') {
-      filtered = filtered.filter((t) => t.modifiedDate === this.form.controls['transactionDate'].value);
+      const firstMinute: Date = new Date(this.form.controls['transactionDate'].value);
+      firstMinute.setHours(0, 0, 0);
+      const lastMinute: Date = new Date(this.form.controls['transactionDate'].value);
+      lastMinute.setHours(23, 59, 59);
+      filtered = filtered.filter((t) => new Date(t.modifiedDate).getTime() >= firstMinute.getTime() && new Date(t.modifiedDate).getTime() < lastMinute.getTime());
     }
 
-    this.paginateItems(filtered);
+    this.filteredTransactions = filtered;
+    this.p = 1;
+    this.paginateItems();
   }
 
   goToPage(page: number) {
@@ -84,16 +91,11 @@ export class WalletTransactionComponent implements OnInit {
     }
   }
 
-  paginateItems(items?: Transaction[]): void {
+  paginateItems(): void {
     const startIndex = (this.p - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    if (items) {
-      this.visibleTransactions = items.slice(startIndex, endIndex);
-      this.totalPages = Math.ceil(items.length / this.pageSize);
-    } else {
-      this.visibleTransactions = this.transactions.slice(startIndex, endIndex);
-      this.totalPages = Math.ceil(this.transactions.length / this.pageSize);
-    }
+    this.visibleTransactions = this.filteredTransactions.slice(startIndex, endIndex);
+    this.totalPages = Math.ceil(this.filteredTransactions.length / this.pageSize);
   }
 
   getPageRange(): number[] {

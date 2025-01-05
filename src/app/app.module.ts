@@ -40,6 +40,7 @@ import { WalletTransactionComponent } from './pages/wallet-transaction/wallet-tr
 import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { WalletAddmoneyComponent } from './pages/wallet-addmoney/wallet-addmoney.component';
+import { MessageComponent } from './pages/message/message.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -50,10 +51,11 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     LandingComponent,
     WalletTransactionComponent,
     WalletCouponComponent,
+    WalletAddmoneyComponent,
+    MessageComponent,
     PagenotfoundComponent,
     EliteOrdersCompletedComponent,
 
-WalletAddmoneyComponent,
     PremadeComponent,
     CardsComponent,
     SessionLadingComponent,
@@ -65,7 +67,7 @@ WalletAddmoneyComponent,
     PremadeCompletedComponent,
     EliteOrdersNewComponent,
     EliteOrdersInprogressComponent,
-    
+
     UserProfileComponent,
     LoginComponent,
     SocialLoginComponent,

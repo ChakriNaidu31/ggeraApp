@@ -157,38 +157,42 @@ p {
 /* popup content */
 
 .hero-bg {
-  background-image: 
- 
-  url("/assets/images/proplayershero.svg");    
+  background-image:
+
+    url("/assets/images/proplayershero.svg");
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .card-outer {
   /* padding: 20px; */
   margin: 0 auto;
 }
 
-.card { 
+.card {
   background: #151520;
   border: none;
   border-radius: 15px;
 }
+
 .card-title {
   color: #fff;
-font-size: 24px;
-font-weight: 400;
-line-height: 22.8px;
-text-underline-position: from-font;
-text-decoration-skip-ink: none;
-margin-top: 3.5rem !important;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 22.8px;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-top: 3.5rem !important;
 }
+
 .card-header {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   color: #fff;
 }
+
 .profile-img {
   width: 100px;
   height: 100px;
@@ -196,39 +200,46 @@ margin-top: 3.5rem !important;
   border: 3px solid #6a0dad;
   margin: 0 auto;
 }
+
 .icon-badge {
   color: #6a0dad;
   font-size: 1.2rem;
 }
-.session > .info-row:first-child {
+
+.session>.info-row:first-child {
   background-color: red;
 }
-.session > .info-row:first-child {
+
+.session>.info-row:first-child {
   background-color: yellow;
 }
+
 .info-row {
   display: flex;
-      justify-content: space-between;
-      padding: 12px;
-      font-size: 12px;
-      background: #1c1c26;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 13px;
+  justify-content: space-between;
+  padding: 12px;
+  font-size: 12px;
+  background: #1c1c26;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 13px;
 }
+
 .info-row:last-child {
   border-bottom: none;
 }
+
 .info-row span:first-child {
   color: #D2D2D5;
   font-weight: 500;
 }
+
 .info-row span:last-child {
   color: #A55EFF;
   font-weight: 500;
 }
 
-.card-body > .avatar > img {
+.card-body>.avatar>img {
   width: 100px;
   height: 100px;
   max-width: 100px;
@@ -242,16 +253,19 @@ margin-top: 3.5rem !important;
   border: 3px solid #7a06d1;
   object-fit: cover;
 }
+
 .info-rows {
   background: #1c1c26;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 13px;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 13px;
   font-size: 16px;
 }
+
 .bg-sec {
   background-color: #1C1C26 !important;
 }
+
 .bg-trd {
   background-color: #2B2B3B !important;
 }
@@ -269,15 +283,17 @@ button.btn.btn-purple {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  
+
   width: 212px;
   color: #FFFFFF;
   border: 0;
 }
-button.btn.btn-purple > h5 {
+
+button.btn.btn-purple>h5 {
   font-size: 14px;
   margin-bottom: 0;
 }
+
 .btn-purple:hover {
   background-color: #5a4dbe;
 }

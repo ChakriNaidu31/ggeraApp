@@ -14,7 +14,7 @@ export interface EliteOrder {
     inProgressProUsers: EliteOrderProUser[];
     completedProUsers: EliteOrderProUser[];
     availableSlots: number;
-    
+
     status: string;
     ongoingTime: number;
     modifiedDate: Date;

@@ -45,6 +45,7 @@ export class ProPlayersComponent implements OnInit {
   timer: any;
   proUsers: ProUser[] = [];
   selectedProUsers: ProUser[] = [];
+  games: any[] = [];
 
   constructor(
     private router: Router,
@@ -57,16 +58,17 @@ export class ProPlayersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.game = {
-      id: this._auth.getChosenGameFromSession(),
-      name: this._auth.getChosenGameNameFromSession(),
-    }
     this.form = this.fb.group({
       type: ['ALL'],
-      gameId: [this._auth.getChosenGameFromSession()],
+      gameId: [''],
       typePs: [false],
       typeXbox: [false],
       typePc: [false]
+    });
+    this._auth.getAvailableGames().subscribe((data) => {
+      if (data?.data?.games) {
+        this.games = data.data.games;
+      }
     });
     this.getData();
     this.timer = setInterval(() => {

@@ -1,145 +1,138 @@
-<div class="rounded text-body-emphasis bg-body-secondary">
-    <div class="col-lg-12 col-xs-12">
-        <div class="hero-bg">
-            <div class="container">
+<app-header></app-header>
+<main class="body-height">
+    <div class="rounded text-body-emphasis bg-body-secondary">
+        <div class="col-lg-12 col-xs-12">
+            <div class="hero-bg">
+                <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
+                    <div class="px-5 mx-5">
+                        <div class="px-5">
+                            <h1 class="text-start mb-5 text-white mt-5">Add Money to your Wallet</h1>
 
-            </div>
-            <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
-                <div class="px-5 mx-5">
-                    <div class="px-5">
-                        <h1 class="text-start mb-5 text-white mt-5">Add Money to your Wallet</h1>
+                            <div class="card p-5 mb-4 ">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h5 class="tb">Total Balance</h5>
+                                        <h2 class="h1-font mt-3"><span class="dollar">$ </span>{{walletBalance}}</h2>
+                                    </div>
 
-                        <div class="card p-5 mb-4 ">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h5 class="tb">Total Balance</h5>
-                                    <h2 class="h1-font mt-3"><span class="dollar">$</span>1,500.00</h2>
+                                    <button class="btn tb" routerLink="/client/transactions">See Transactions</button>
                                 </div>
-
-                                <button class="btn tb" routerLink="/client/transactions">See Transactions</button>
                             </div>
 
-                        </div>
-
-                        <div class="my-5">
-                            <h5 class="hcolor">Add money to your wallet</h5>
-                            <div class="d-flex gap-3 my-4">
-                                <button class="btn money"
-                                    [ngClass]="{ active: selectedAmount === 50 && !isCustomInput }"
-                                    (click)="selectAmount(50)">
-                                    $ 50.00
-                                </button>
-                                <button class="btn money"
-                                    [ngClass]="{ active: selectedAmount === 100 && !isCustomInput }"
-                                    (click)="selectAmount(100)">
-                                    $ 100.00
-                                </button>
-                                <button class="btn money"
-                                    [ngClass]="{ active: selectedAmount === 500 && !isCustomInput }"
-                                    (click)="selectAmount(500)">
-                                    $ 500.00
-                                </button>
-
-                                <ng-container *ngIf="!isCustomInput">
-                                    <button class="btn money custom" (click)="enableCustomInput()">
-                                        Custom
+                            <div class="my-5">
+                                <h5 class="hcolor">Add money to your wallet</h5>
+                                <div class="d-flex gap-3 my-4">
+                                    <button class="btn money"
+                                        [ngClass]="{ active: selectedAmount === '50' && !isCustomInput }"
+                                        (click)="selectAmount('50')">
+                                        $ 50.00
                                     </button>
-                                </ng-container>
+                                    <button class="btn money"
+                                        [ngClass]="{ active: selectedAmount === '100' && !isCustomInput }"
+                                        (click)="selectAmount('100')">
+                                        $ 100.00
+                                    </button>
+                                    <button class="btn money"
+                                        [ngClass]="{ active: selectedAmount === '500' && !isCustomInput }"
+                                        (click)="selectAmount('500')">
+                                        $ 500.00
+                                    </button>
 
-                                <ng-container *ngIf="isCustomInput">
-                                    <input type="text" [(ngModel)]="formattedAmount"
-                                        class="form-control enter_money active" [ngClass]="{ active: isCustomInput }"
-                                        placeholder="Enter amount" (keyup.enter)="addMoney()"
-                                        (ngModelChange)="onAmountChange($event)" />
-                                </ng-container>
+                                    <ng-container *ngIf="!isCustomInput">
+                                        <button class="btn money custom" (click)="enableCustomInput()">
+                                            Custom
+                                        </button>
+                                    </ng-container>
 
-                                <button class="btn btn-purple" (click)="addMoney()">
-                                    <h5>ADD MONEY</h5>
-                                </button>
-                            </div>
-                        </div>
+                                    <ng-container *ngIf="isCustomInput">
+                                        <input type="text" [formControl]="customAmtControl"
+                                            class="form-control enter_money active"
+                                            [ngClass]="{ active: isCustomInput }" placeholder="Enter amount"
+                                            (keyup.enter)="initializePayment()" />
+                                    </ng-container>
 
-                        <div class="card p-4 my-5">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <input type="radio" class="me-2 custom-radio" id="paypal" name="payment" />
-                                    <label for="paypal">
-                                        <img src="../../../assets/images/paypal.png" class="img-fluid" />
-                                    </label>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <input type="radio" class="me-2 custom-radio" id="payoneer" name="payment" />
-                                    <label for="payoneer">
-                                        <img src="../../../assets/images/payoneer.png" class="img-fluid" />
-                                    </label>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <input type="radio" class="me-2 custom-radio" id="gpay" name="payment" />
-                                    <label for="gpay">
-                                        <img src="../../../assets/images/googlepay.png" class="img-fluid" />
-                                    </label>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <input type="radio" class="me-2 custom-radio" id="mastercard" name="payment" />
-                                    <label for="mastercard">
-                                        <img src="../../../assets/images/mastercard.png" class="img-fluid" />
-                                    </label>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <input type="radio" class="me-2 custom-radio" id="bank" name="payment" />
-                                    <label class="transfer" for="bank">Bank Transfer</label>
+                                    <button class="btn btn-purple" (click)="initializePayment()">
+                                        <h5>ADD MONEY</h5>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card p-4">
-                            <h5 class="mb-4 text-white"><img src="../../../assets/images/dot.png"
-                                    class="img-fluid ms-2"> New Payment method</h5>
-                            <form>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="first-name" class="form-label">First Name</label>
-                                        <input type="text" id="first-name" class="form-control"
-                                            placeholder="First Name">
+                            <!-- <div class="card p-4 my-5">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <input type="radio" class="me-2 custom-radio" id="paypal" name="payment" />
+                                        <label for="paypal">
+                                            <img src="../../../assets/images/paypal.png" class="img-fluid" />
+                                        </label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="last-name" class="form-label">Last Name</label>
-                                        <input type="text" id="last-name" class="form-control" placeholder="Last Name">
+                                    <div class="d-flex align-items-center">
+                                        <input type="radio" class="me-2 custom-radio" id="payoneer" name="payment" />
+                                        <label for="payoneer">
+                                            <img src="../../../assets/images/payoneer.png" class="img-fluid" />
+                                        </label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input type="radio" class="me-2 custom-radio" id="gpay" name="payment" />
+                                        <label for="gpay">
+                                            <img src="../../../assets/images/googlepay.png" class="img-fluid" />
+                                        </label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input type="radio" class="me-2 custom-radio" id="mastercard" name="payment" />
+                                        <label for="mastercard">
+                                            <img src="../../../assets/images/mastercard.png" class="img-fluid" />
+                                        </label>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input type="radio" class="me-2 custom-radio" id="bank" name="payment" />
+                                        <label class="transfer" for="bank">Bank Transfer</label>
                                     </div>
                                 </div>
+                            </div> -->
 
-                                <div class="mb-3">
-                                    <label for="country" class="form-label">Country</label>
-                                    <input type="text" id="country" class="form-control" placeholder="Bangladesh">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="credit-card" class="form-label">Credit Card Details</label>
-                                    <div class="input-group">
-                                        <input type="text" id="credit-card" class="form-control" 
-                                               placeholder="1234 5678 9123" 
-                                               pattern="\d{4} \d{4} \d{4} \d{4}" 
-                                               maxlength="12" 
-                                               required>
-
-                                        <input type="text" class="form-control" 
-                                               placeholder="MM/YY" 
-                                               pattern="(0[1-9]|1[0-2])\/[0-9]{2}" 
-                                               maxlength="4" 
-                                               required>
-                                    
-                                        <input type="text" class="form-control" 
-                                               placeholder="CVV" 
-                                               pattern="\d{3}" 
-                                               maxlength="3" 
-                                               required>
+                            <!-- <div class="card p-4">
+                                <h5 class="mb-4 text-white"><img src="../../../assets/images/dot.png"
+                                        class="img-fluid ms-2"> New Payment method</h5>
+                                <form>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="first-name" class="form-label">First Name</label>
+                                            <input type="text" id="first-name" class="form-control"
+                                                placeholder="First Name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="last-name" class="form-label">Last Name</label>
+                                            <input type="text" id="last-name" class="form-control"
+                                                placeholder="Last Name">
+                                        </div>
                                     </div>
-                                    
-                                </div>
-                            </form>
+
+                                    <div class="mb-3">
+                                        <label for="country" class="form-label">Country</label>
+                                        <input type="text" id="country" class="form-control" placeholder="Bangladesh">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="credit-card" class="form-label">Credit Card Details</label>
+                                        <div class="input-group">
+                                            <input type="text" id="credit-card" class="form-control"
+                                                placeholder="1234 5678 9123" pattern="\d{4} \d{4} \d{4} \d{4}"
+                                                maxlength="12" required>
+
+                                            <input type="text" class="form-control" placeholder="MM/YY"
+                                                pattern="(0[1-9]|1[0-2])\/[0-9]{2}" maxlength="4" required>
+
+                                            <input type="text" class="form-control" placeholder="CVV" pattern="\d{3}"
+                                                maxlength="3" required>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</main>

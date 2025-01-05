@@ -22,20 +22,16 @@
                   </div>
 
                   <div class="me-2">
-                    <select class="form-select custom-select" aria-label="Select option" formControlName="game" (change)="filterData()">
-                      <option value="">All</option>
+                    <select class="form-select custom-select" aria-label="Select option" formControlName="game"
+                      (change)="filterData()">
+                      <option value="">All Games</option>
                       <option *ngFor="let game of games" value="{{game.id}}">{{game.title}}</option>
                     </select>
                   </div>
 
-                  <!-- Select 2 -->
-                  <!-- <div class="me-2">
-                <select class="form-select custom-select" aria-label="Select option" formControlName="transactionDate">
-                  <option selected>Date</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                </select>
-              </div> -->
+                  <div class="me-2">
+                    <input type="date" class="form-control" formControlName="transactionDate" (change)="filterData()" />
+                  </div>
                 </div>
               </form>
 

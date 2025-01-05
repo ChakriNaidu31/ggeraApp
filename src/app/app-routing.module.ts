@@ -30,6 +30,8 @@ const routes: Routes = [
   { path: 'otp', component: OtpPageComponent },
   { path: 'social', component: SocialLoginComponent },
   { path: 'register', component: RegisterNewUserComponent },
+  { path: 'pricing/success', component: WalletAddmoneyComponent, data: { type: 'success' } },
+  { path: 'pricing/failure', component: WalletAddmoneyComponent, data: { type: 'failure' } },
 
   {
     path: 'client', children: [
@@ -41,11 +43,11 @@ const routes: Routes = [
       { path: 'premade-progress', component: PremadeInprogressComponent, canActivate: [chooseGameGuard] },
       { path: 'premade-completed', component: PremadeCompletedComponent, canActivate: [chooseGameGuard] },
       { path: 'elite-order-new', component: EliteOrdersNewComponent, canActivate: [chooseGameGuard] },
-      { path: 'elite-order-inprogress', component: EliteOrdersInprogressComponent, canActivate: [chooseGameGuard]  },
-      { path: 'elite-order-completed', component: EliteOrdersCompletedComponent, canActivate: [chooseGameGuard]  },
-      { path: 'message', component: MessageComponent, canActivate: [chooseGameGuard]  },
+      { path: 'elite-order-inprogress', component: EliteOrdersInprogressComponent, canActivate: [chooseGameGuard] },
+      { path: 'elite-order-completed', component: EliteOrdersCompletedComponent, canActivate: [chooseGameGuard] },
+      { path: 'message', component: MessageComponent, canActivate: [chooseGameGuard] },
       { path: 'transactions', component: WalletTransactionComponent },
-      { path: 'wallet-addmoney', component: WalletAddmoneyComponent },
+      { path: 'pricing', component: WalletAddmoneyComponent },
       { path: 'coupon', component: WalletCouponComponent },
       { path: 'event', component: EventComponent, canActivate: [chooseGameGuard] },
       { path: 'user-profile', component: UserProfileComponent },
