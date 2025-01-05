@@ -28,7 +28,7 @@ export class SessionLadingComponent implements OnInit {
         items: 3
       },
       940: {
-        items: 5
+        items: 4
       }
     },
     nav: true

@@ -30,7 +30,7 @@
                   </div>
 
                   <div class="me-2">
-                    <input type="date" class="form-control" formControlName="transactionDate" (change)="filterData()" />
+                    <input type="date" class="form-control date" formControlName="transactionDate" (change)="filterData()" />
                   </div>
                 </div>
               </form>
@@ -57,13 +57,13 @@
                 <tbody class="text-center">
                   <ng-container *ngIf="visibleTransactions && visibleTransactions.length > 0; else noItemsFound">
                     <tr *ngFor="let tran of visibleTransactions">
-                      <td>{{ tran.modifiedDate | date: 'dd/MM/yyyy HH:mm'}}</td>
-                      <td>{{ tran.orderId }}</td>
-                      <td>{{ tran.description | truncate: 30}}</td>
+                      <td class="red-letter">{{ tran.modifiedDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+                      <td class="red-letter">{{ tran.orderId }}</td>
+                      <td class="red-letter">{{ tran.description | truncate: 30}}</td>
                       <td>{{ tran.type }}</td>
-                      <td align="right">${{ tran?.amount }}</td>
-                      <td align="right">${{ tran?.previousBalance }}</td>
-                      <td align="right">${{ tran?.currentBalance }}</td>
+                      <td class="red-letter" align="right">${{ tran?.amount }}</td>
+                      <td class="red-letter" align="right">${{ tran?.previousBalance }}</td>
+                      <td class="red-letter" align="right">${{ tran?.currentBalance }}</td>
                     </tr>
                   </ng-container>
                   <ng-template #noItemsFound>
