@@ -175,6 +175,10 @@ button.btn.btn-secondary {
   border-radius: 8px;
 }
 
+input {
+  color-scheme: dark;
+}
+
 .pagination-container .page-numbers {
   font-weight: 400;
   color: #fff;
@@ -182,4 +186,24 @@ button.btn.btn-secondary {
 
 .bg-darks {
   background-color: #151520;
+}
+thead th {
+  color: #8F8F95 !important;
+}
+.date {
+  background-color: #1F1F2A;
+  color: white;
+  border: 0;
+  padding: 7px 12px;
+}
+td.red-letter {
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 21.86px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #A55DFF !important;
 }
