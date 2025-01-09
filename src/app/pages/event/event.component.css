@@ -21,6 +21,16 @@
   .event-card img {
     border-radius: 0;
   }
+  .tag-event{
+    position: absolute;
+    bottom: 36px;
+    right: 38%;
+}
+.tag-event2{
+  position: absolute;
+    bottom: 40%;
+}
+  
   .profile {
     display: flex;
     align-items: center;
@@ -78,11 +88,27 @@ text-underline-position: from-font;
 text-decoration-skip-ink: none;
 color: #A5A5AB;
   }
+
+  .date {
+    background-color: #1F1F2A;
+    color: white;
+    border: 0;
+    padding: 7px 12px;
+  }
+  input {
+    color-scheme: dark;
+  }
+  
   .ps {
     position: relative;
     bottom: -68px;
+    border-top: 1px solid #373535;
+    padding-top: 9px;
   }
-
+  .ps2 {
+    border-top: 1px solid #373535;
+    padding-top: 9px;
+  }
   .bg-darks {
     background-color: #151520;
 }
