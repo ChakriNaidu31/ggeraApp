@@ -21,7 +21,8 @@
 
                   <!-- Select 2 -->
                   <div class="me-2">
-                    <select class="form-select custom-select" aria-label="Select option" formControlName="gameId" (change)="getData()">
+                    <select class="form-select custom-select" aria-label="Select option" formControlName="gameId"
+                      (change)="getData()">
                       <option value="">All Games</option>
                       <option *ngFor="let game of games" value="{{game.id}}">{{game.title}}</option>
                     </select>
@@ -60,7 +61,7 @@
           <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-3" *ngFor="let contact of selectedProUsers">
               <div class="card hovercard mt-5 rounded">
-                <div (click)="openModal('firstModal')">
+                <div (click)="openUserProfile(contact)">
                   <div class="cardheader">
                   </div>
                   <div class="avatar">
@@ -73,7 +74,7 @@
                   </div>
                 </div>
                 <div class=" container card-body-s">
-                  <div (click)="openModal('firstModal')">
+                  <div (click)="openUserProfile(contact)">
                     <div class="d-flex justify-content-between align-items-center">
                       <h3 class="text-light">
                         <span class="h1-font">{{ contact.username | truncate: 8 }}</span>
@@ -116,7 +117,7 @@
                       {{ contact.summary | truncate: 60 }}
                     </p>
                   </div>
-                  <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openModal('firstModal')">
+                  <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openUserProfile(contact)">
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Country</span>
                       <span class="fw-bold">{{contact?.region}}</span>
@@ -143,7 +144,8 @@
                   </div>
 
                   <div class="session-text mt-4">
-                    <button type="button" class="btn btn-primary-gg p-3  w-100" (click)="openModal('secondModal')">
+                    <button type="button" class="btn btn-primary-gg p-3  w-100"
+                      (click)="openMatchWithPro(contact)">
                       <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png"
                           class="ms-2 mb-1 img-fluid" /></h5>
                     </button>
@@ -155,14 +157,12 @@
 
 
             <!-- user not found -->
-
-            <!-- <div class="text-center">
-              <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No user found</p>
-            </div> -->
+            <div class="text-center" *ngIf="!selectedProUsers || selectedProUsers.length === 0">
+              <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No players found</p>
+            </div>
           </div>
 
           <!-- modal -->
-
           <div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -170,58 +170,78 @@
 
                 <div class="modal-body p-5">
                   <div>
-                    <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#firstModal">
+                    <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#firstModal"
+                      *ngIf="selectedProUserForMatch">
 
                       <div class="text-center mt-3">
-                        <img alt="" src="/assets/images/user.png">
+                        <img *ngIf="selectedProUserForMatch?.profileImageUrl; else noUserImage"
+                          [src]="selectedProUserForMatch.profileImageUrl" alt="Profile Image" class="profile-image">
+                        <ng-template #noUserImage>
+                          <img src="../../../assets/images/nouser.png" alt="No Profile Image"
+                            class="img-fluid pro-log-img" />
+                        </ng-template>
                       </div>
                       <div class="onli">
-                        <span class="me-2 text-white">Online </span><img src="../../../assets/images/online.png"
-                          class="img-fluid mb-1" />
+                        <span class="me-2 text-white">{{selectedProUserForMatch.currentStatus}} </span>
+                        <img src="../../../assets/images/online.png" class="img-fluid mb-1"
+                          style="width: 15px; width: 15px;"
+                          *ngIf="selectedProUserForMatch?.currentStatus === 'ONLINE'" />
+                        <img src="../../../assets/images/offline.png" class="img-fluid mb-1"
+                          style="width: 15px; width: 15px;"
+                          *ngIf="selectedProUserForMatch?.currentStatus === 'OFFLINE'" />
+                        <img src="../../../assets/images/busy.png" class="img-fluid mb-1"
+                          style="width: 15px; width: 15px;"
+                          *ngIf="selectedProUserForMatch?.currentStatus === 'BOOKED' || selectedProUserForMatch?.currentStatus === 'BUSY'" />
                       </div>
                       <h3 class="text-light text-center mt-3">
-                        Adam
+                        {{ selectedProUserForMatch.username | truncate: 8 }}
                       </h3>
 
                       <div class=" container card-body-s">
                         <div>
                           <p class="text-color-light text-center mt-2">
-                            I'm in the top 50 players in the world / Caldera Trios
-                            World.
+                            {{ selectedProUserForMatch.summary | truncate: 60 }}
                           </p>
                         </div>
                         <div class=" modal-stream streamLobbySlotTagsWrapper mt-3 text-center px-4">
                           <div class="streamLobbySlotTag p-2">
                             <span class="red-letter me-2">Win Ratio</span>
-                            <span class="fw-bold"> 18.65</span>
+                            <span class="fw-bold">{{ selectedProUserForMatch.winRatio ?
+                              selectedProUserForMatch.winRatio : '0' }}</span>
                           </div>
                           <div class="streamLobbySlotTag p-2 ">
-                            <span class="red-letter me-2">5.41</span>
-                            <span class="fw-bold">KD</span>
+                            <span class="red-letter me-2">KD</span>
+                            <span class="fw-bold">{{ selectedProUserForMatch.kd ? selectedProUserForMatch.kd : '0'
+                              }}</span>
                           </div>
                           <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">Kill</span>
-                            <span class="fw-bold">65219</span>
+                            <span class="red-letter me-2">Kills</span>
+                            <span class="fw-bold">{{selectedProUserForMatch.kills ? selectedProUserForMatch.kills :
+                              '0'}}</span>
                           </div>
                           <div class="streamLobbySlotTag p-2 ">
                             <span class="red-letter me-2">Wins</span>
-                            <span class="fw-bold">KD</span>
+                            <span class="fw-bold">{{selectedProUserForMatch.wins ? selectedProUserForMatch.wins :
+                              '0'}}</span>
+                          </div>
+                          <div class="streamLobbySlotTag p-2">
+                            <span class="red-letter me-2">Country</span>
+                            <span class="fw-bold"> {{selectedProUserForMatch.region}}</span>
                           </div>
                           <div class="streamLobbySlotTag p-2">
                             <span class="red-letter me-2">Platform</span>
-                            <span class="fw-bold"> 1782</span>
+                            <span class="fw-bold"> {{selectedProUserForMatch.platform}}</span>
                           </div>
                           <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">Platform</span>
-                            <span class="fw-bold"> PC</span>
-                          </div>
-                          <div class="streamLobbySlotTag p-2">
-                            <span class="red-letter me-2">0</span>
-                            <span class="fw-bold">Order <span>0</span> ⭐ <span>0.0</span></span>
+                            <span class="red-letter me-2">Orders</span>
+                            <span class="fw-bold"><span>{{ selectedProUserForMatch.orderCount }}</span> ⭐
+                              <span>{{
+                                selectedProUserForMatch.rating}}</span></span>
                           </div>
                         </div>
                         <div class="session-text my-auto mb-4 pb-4 mt-4">
-                          <button type="button" class="btn btn-primary-gg p-3" (click)="openModal('secondModal')">
+                          <button type="button" class="btn btn-primary-gg p-3"
+                            (click)="openMatchWithPro()">
                             <h5 class="pe-4 px-4 mb-0 f-14">Play with This Pro <img
                                 src="../../../assets/images/joystick.png" class="ms-2 mb-1 img-fluid" /></h5>
                           </button>
@@ -251,12 +271,14 @@
                         <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
                           <h5 class="text-white">
                             <img src="../../../assets/images/clock.png" class="img-fluid me-1">
-                            for Adam to accept <br> your <span class="h1-font">1-1</span> session request
+                            for {{selectedProUserForMatch ? (selectedProUserForMatch.username | truncate: 8) : ''}} to
+                            accept <br> your <span class="h1-font">1-1</span> session
+                            request
                           </h5>
                         </div>
 
                         <div class="session-text my-auto mb-4 pb-4 mt-4">
-                          <button type="button" class="btn btn-outline-light p-3" (click)="closeModal('firstModal')">
+                          <button type="button" class="btn btn-outline-light p-3" (click)="cancelMatchRequest(order.requestedTo)">
                             <h5 class="pe-4 px-4 mb-0 f-14">CANCEL REQUEST</h5>
                           </button>
                         </div>

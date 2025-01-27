@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { NotificationTypes } from 'src/app/models/notification-types';
 import { ProUser } from 'src/app/models/pro-user';
+import { SingleOrder } from 'src/app/models/single-order';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
@@ -46,6 +47,12 @@ export class ProPlayersComponent implements OnInit {
   proUsers: ProUser[] = [];
   selectedProUsers: ProUser[] = [];
   games: any[] = [];
+  selectedProUserForMatch: ProUser;
+
+  waitingTimer: any;
+  order: SingleOrder;
+  waitingTimeCalculatedInSeconds = 60;
+  waitingTimeInSeconds = 60;
 
   constructor(
     private router: Router,
@@ -78,6 +85,7 @@ export class ProPlayersComponent implements OnInit {
 
   ngOnDestroy() {
     clearInterval(this.timer);
+    clearInterval(this.waitingTimer);
   }
 
   setMetaInfo(category: string) {
@@ -176,8 +184,7 @@ export class ProPlayersComponent implements OnInit {
       currentPro?.rating === oldPro?.rating
   }
 
-  matchWithPro(id: string | undefined, currentStatus: string | undefined, event: any) {
-    event.stopPropagation();
+  matchWithPro(id: string | undefined, currentStatus: string | undefined) {
     if (currentStatus !== 'ONLINE') {
       this.toaster.showError('You can only request to PRO players available Online', '', {
         duration: 10000
@@ -219,6 +226,7 @@ export class ProPlayersComponent implements OnInit {
                   email: this._auth.getEmailFromSession()
                 }
                 this._chatService.notifyServer(request);
+                this.preparePendingOrder();
               } else {
                 this.toaster.showError('Match request could not be sent at this time. Please try again later', '', {
                   duration: 10000
@@ -230,12 +238,75 @@ export class ProPlayersComponent implements OnInit {
 
   }
 
-  openModal(modalId: string): void {
+  preparePendingOrder() {
+    const modalId = 'secondModal';
     const modalElement = document.getElementById(modalId);
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
       modalInstance.show();
     }
+    this._auth.pendingMyOrders().subscribe((data) => {
+      if (data?.data?.orders && data?.data?.orders?.length > 0) {
+        this.order = data?.data?.orders[0];
+        this.waitingTimer = this.startTimer();
+      }
+    });
+  }
+
+  cancelMatchRequest(requestedTo: string | undefined) {
+    this._auth.cancelMatchRequest(requestedTo).pipe(
+      catchError((error: any) => {
+        this.toaster.showError(error.error?.meta?.message, '', {
+          duration: 10000
+        });
+        return '';
+      }))
+      .subscribe((data) => {
+        if (data?.data) {
+          this.toaster.showSuccess('Match request cancelled! Your orders will be updated soon', '', {
+            duration: 3000
+          });
+          clearInterval(this.waitingTimer);
+          this.waitingTimeCalculatedInSeconds = 0;
+          this.closeModal('secondModal');
+        } else {
+          this.toaster.showError('Could not cancel at this time. This order is either accepted or cancelled already', '', {
+            duration: 10000
+          });
+        }
+      });
+  }
+
+  startTimer() {
+    return setInterval(() => {
+      const waitingTimeInMillis = new Date().getTime() - new Date(this.order?.requestedDate).getTime();
+      if (waitingTimeInMillis > 0 && this.order?.status === 'PENDING') {
+        this.waitingTimeCalculatedInSeconds = this.waitingTimeInSeconds - (waitingTimeInMillis / 1000);
+        this.waitingTimeCalculatedInSeconds = this.waitingTimeCalculatedInSeconds < 0 ? 0 : this.waitingTimeCalculatedInSeconds;
+        if (this.waitingTimeCalculatedInSeconds === 0) {
+          this.cancelMatchRequest(this.order?.requestedTo);
+        }
+      }
+    }, 1000)
+
+  }
+
+  openUserProfile(selectedUser: ProUser): void {
+    const modalId = 'firstModal';
+    this.selectedProUserForMatch = selectedUser;
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
+
+  openMatchWithPro(selectedUser?: ProUser) {
+    if (selectedUser) {
+      this.selectedProUserForMatch = selectedUser;
+    }
+    this.matchWithPro(this.selectedProUserForMatch.id, this.selectedProUserForMatch.currentStatus);
+
   }
 
   // Function to close a modal

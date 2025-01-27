@@ -2103,7 +2103,7 @@ element.style {
   margin-bottom: -50px;
 }
 
-.card.hovercard .avatar img {
+.card.hovercard .avatar img, .card.hovercard img.profile-image {
   width: 100px;
   height: 100px;
   max-width: 100px;
