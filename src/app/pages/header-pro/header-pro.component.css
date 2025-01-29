@@ -1,0 +1,125 @@
+.navbar {
+    font-family: Manrope;
+}
+
+.header-end {
+    justify-content: end;
+    display: flex;
+    align-items: center;
+}
+
+button.btn.btn-primary-gg.money {
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 21.86px;
+    letter-spacing: -0.01em;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+a.nav-link.text-color.me-3:hover {
+    color: #fff;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    color: #fff;
+}
+
+.m-b-3 {
+    margin-bottom: 3px;
+}
+
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    border: none !important;
+
+}
+
+.navbar-nav,
+.navbar-nav .nav-link.show {
+    color: #A5A5AB;
+}
+
+.dropdown-toggle.nav-link.text-color.me-3.cursor-pointer {
+    cursor: pointer;
+}
+
+.notification-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.badge {
+    font-size: 10px;
+    padding: 4px;
+    position: absolute;
+    top: 3px !important;
+    right: -6px !important;
+    background: linear-gradient(217deg, #41067A, #7A06D1);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+li.notification-item.d-flex.mb-3:hover {
+    background-color: #41067A;
+    padding: 10px 15px;
+}
+
+.bell-icon {
+    display: block;
+    vertical-align: middle;
+}
+
+.dropdown-menu.notiy {
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #2a2a2a;
+    border: none;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+
+.avatar {
+    width: 40px;
+    height: 32px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.text-secondary {
+    color: #b5b5b5;
+    font-size: 12px;
+}
+
+.dropdown-divider {
+    border-color: #4b4b4b;
+}

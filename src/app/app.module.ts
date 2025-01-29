@@ -41,6 +41,14 @@ import { WalletCouponComponent } from './pages/wallet-coupon/wallet-coupon.compo
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { WalletAddmoneyComponent } from './pages/wallet-addmoney/wallet-addmoney.component';
 import { MessageComponent } from './pages/message/message.component';
+import { WithdrawMoneyComponent } from './pages/withdraw-money/withdraw-money.component';
+import { EliteOrderRequestComponent } from './pages/elite-order-request/elite-order-request.component';
+import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
+import { PremadeInprogressProComponent } from './pages/premade-inprogress-pro/premade-inprogress-pro.component';
+import { OrderRequestsComponent } from './pages/order-requests/order-requests.component';
+import { NewPremadeComponent } from './pages/new-premade/new-premade.component';
+import { HeaderProComponent } from './pages/header-pro/header-pro.component';
+import { BankDetailsComponent } from './pages/bank-details/bank-details.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -73,6 +81,14 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     SocialLoginComponent,
     OtpPageComponent,
     RegisterNewUserComponent,
+    WithdrawMoneyComponent,
+    EliteOrderRequestComponent,
+    PremadeCompletedProComponent,
+    PremadeInprogressProComponent,
+    OrderRequestsComponent,
+    NewPremadeComponent,
+    HeaderProComponent,
+    BankDetailsComponent,
     TruncatePipe
   ],
   imports: [

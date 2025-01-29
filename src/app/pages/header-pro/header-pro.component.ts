@@ -7,11 +7,11 @@ import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-header-pro',
+  templateUrl: './header-pro.component.html',
+  styleUrl: './header-pro.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderProComponent implements OnInit {
 
   walletBalance: string = "0.00";
   profileImageUrl: string = 'assets/images/nouser.png';
@@ -59,6 +59,10 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  redirectToDiscord() {
+    window.open("https://discord.gg/M6zjgFpXkN", "_blank");
+  }
+
   navigateUser(linkFromNotification: string, notificationId: string) {
     if (linkFromNotification) {
       this._auth.markSingleNotificationAsRead(notificationId).pipe(
@@ -92,10 +96,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  redirectToDiscord() {
-    window.open("https://discord.gg/M6zjgFpXkN", "_blank");
-  }
-
   markAllAsRead() {
     this._auth.markAllNotificationsAsRead().pipe(
       catchError((error: any) => {
@@ -118,21 +118,21 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  navigateToPricing() {
-    this._router.navigate(['/client/pricing']);
-  }
-
   logout() {
     this._auth.logoutUser().subscribe((data) => {
       if (data?.data) {
         this._auth.clearSessionToken();
-        this._router.navigate(['/index']);
+        this._router.navigate(['/']);
       }
     });
   }
 
   updateProfile() {
     this._router.navigate(['/user-profile']);
+  }
+
+  updateBankDetails() {
+    this._router.navigate(['/pro/bank-details']);
   }
 
 }

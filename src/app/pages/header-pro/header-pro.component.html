@@ -38,22 +38,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav col-lg-9 px-5">
         <li class="nav-item">
-          <a class="nav-link text-color me-2" aria-current="page" routerLink="/client/home">Home</a>
+          <a class="nav-link text-color me-2" routerLink="/pro/order-requests">Requests</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-color me-2" routerLink="/client/pro-players">Players</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-color me-2" routerLink="/client/order-progress">1-1 Session</a>
+          <a class="nav-link text-color me-2" routerLink="/pro/order-progress">1-1 Session</a>
         </li>
         <li class="nav-item dropdown">
           <a class="dropdown-toggle nav-link text-color me-3 cursor-pointer" data-bs-toggle="dropdown"
             aria-expanded="false">Premade Parties</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" routerLink="/client/premade-available">Available</a></li>
-            <li><a class="dropdown-item" routerLink="/client/premade-progress">In Progress</a></li>
-            <li><a class="dropdown-item" routerLink="/client/premade-completed">Completed</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/premade-new">New</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/premade-progress">In Progress</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/premade-completed">Completed</a></li>
           </ul>
         </li>
 
@@ -62,28 +59,27 @@
             aria-expanded="false">Elite Orders</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" routerLink="/client/elite-order-new">New</a></li>
-            <li><a class="dropdown-item" routerLink="/client/elite-order-inprogress">In Progress</a></li>
-            <li><a class="dropdown-item" routerLink="/client/elite-order-completed">Completed</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/elite-order-request">Requests</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/elite-order-inprogress">In Progress</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/elite-order-completed">Completed</a></li>
           </ul>
         </li>
 
 
         <li class="nav-item">
-          <a class="nav-link text-color me-2" routerLink="/client/message">Message</a>
+          <a class="nav-link text-color me-2" routerLink="/pro/message">Message</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-color me-2" routerLink="/client/event">Event</a>
-        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link text-color me-2" routerLink="/pro/event">Event</a>
+          </li> -->
 
         <li class="nav-item dropdown">
           <a class="dropdown-toggle nav-link text-color me-2 cursor-pointer" data-bs-toggle="dropdown"
             aria-expanded="false">Wallet</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" routerLink="/client/transactions">Transactions</a></li>
-            <li><a class="dropdown-item" routerLink="/client/pricing">Add Money</a></li>
-            <li><a class="dropdown-item" routerLink="/client/coupon">Coupon</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/transactions">Transactions</a></li>
+            <li><a class="dropdown-item" routerLink="/pro/withdraw-money">Withdraw Money</a></li>
           </ul>
         </li>
 
@@ -113,32 +109,31 @@
           <span *ngIf="unreadNotificationsLength > 0"
             class="position-absolute translate-middle badge rounded-pill"></span>
 
-            <ul class="dropdown-menu dropdown-menu-dark notiy" aria-labelledby="notificationDropdown">
-              <ng-container *ngFor="let notif of notifications">
-                <li class="notification-item d-flex mb-3" (click)="navigateUser(notif.link, notif.id)">
-                  <div
-                    class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
-                    {{ notif.avatar }}
-                  </div>
-                  <div class="ms-3">
-                    <p class="mb-0 text-white">{{ notif.title }}</p>
-                    <small class="text-secondary">{{ notif.message }} • {{ notif.relativeDays }}</small>
-                  </div>
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-              </ng-container>
-              <li><a class="dropdown-item text-center text-white f-14" href="#" (click)="markAllAsRead()">Mark all as
-                  read</a></li>
-            </ul>
+          <ul class="dropdown-menu dropdown-menu-dark notiy" aria-labelledby="notificationDropdown">
+            <ng-container *ngFor="let notif of notifications">
+              <li class="notification-item d-flex mb-3" (click)="navigateUser(notif.link, notif.id)">
+                <div
+                  class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
+                  {{ notif.avatar }}
+                </div>
+                <div class="ms-3">
+                  <p class="mb-0 text-white">{{ notif.title }}</p>
+                  <small class="text-secondary">{{ notif.message }} • {{ notif.relativeDays }}</small>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            </ng-container>
+            <li><a class="dropdown-item text-center text-white f-14" href="#" (click)="markAllAsRead()">Mark all as
+                read</a></li>
+          </ul>
         </div>
 
 
 
-        <button type="button" class="btn btn-primary-gg money me-2 px-3 py-2 border-0"
-          (click)="navigateToPricing()"><span>${{walletBalance}}</span> <img src="../../../assets/images/add.svg"
-            class="img-fluid ms-2 m-b-3"></button>
+        <button type="button"
+          class="btn btn-primary-gg money me-2 px-3 py-2 border-0"><span>${{walletBalance}}</span></button>
 
         <div class="dropdown-center">
           <button class="btn dropdown-toggle cursor-pointer" type="button" data-bs-toggle="dropdown"
@@ -146,10 +141,12 @@
             <img src="../../../assets/images/nouser.png"
               src="{{ profileImageUrl ? profileImageUrl : '../../../assets/images/nouser.png' }}"
               class="img-fluid dropdown-toggle" style="height: 40px; width: 45px; border-radius: 50%;
-    object-fit: cover;" />
+      object-fit: cover;" />
           </button>
           <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item" type="button" (click)="updateProfile()">My Profile</a></li>
+            <li><a class="dropdown-item" type="button" (click)="updateBankDetails()">Bank Details</a></li>
+            <li><a class="dropdown-item" type="button" (click)="updateProfile()">Update Status</a></li>
             <li><a class="dropdown-item" type="button" (click)="logout()">Logout</a></li>
           </ul>
         </div>

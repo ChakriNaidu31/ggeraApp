@@ -19,6 +19,7 @@ export class WalletTransactionComponent implements OnInit {
   totalPages: number = 0;
   form: UntypedFormGroup;
   games: any[] = [];
+  userType: string = "";
 
   constructor(
     private _auth: AuthService,
@@ -50,6 +51,8 @@ export class WalletTransactionComponent implements OnInit {
         this.games = data.data.games;
       }
     });
+
+    this.userType = this._auth.getUserTypeFromSession();
 
   }
 

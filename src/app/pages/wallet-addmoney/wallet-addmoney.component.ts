@@ -44,7 +44,7 @@ export class WalletAddmoneyComponent implements OnInit {
       this.toaster.showSuccess('Purchase completed successfully', '', {
         duration: 3000
       });
-      this.router.navigate(['/pro-players']);
+      this.router.navigate(['/client/pro-players']);
     } else if (this.redirectUrl == 'failure') {
       this.toaster.showError('Purchase could not be completed. If your amount was deducted from account, please contact admin', '', {
         duration: 10000

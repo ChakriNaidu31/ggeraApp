@@ -1,0 +1,69 @@
+<app-header-pro></app-header-pro>
+<main class="body-height">
+    <div class="rounded text-body-emphasis bg-body-secondary">
+        <div class="col-lg-12 col-xs-12">
+            <div class="hero-bg">
+                <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
+
+                    <h1 class="text-start mb-5 text-white mt-5">Bank Information</h1>
+
+                    <div class="bg-real">
+                        <form [formGroup]="form" (ngSubmit)="submit()">
+                            <div class="search-box-container my-3">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="name"
+                                            placeholder="Name as on Bank Account*" required formControlName="name" />
+                                        <div *ngIf="form.get('name')?.invalid && (form.get('name')?.touched || formSubmitted)"
+                                            class="text-danger">
+                                            Bank Account is required
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="accountNumber"
+                                            placeholder="Account Number*" required formControlName="accountNumber" />
+                                        <div *ngIf="form.get('accountNumber')?.invalid && (form.get('accountNumber')?.touched || formSubmitted)"
+                                            class="text-danger">
+                                            Account Number is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="bankName" placeholder="Bank Name*"
+                                            required formControlName="bankName" />
+                                        <div *ngIf="form.get('bankName')?.invalid && (form.get('bankName')?.touched || formSubmitted)"
+                                            class="text-danger">
+                                            Bank Name is required
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="iban" placeholder="IBAN*" required
+                                            formControlName="iban" />
+                                        <div *ngIf="form.get('iban')?.invalid && (form.get('iban')?.touched || formSubmitted)"
+                                            class="text-danger">
+                                            IBAN is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="paypalId" formControlName="paypalId"
+                                            placeholder="Paypal ID" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-start">
+                                <button type="button" class="btn btn-primary-gg p-3 border-0 " type="submit">
+                                    <h5 class="pe-4 px-4 mb-0 f-14">Submit</h5>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
