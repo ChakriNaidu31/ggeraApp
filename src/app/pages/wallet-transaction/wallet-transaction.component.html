@@ -22,16 +22,16 @@
                     </select>
                   </div>
 
-                  <div class="me-2">
+                  <!-- <div class="me-2">
                     <select class="form-select custom-select" aria-label="Select option" formControlName="game"
                       (change)="filterData()">
                       <option value="">All Games</option>
                       <option *ngFor="let game of games" value="{{game.id}}">{{game.title}}</option>
                     </select>
-                  </div>
+                  </div> -->
 
                   <div class="me-2">
-                    <input type="date" class="form-control" formControlName="transactionDate" (change)="filterData()" />
+                    <input type="date" class="form-control date" formControlName="transactionDate" (change)="filterData()" />
                   </div>
                 </div>
               </form>
@@ -58,12 +58,12 @@
                 <tbody class="text-center">
                   <ng-container *ngIf="visibleTransactions && visibleTransactions.length > 0; else noItemsFound">
                     <tr *ngFor="let tran of visibleTransactions">
-                      <td>{{ tran.modifiedDate | date: 'dd/MM/yyyy HH:mm'}}</td>
-                      <td>{{ tran.orderId }}</td>
-                      <td>{{ tran.description | truncate: 30}}</td>
+                      <td class="red-letter">{{ tran.modifiedDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+                      <td class="red-letter">{{ tran.orderId }}</td>
+                      <td class="red-letter">{{ tran.description | truncate: 30}}</td>
                       <td>{{ tran.type }}</td>
                       <td align="right">${{ tran?.amount }}</td>
-                      <td align="right">${{ tran?.previousBalance }}</td>
+                      <td class="red-letter" align="right">${{ tran?.previousBalance }}</td>
                       <td align="right">${{ tran?.currentBalance }}</td>
                     </tr>
                   </ng-container>
