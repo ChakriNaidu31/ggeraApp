@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResponseMessageService {
 
+  private chosenGame: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public chosenGameData: Observable<string> = this.chosenGame.asObservable();
+
   constructor(private toastr: ToastrService) { }
+
+  setGame(data: string) {
+    this.chosenGame.next(data);
+  }
 
   showSuccess(message: string, title: string, params?: { duration?: number, closeButton?: boolean, enableHtml?: boolean }) {
     this.toastr.success(message, title, {

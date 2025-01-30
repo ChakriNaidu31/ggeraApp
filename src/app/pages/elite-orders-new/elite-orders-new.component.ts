@@ -52,7 +52,6 @@ export class EliteOrdersNewComponent implements OnInit {
         value: "Offline"
       }
     ];
-    game: any = {}
     form: UntypedFormGroup;
     timer: any;
     proUsers: ProUser[] = [];
@@ -71,24 +70,9 @@ export class EliteOrdersNewComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.currentClientUser = {
-    //   username: this.auth.getUsernameFromSession(),
-    //   email: this.auth.getEmailFromSession(),
-    //   profileImageUrl: this.auth.getUserImageFromSession()
-    // }
-    // this.getData();
-    // this.timer = setInterval(() => {
-    //   this.getData();
-    // }, 10000);
-
-
-    this.game = {
-      id: this._auth.getChosenGameFromSession(),
-      name: this._auth.getChosenGameNameFromSession(),
-    }
     this.form = this.fb.group({
       type: ['ALL'],
-      gameId: [this._auth.getChosenGameFromSession()],
+      gameId: [''],
       typePs: [false],
       typeXbox: [false],
       typePc: [false]

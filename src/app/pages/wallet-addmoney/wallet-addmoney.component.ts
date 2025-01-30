@@ -71,7 +71,6 @@ export class WalletAddmoneyComponent implements OnInit {
 
   initializePayment() {
     this.selectedAmount = this.selectedAmount ? this.selectedAmount : '0';
-    console.log(this.selectedAmount);
     if (this.selectedAmount === '0' && this.customAmtControl.value) {
       this.selectedAmount = this.customAmtControl.value;
     }

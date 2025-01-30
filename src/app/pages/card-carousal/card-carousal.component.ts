@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { catchError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -37,7 +36,7 @@ export class CardCarousalComponent implements OnInit {
   }
   games: any[] = [];
 
-  constructor(private _auth: AuthService, private toaster: ResponseMessageService, private router: Router) { }
+  constructor(private _auth: AuthService, private toaster: ResponseMessageService) { }
 
   ngOnInit(): void {
     this._auth.getAvailableGames().pipe(
@@ -57,13 +56,8 @@ export class CardCarousalComponent implements OnInit {
         this.toaster.showError(error.error?.meta?.message, '');
         return '';
       })).subscribe((data) => {
-        console.log(data.data?.game);
         if (data.data?.game) {
-          this._auth.setChosenGameToSession({
-            id: data.data.game?.id,
-            title: data.data.game?.title
-          });
-          this.router.navigate(['/client/pro-players']);
+          this.toaster.setGame(data.data.game?.id);
         }
       });
   }
