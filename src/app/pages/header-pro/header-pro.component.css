@@ -62,7 +62,8 @@ a.nav-link.text-color.me-3:hover {
     position: absolute;
     top: 3px !important;
     right: -6px !important;
-    background: linear-gradient(217deg, #41067A, #7A06D1);
+    /* background: linear-gradient(217deg, #41067A, #7A06D1); */
+    background: linear-gradient(217deg, #7a3c06, #d16c06);
     border-radius: 50%;
     width: 10px;
     height: 10px;

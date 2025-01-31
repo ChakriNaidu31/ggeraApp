@@ -13,7 +13,7 @@ import { SingleOrder } from 'src/app/models/single-order';
 import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
 import { NotificationTypes } from 'src/app/models/notification-types';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-order-requests',
   templateUrl: './order-requests.component.html',
@@ -31,7 +31,7 @@ export class OrderRequestsComponent {
  private toaster: ResponseMessageService,
     private router: Router,
     // private dialog: MatDialog,
-    private _chatService: ChatService
+    private _chatService: ChatService,
   ) {
 
   }
@@ -85,6 +85,21 @@ export class OrderRequestsComponent {
   //     data: { clientName: requestedByUser, clientUserId: requestedBy, userType: this.userType }
   //   });
   // }
+  
+  cancel(){
+    this.closeModal('first1Modal');
+  }
+  closeModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
+  }
+  
+
 
   private getData(): void {
     this._auth.pendingMyOrders().subscribe((data:any) => {
@@ -115,6 +130,49 @@ export class OrderRequestsComponent {
         }
       }
     }, 1000);
+  }
+  openStatus(): void {
+    const modalId = 'first1Modal';
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
+
+  acceptMatchRequest() {
+    // const clientUserId = this.data.clientUserId;
+    const clientUserId = "112";
+
+    this._auth.acceptMatchRequest(clientUserId).pipe(
+      catchError((error) => {
+       
+        this.toaster.showError(error.error?.meta?.message, '', {
+          duration: 10000,
+        });
+        return '';
+      }))
+      .subscribe((data) => {
+        if (data?.data) {
+          this.toaster.showError('Match request accepted', '', {
+            duration: 3000,
+          });
+          const request = {
+            id: data?.data?.id,
+            type: NotificationTypes.MATCH_APPROVE,
+            email: this._auth.getEmailFromSession()
+          }
+          this._chatService.notifyServer(request);
+          // this.router.navigate(['/order-progress']);
+          window.open("https://discord.gg/ztRp6xffYR", "_blank");
+        } else {
+         
+          this.toaster.showError('Could not accept at this time. Please try again later', '', {
+            duration: 3000,
+          });
+          this.cancel();
+        }
+      });
   }
 
 }
