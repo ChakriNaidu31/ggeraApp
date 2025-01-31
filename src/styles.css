@@ -37,6 +37,10 @@ p {
   color: white;
   background: linear-gradient(217deg, #41067A, #7A06D1)
 }
+.btn-primary-ggpro {
+  color: white;
+  background: linear-gradient(217deg, #7a3c06, #d16c06)
+}
 
 .btn-secondary-gg {
   background: #1F1F2A;

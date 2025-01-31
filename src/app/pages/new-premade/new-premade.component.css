@@ -65,7 +65,7 @@ body {
 
 .upgrade-banner {
     height: 160px;
-    background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
+    background: linear-gradient(294.38deg, #7a3c06 7.72%, #d16c06 87.02%);
     background-size: cover;
     border-radius: 10px;
     cursor: pointer;
@@ -186,7 +186,7 @@ label.form-label {
 }
 
 button.btn.make {
-    background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
+    background: linear-gradient(294.38deg, #7a3c06 7.72%, #d16c06 87.02%);
     border-radius: 8px;
     border: 0;
     padding: 14px 24px;
@@ -214,7 +214,7 @@ button.btn.cancel {
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    color: #A55EFF;
+    color: #7a3c06;
 }
 
 button.btn.save {
@@ -230,7 +230,7 @@ button.btn.save {
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    color: #A55EFF;
+    color: #7a3c06;
 }
 
 .user-data {

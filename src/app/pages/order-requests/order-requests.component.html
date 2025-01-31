@@ -1,1 +1,83 @@
-<p>order-requests works!</p>
+<app-header-pro *ngIf="userType === 'PRO'"></app-header-pro>
+<div class="container custom-mt" style="max-width: 1000px">
+    <div class="page-title">
+        <div class="pt-5">
+            <div class="resultsTable2">
+                <h1 class="title text-light h1-font pt-3">
+                    Pending Orders
+                </h1>
+            </div>
+        </div>
+
+        <div class="pt-5">
+            <div class="pb-2 pt-2">
+                <div class="row" *ngIf="order">
+                    <div class="col-xl-12 col-md-6 col-sm-12">
+                        <div class="resultsTable m-1">
+                            <div class="table-border resultsTable pb-2 pt-2">
+                                <table class="table table-striped table-hover">
+                                    <thead style="border-radius: 10px !important">
+                                        <tr>
+                                            <th scope="col">
+                                                <h3 class="p-2">
+                                                    <span>COD: Warzone</span>
+                                                    <span class="req-details mt-2">New order # {{order.orderId}} <span
+                                                            style="color: #2196F3;">Requested on {{order.requestedDate |
+                                                            date: 'MMM dd, hh:mm a'}}</span></span>
+                                                </h3>
+                                            </th>
+
+                                            <th scope="col">
+                                                <h3 class="p-2 d-flex justify-content-end ">
+                                                    <div>$12</div>
+                                                    <div class="custom-hr ms-2" style="color: #2196F3;">Per<br> Hour
+                                                    </div>
+                                                </h3>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                                <div class="p-3">
+                                    <div class="details p-3">
+                                        <span class="req-name">{{order.requestedByUser}}</span>
+                                        <span class="float-end req-name"><img
+                                                src="../../assets/img/windows.png" /></span>
+                                    </div>
+
+                                    <div class="p-3 text-center mt-3">
+                                        <button class="btn btn-accept"
+                                            >
+                                            <!-- (click)="openOnboardingPopup(order.requestedBy, order.requestedByUser)" -->
+                                            Accept ({{waitingTimeCalculatedInSeconds | number: '2.0-0'}} Sec)
+                                        </button>
+                                        <button class="btn btn-cancel d-block mx-auto mt-3"
+                                            (click)="rejectMatchRequest(order.requestedBy)">
+                                            Cancel
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!order">
+                    <div class="table pt-5 d-flex justify-content-center">
+                        <div class=" col-xl-4">
+
+                            <div class="table-border resultsTable pb-2 pt-2">
+                                <div class="d-flex justify-content-center">
+                                    No orders found
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
