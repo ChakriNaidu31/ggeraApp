@@ -161,7 +161,7 @@ export class PremadeAvailableComponent implements OnInit {
           this.toaster.showError("A minimum of $12 is required to start playing. Please add money to your wallet", '', {
             duration: 10000
           });
-          this.router.navigate(['/pricing']);
+          this.router.navigate(['/client/pricing']);
           return;
         } else {
           this._auth.joinPremadeParty(id).pipe(
@@ -183,7 +183,7 @@ export class PremadeAvailableComponent implements OnInit {
                   email: this._auth.getEmailFromSession()
                 }
                 this._chatService.notifyServer(request);
-                this.router.navigate(['/premade-progress']);
+                this.router.navigate(['/client/premade-progress']);
               } else {
                 this.toaster.showError('Could not join at this time. Please try again later', '', {
                   duration: 10000

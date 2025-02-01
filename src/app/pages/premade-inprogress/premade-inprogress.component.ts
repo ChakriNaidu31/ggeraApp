@@ -218,49 +218,6 @@ export class PremadeInprogressComponent implements OnInit {
     // });
   }
 
-  endPartyDialog(matchId: string) {
-    // this.dialog.open(PremadeTimerUpdateComponent, {
-    //   data: { matchId, endParty: true }
-    // });
-  }
-
-  hidePartyDialog(matchId: string) {
-    // this.dialog.open(PremadeTimerUpdateComponent, {
-    //   data: { matchId, hideParty: true }
-    // }).afterClosed().subscribe((data) => {
-    //   this.getData();
-    // });
-  }
-
-  unhidePartyDialog(matchId: string) {
-    this._auth.unhidePremadeParty(matchId).pipe(
-      catchError((error) => {
-        this.toaster.showError(error.error?.meta?.message, '', {
-          duration: 10000
-        });
-        return '';
-      })).subscribe((data: any) => {
-        if (data?.data) {
-          this.toaster.showSuccess('The premade party is visible, so clients can join now', '', {
-            duration: 3000
-          });
-          this.getData();
-        } else {
-          this.toaster.showError('Could not unhide at this time. Please try again later', '', {
-            duration: 10000
-          });
-        }
-      });
-  }
-
-  editPartyDialog(matchId: string, matchName: string, description: string) {
-    // this.dialog.open(PremadeEditDescriptionComponent, {
-    //   data: { matchId, matchName, description }
-    // }).afterClosed().subscribe((data) => {
-    //   this.getData();
-    // });
-  }
-
   openStreamUrl(streamUrl: string | undefined) {
     window.open(streamUrl, "_blank");
   }

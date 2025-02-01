@@ -184,9 +184,10 @@
                                 background-color: #333333;
                                 padding: 5px;
                                 object-fit: cover;
-                              " src="{{ user.profileImageUrl ? user.profileImageUrl : '../../assets/svg/user.png' }}"
+                              " src="{{ user.profileImageUrl ? user.profileImageUrl : '/assets/images/nouser.png' }}"
                                                             alt="avatar" />
-                                                        <div class="container p-3" *ngIf="user.username && user.type == 'PRO'">
+                                                        <div class="container p-3"
+                                                            *ngIf="user.username && user.type == 'PRO'">
                                                             <div class="d-flex-justify-content-start">
                                                                 <h3 class="text-center text-light">
                                                                     {{ user.username | truncate: 8 }}
@@ -238,10 +239,12 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="streamLobbySlotTag m-auto p-2" *ngIf="user.username && user.type === 'CLIENT'">
+                                                        <div class="streamLobbySlotTag m-auto p-2"
+                                                            *ngIf="user.username && user.type === 'CLIENT'">
                                                             <span class="red-letter">Occupied</span>
                                                         </div>
-                                                        <div class="streamLobbySlotTag m-auto p-2" *ngIf="!user.username">
+                                                        <div class="streamLobbySlotTag m-auto p-2"
+                                                            *ngIf="!user.username">
                                                             <span class="red-letter">Free Slot</span>
                                                         </div>
                                                     </div>

@@ -17,4 +17,5 @@ export interface SingleOrder {
     requestedToUser: string;
     userBalance: string;
     requestedByImage: string;
+    requestedToImage: string;
 }

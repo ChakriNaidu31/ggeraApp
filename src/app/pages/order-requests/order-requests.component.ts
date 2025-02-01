@@ -143,6 +143,7 @@ export class OrderRequestsComponent implements OnInit {
             email: this._auth.getEmailFromSession()
           }
           this._chatService.notifyServer(request);
+          this.closeModal('first1Modal');
           this.router.navigate(['/pro/order-progress']);
           window.open("https://discord.gg/ztRp6xffYR", "_blank");
         } else {

@@ -17,8 +17,8 @@ export class UserProfileComponent implements OnInit {
   email: string = '';
   username: string = '';
   userType: string = '';
-  profileImageUrl: string = 'assets/img/no-profile-picture-icon.webp';
-  coverImageUrl: string = 'assets/img/no-profile-picture-icon.webp';
+  profileImageUrl: string = 'assets/images/nouser.png';
+  coverImageUrl: string = 'assets/images/nouser.png';
   platforms = [
     { id: '', name: 'Choose One' },
     { id: 'PS', name: 'Playstation' },
@@ -108,10 +108,10 @@ export class UserProfileComponent implements OnInit {
         profileImageUrl: '',
         coverImageUrl: ''
       }
-      if (this.profileImageUrl !== 'assets/img/no-profile-picture-icon.webp') {
+      if (this.profileImageUrl !== 'assets/images/nouser.png') {
         dataToUpdate.profileImageUrl = this.profileImageUrl;
       }
-      if (this.coverImageUrl !== 'assets/img/no-profile-picture-icon.webp') {
+      if (this.coverImageUrl !== 'assets/images/nouser.png') {
         dataToUpdate.coverImageUrl = this.coverImageUrl;
       }
       if (dataToUpdate.youtubeLink) {
