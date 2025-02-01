@@ -65,10 +65,16 @@ body {
 
 .upgrade-banner {
   height: 160px;
-  background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
   background-size: cover;
   border-radius: 10px;
   cursor: pointer;
+}
+.upgrade-bannerpro{
+  background: linear-gradient(294.38deg, #7a3c06 7.72%, #d16c06 87.02%)
+
+}
+.upgrade-bannerclient{
+  background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
 }
 
 /* Cover Image Styling */
@@ -214,7 +220,6 @@ button.btn.cancel {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  color: #A55EFF;
 }
 
 button.btn.save {
@@ -230,7 +235,13 @@ button.btn.save {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  
+}
+.saveclient{
   color: #A55EFF;
+}
+.savepro{
+  color: #d16c06;
 }
 
 .user-data {

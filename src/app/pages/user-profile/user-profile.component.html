@@ -31,7 +31,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="upgrade-banner d-flex align-items-center justify-content-center">
+                                <div class="upgrade-banner d-flex align-items-center justify-content-center"
+                                [ngClass]="{ 'upgrade-bannerclient': userType === 'CLIENT', 'upgrade-bannerpro': userType !== 'CLIENT' }">
                                     <h5><span class="st-1" *ngIf="userType === 'CLIENT'">Upgrade<br> to </span> <span class="st-2">PRO <svg
                                                 _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
                                                 width="24" height="24" viewBox="0 0 17 17" fill="none"
@@ -203,8 +204,8 @@
                                             </defs>
                                         </svg></button></div>
                                 <div>
-                                    <button class="btn cancel" type="button" (click)="cancel()">Cancel</button>
-                                    <button class="btn save" type="submit">Submit</button>
+                                    <button class="btn cancel" [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }" type="button" (click)="cancel()">Cancel</button>
+                                    <button class="btn save" [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>

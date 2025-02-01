@@ -17,7 +17,7 @@ export class EliteOrdersCompletedComponent implements OnInit {
   pageSize: number = 25;
   totalPages: number = 0;
   form: UntypedFormGroup;
-
+  userType: string = '';
   constructor(
     // private dialog: MatDialog,
     private _auth: AuthService,
@@ -32,7 +32,7 @@ export class EliteOrdersCompletedComponent implements OnInit {
       name: 'description',
       content: 'Get ready to play with our premade parties and join a community of pro players'
     });
-
+    this.userType = this._auth.getUserTypeFromSession();
     this._auth.fetchCompletedEliteOrders().subscribe(orders => {
       this.eliteOrders = orders?.data?.orders;
       this.paginateItems();

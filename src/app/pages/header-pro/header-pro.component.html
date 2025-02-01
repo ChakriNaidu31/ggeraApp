@@ -111,7 +111,7 @@
 
           <ul class="dropdown-menu dropdown-menu-dark notiy" aria-labelledby="notificationDropdown">
             <ng-container *ngFor="let notif of notifications">
-              <li class="notification-item d-flex mb-3" (click)="navigateUser(notif.link, notif.id)">
+              <li class="notification-item d-flex" (click)="navigateUser(notif.link, notif.id)">
                 <div
                   class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
                   {{ notif.avatar }}
@@ -133,7 +133,7 @@
 
 
         <button type="button"
-          class="btn btn-primary-gg money me-2 px-3 py-2 border-0"><span>${{walletBalance}}</span></button>
+          class="btn btn-primary-ggpro money me-2 px-3 py-2 border-0"><span>${{walletBalance}}</span></button>
 
         <div class="dropdown-center">
           <button class="btn dropdown-toggle cursor-pointer" type="button" data-bs-toggle="dropdown"
@@ -146,7 +146,7 @@
           <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item" type="button" (click)="updateProfile()">My Profile</a></li>
             <li><a class="dropdown-item" type="button" (click)="updateBankDetails()">Bank Details</a></li>
-            <li><a class="dropdown-item" type="button" (click)="updateProfile()">Update Status</a></li>
+            <li><a class="dropdown-item" type="button" (click)="openStatus()">Update Status</a></li>
             <li><a class="dropdown-item" type="button" (click)="logout()">Logout</a></li>
           </ul>
         </div>
@@ -154,3 +154,51 @@
     </div>
   </div>
 </nav>
+
+<!-- Second Modal (Inside the first modal) -->
+<div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel"
+aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-dialog-centered modal-m">
+  <div class="modal-content">
+
+    <div class="modal-body p-5">
+      <div>
+        <div class="card modal-cards hovercard mt-4" >
+
+          <div class="container card-body-s">
+            <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
+              <div class="table-border resultsTable pb-1">
+             
+        
+                <div class="d-flex justify-content-center">
+                    <div class="container">
+                        <div class="small-box ps-3">
+                            <div class=" text-light">
+                                <h5>Change your status</h5>
+                            </div>
+                            <div class="px-3">
+                                <form [formGroup]="form">
+                                    <select class="form-select" id="status" formControlName="status">
+                                        <option *ngFor="let status of statuses" [value]="status.id">
+                                            {{status.name}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="p-2 pt-2 d-flex mt-2 justify-content-between">
+                                <button class="btn save savepro"  type="button" (click)=" cancel()">Cancel</button>
+                                <button class="btn save btn-primary-ggpro"  type="submit"  (click)="changeUserStatus()">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>

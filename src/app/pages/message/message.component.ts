@@ -19,7 +19,7 @@ export class MessageComponent implements OnInit {
   chatList: Chat[];
   filteredChatList: Chat[];
   messages: ChatMessage[];
-
+  userType: string = '';
   selectedChat: Chat | undefined;
   messageTyped: string = '';
   searchValue: string = '';
@@ -35,6 +35,7 @@ export class MessageComponent implements OnInit {
     this.getNewMessages();
     this.setMetaInfo();
     this.loadChatList();
+    this.userType = this._auth.getUserTypeFromSession();
   }
 
   setMetaInfo() {

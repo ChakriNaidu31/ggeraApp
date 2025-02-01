@@ -129,7 +129,7 @@ tbody tr {
 }
 
 .table>:not(caption)>*>* {
-  color: #fff;
+  /* color: #fff; */
   font-family: Manrope;
   font-size: 16px;
   font-weight: 600;
@@ -154,9 +154,6 @@ thead.bg-transparent>tr>th {
   background: #0c0c18 !important
 }
 
-.red-letter {
-  color: #A55EFF;
-}
 
 .pagination-container {
   display: flex;
@@ -170,6 +167,11 @@ button.btn.btn-secondary {
   border: 0 !important;
 }
 
+button.btn.btn-secondarypro {
+  background: linear-gradient(217deg, #7a3c06, #d16c06) !important;
+  color: #fff;
+  border: 0 !important;
+}
 .pagination-container .btn {
   padding: 5px 15px;
   border-radius: 8px;
@@ -196,7 +198,7 @@ thead th {
   border: 0;
   padding: 7px 12px;
 }
-td.red-letter {
+.red-letter {
   font-family: Manrope;
   font-size: 16px;
   font-weight: 600;
@@ -205,5 +207,16 @@ td.red-letter {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  color: #A55DFF !important;
+  
+}
+.client-color {
+  color: #A55EFF;
+}
+
+.pro-color {
+  color: #d16c06;
+}
+
+.table-color{
+  color: #fff;
 }

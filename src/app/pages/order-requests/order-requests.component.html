@@ -1,1 +1,137 @@
-<p>order-requests works!</p>
+<app-header-pro *ngIf="userType === 'PRO'"></app-header-pro>
+<div class="container custom-mt" style="max-width: 1000px">
+    <div class="page-title">
+        <div class="pt-5">
+            <div class="resultsTable2">
+                <h1 class="title text-light h1-font pt-3">
+                    Pending Orders
+                </h1>
+            </div>
+        </div>
+
+        <div class="pt-3">
+            <div class="pb-2 pt-2">
+                <div class="row" *ngIf="order">
+                    <div class="col-xl-12 col-md-6 col-sm-12">
+                        <div class="resultsTable m-1">
+                            <div class="table-border resultsTable pb-2 pt-2">
+                                <table class="table table-striped table-hover">
+                                    <thead style="border-radius: 10px !important">
+                                        <tr>
+                                            <th scope="col">
+                                                <h3 class="p-2 h1-font">
+                                                    <span>COD: Warzone</span>
+                                                    <p class="req-details mt-2">New order # {{order.orderId}} <p
+                                                            style="color: #d16c06;">Requested on {{order.requestedDate |
+                                                            date: 'MMM dd, hh:mm a'}}</p>
+                                                </h3>
+                                            </th>
+
+                                            <th scope="col">
+                                                <h1 class="p-2 d-flex justify-content-end h1-font">
+                                                    <div>$12</div>
+                                                    <div class="custom-hr ms-2" style="color: #d16c06;">Per<br> Hour
+                                                    </div>
+                                                </h1>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                                <div class="p-3">
+                                    <div class="details p-3">
+                                        <span class="req-name h1-font">{{order.requestedByUser}}</span>
+                                        <span class="float-end req-name"><img
+                                                src="/assets/images/windows.png" /></span>
+                                    </div>
+
+                                    <div class="p-3 text-center mt-3">
+                                        <button class="btn btn-accept h1-font" (click)="openStatus()" 
+                                            >
+                                            <!-- (click)="openOnboardingPopup(order.requestedBy, order.requestedByUser)" -->
+                                            Accept ({{waitingTimeCalculatedInSeconds | number: '2.0-0'}} Sec)
+                                        </button>
+                                        <button class="btn btn-cancel d-block mx-auto mt-3 h1-font"
+                                            (click)="rejectMatchRequest(order.requestedBy)">
+                                            Cancel
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!order">
+                    <div class="table pt-5 d-flex justify-content-center">
+                        <div class=" col-xl-4">
+
+                            <div class="table-border resultsTable pb-2 pt-2">
+                                <div class="d-flex justify-content-center">
+                                    No orders found
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Second Modal (Inside the first modal) -->
+<div class="modal fade modal-card" id="first1Modal" tabindex="-1" aria-labelledby="firstModalLabel"
+aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-content">
+
+    <div class="modal-body p-5">
+      <div>
+        <div class="card modal-cards hovercard mt-4" >
+
+          <div class="container card-body-s">
+            <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
+                <div class="table-border resultsTable pb-1">
+
+                    <div class="container">
+            
+                        <div class="d-flex justify-content-center pt-4 ps-3">
+                            <h1 class="text-light">On Boarding</h1>
+            
+                        </div>
+                        <div class="">
+                            <div class="text-light p-4">What to keep in mind while playing!</div>
+                            <div class="text-light px-4">
+                                <ul>
+                                    <li>
+                                        Please ensure that you report the time for your clients when they exit the session
+                                    </li>
+                                    <li>
+                                        Please record the gameplay session and upload it on Youtube as a private video. This
+                                        video
+                                        will be
+                                        used in case of any disputes.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end m-2 pb-4">
+                            <button (click)="cancel()" class="btn btn-transparent me-1">Cancel</button>
+                            <button type="button" (click)="acceptMatchRequest()" class="btn btn-white me-1 ms-2"> Proceed</button>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
