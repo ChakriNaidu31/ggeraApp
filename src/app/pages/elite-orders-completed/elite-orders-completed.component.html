@@ -1,4 +1,5 @@
-<app-header></app-header>
+<app-header *ngIf="userType === 'CLIENT'"></app-header>
+<app-header-pro *ngIf="userType === 'PRO'"></app-header-pro>
 <main class="body-height">
   <div class="rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-12 col-xs-12">
@@ -40,15 +41,15 @@
                 <tbody class="text-center">
                   <ng-container *ngIf="visibleOrders && visibleOrders.length > 0; else noItemsFound">
                     <tr *ngFor="let order of visibleOrders">
-                      <td class="red-letter">{{ order.orderId }}</td>
-                      <td>{{ order.totalAmountTransferred }}</td>
-                      <td>{{ order.numberOfUsersInvolved }}</td>
-                      <td class="red-letter">{{ order?.startedTime | date: 'dd/MM/yyyy HH:mm a' }}</td>
+                      <td  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">{{ order.orderId }}</td>
+                      <td class="red-letter">{{ order.totalAmountTransferred }}</td>
+                      <td class="red-letter"> {{ order.numberOfUsersInvolved }}</td>
+                      <td  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">{{ order?.startedTime | date: 'dd/MM/yyyy HH:mm a' }}</td>
                     </tr>
                   </ng-container>
                   <ng-template #noItemsFound>
                     <tr>
-                      <td colspan="4">No Orders Found</td>
+                      <td colspan="4" class=" red-letter">No Orders Found</td>
                     </tr>
                   </ng-template>
                 </tbody>
@@ -56,10 +57,10 @@
             </div>
 
             <div class="pagination-container text-center mt-4" *ngIf="visibleOrders && visibleOrders.length > 0">
-              <span class="page-numbers">Page <span class="fw-bold red-letter">{{ p }}</span> of {{ totalPages
+              <span class="page-numbers">Page <span class="fw-bold" [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">{{ p }}</span> of {{ totalPages
                 }}</span>
-              <button class="btn btn-secondary" [disabled]="p === 1" (click)="goToPage(p - 1)">Previous</button>
-              <button class="btn btn-secondary" [disabled]="p === totalPages" (click)="goToPage(p + 1)">Next</button>
+              <button class="btn btn-secondary" [ngClass]="{ 'btn-primary-gg': userType === 'CLIENT', 'btn-primary-ggpro': userType !== 'CLIENT' }" [disabled]="p === 1" (click)="goToPage(p - 1)">Previous</button>
+              <button class="btn btn-secondary" [ngClass]="{ 'btn-primary-gg': userType === 'CLIENT', 'btn-primary-ggpro': userType !== 'CLIENT' }" [disabled]="p === totalPages" (click)="goToPage(p + 1)">Next</button>
             </div>
           </div>
 
