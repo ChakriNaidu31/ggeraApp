@@ -86,8 +86,8 @@
 
       </ul>
       <div class="col-lg-3 col-xs-12 header-end">
-        <svg style="cursor: pointer;" (click)="redirectToDiscord()" class="me-3" width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg style="cursor: pointer;" (click)="redirectToDiscord()" class="me-3" width="32" height="33"
+          viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <rect y="0.332031" width="32" height="32" fill="url(#pattern0_5344_220)" />
           <defs>
             <pattern id="pattern0_5344_220" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -156,49 +156,50 @@
 </nav>
 
 <!-- Second Modal (Inside the first modal) -->
-<div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel"
-aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-<div class="modal-dialog modal-dialog-centered modal-m">
-  <div class="modal-content">
+<div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-m">
+    <div class="modal-content">
 
-    <div class="modal-body p-5">
-      <div>
-        <div class="card modal-cards hovercard mt-4" >
+      <div class="modal-body p-5">
+        <div>
+          <div class="card modal-cards hovercard mt-4">
 
-          <div class="container card-body-s">
-            <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
-              <div class="table-border resultsTable pb-1">
-             
-        
-                <div class="d-flex justify-content-center">
+            <div class="container card-body-s">
+              <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
+                <div class="table-border resultsTable pb-1">
+
+
+                  <div class="d-flex justify-content-center">
                     <div class="container">
-                        <div class="small-box ps-3">
-                            <div class=" text-light">
-                                <h5>Change your status</h5>
-                            </div>
-                            <div class="px-3">
-                                <form [formGroup]="form">
-                                    <select class="form-select" id="status" formControlName="status">
-                                        <option *ngFor="let status of statuses" [value]="status.id">
-                                            {{status.name}}
-                                        </option>
-                                    </select>
-                                </form>
-                            </div>
-                            <div class="p-2 pt-2 d-flex mt-2 justify-content-between">
-                                <button class="btn save savepro"  type="button" (click)=" cancel()">Cancel</button>
-                                <button class="btn save btn-primary-ggpro"  type="submit"  (click)="changeUserStatus()">Update</button>
-                            </div>
+                      <div class="small-box ps-3">
+                        <div class=" text-light">
+                          <h5>Change your status</h5>
                         </div>
+                        <div class="px-3">
+                          <form [formGroup]="form">
+                            <select class="form-select" id="status" formControlName="status">
+                              <option *ngFor="let status of statuses" [value]="status.id">
+                                {{status.name}}
+                              </option>
+                            </select>
+                          </form>
+                        </div>
+                        <div class="p-2 pt-2 d-flex mt-2 justify-content-between">
+                          <button class="btn save savepro" type="button" (click)=" cancel()">Cancel</button>
+                          <button class="btn save btn-primary-ggpro" type="submit"
+                            (click)="changeUserStatus()">Update</button>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
 </div>

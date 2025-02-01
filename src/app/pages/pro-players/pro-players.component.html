@@ -62,7 +62,7 @@
             <div class="col-sm-12 col-md-12 col-lg-3" *ngFor="let contact of selectedProUsers">
               <div class="card hovercard mt-5 rounded">
                 <div (click)="openUserProfile(contact)">
-                  <div class="cardheader">
+                  <div class="cardheader" [ngStyle]="{'background-image': contact.coverImageUrl ? 'url(' + contact.coverImageUrl + ')' : 'url(\'/assets/svg/session1.svg\')'}">
                   </div>
                   <div class="avatar">
                     <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"

@@ -6,6 +6,7 @@ export interface ProUser {
     activisionId: string;
     currentStatus: string;
     profileImageUrl: string;
+    coverImageUrl: string;
     summary: string;
     kills: number;
     wins: number;

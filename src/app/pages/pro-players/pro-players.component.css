@@ -102,7 +102,6 @@
 }
 
 .card.hovercard .cardheader {
-  background: url("/assets/svg/session1.svg");
   background-size: cover;
   height: 110px;
 }
@@ -114,7 +113,8 @@
   margin-bottom: -50px;
 }
 
-.card.hovercard .avatar img, .card.hovercard img.profile-image {
+.card.hovercard .avatar img,
+.card.hovercard img.profile-image {
   width: 100px;
   height: 100px;
   max-width: 100px;

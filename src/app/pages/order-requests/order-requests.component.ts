@@ -1,43 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-// import { MatDialog } from '@angular/material/dialog';
-// import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
-// import { NotificationTypes } from '../models/notification-types';
-// import { SingleOrder } from '../models/single-order';
-// import { AuthService } from '../services/auth.service';
-// import { ChatService } from '../services/chat.service';
-// import { SingleOrderOnboardComponent } from '../single-order-onboard/single-order-onboard.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { SingleOrder } from 'src/app/models/single-order';
 import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
 import { NotificationTypes } from 'src/app/models/notification-types';
+import { Router } from '@angular/router';
 declare var bootstrap: any;
 @Component({
   selector: 'app-order-requests',
   templateUrl: './order-requests.component.html',
   styleUrl: './order-requests.component.css'
 })
-export class OrderRequestsComponent {
+export class OrderRequestsComponent implements OnInit {
   order: SingleOrder | undefined = undefined;
   timer: any;
   waitingTimeCalculatedInSeconds = 60;
   waitingTimer: any;
-  userType: string = '';
 
   constructor(
     private _auth: AuthService,
- private toaster: ResponseMessageService,
-    private router: Router,
-    // private dialog: MatDialog,
+    private toaster: ResponseMessageService,
     private _chatService: ChatService,
-  ) {
-
-  }
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.userType = this._auth.getUserTypeFromSession();
     this.getData();
     // Check for each 3 seconds, if there's any update in data. If so, display that to user
     this.timer = setInterval(() => {
@@ -59,9 +47,9 @@ export class OrderRequestsComponent {
         });
         return '';
       }))
-      .subscribe((data:any) => {
+      .subscribe((data: any) => {
         if (data?.data) {
-          this.toaster.showError('Match request rejected', '', {
+          this.toaster.showSuccess('Match request rejected', '', {
             duration: 10000
           });
           const request = {
@@ -70,9 +58,8 @@ export class OrderRequestsComponent {
             email: this._auth.getEmailFromSession()
           }
           this._chatService.notifyServer(request);
-          this.router.navigate(['/order-completed'])
         } else {
-        
+
           this.toaster.showError('Could not accept at this time. Please try again later', '', {
             duration: 10000
           });
@@ -80,15 +67,10 @@ export class OrderRequestsComponent {
       });
   }
 
-  // openOnboardingPopup(requestedBy: string | undefined, requestedByUser: string | undefined) {
-  //   this.dialog.open(SingleOrderOnboardComponent, {
-  //     data: { clientName: requestedByUser, clientUserId: requestedBy, userType: this.userType }
-  //   });
-  // }
-  
-  cancel(){
+  cancel() {
     this.closeModal('first1Modal');
   }
+
   closeModal(modalId: string): void {
     const modalElement = document.getElementById(modalId);
     if (modalElement) {
@@ -98,11 +80,9 @@ export class OrderRequestsComponent {
       }
     }
   }
-  
-
 
   private getData(): void {
-    this._auth.pendingMyOrders().subscribe((data:any) => {
+    this._auth.pendingMyOrders().subscribe((data: any) => {
       if (data?.data?.orders && data?.data?.orders?.length > 0) {
         this.order = data?.data?.orders[0];
         if (!this.waitingTimer) {
@@ -131,6 +111,7 @@ export class OrderRequestsComponent {
       }
     }, 1000);
   }
+
   openStatus(): void {
     const modalId = 'first1Modal';
     const modalElement = document.getElementById(modalId);
@@ -141,12 +122,11 @@ export class OrderRequestsComponent {
   }
 
   acceptMatchRequest() {
-    // const clientUserId = this.data.clientUserId;
-    const clientUserId = "112";
+    const clientUserId = this.order?.requestedBy ?? '';
 
     this._auth.acceptMatchRequest(clientUserId).pipe(
       catchError((error) => {
-       
+
         this.toaster.showError(error.error?.meta?.message, '', {
           duration: 10000,
         });
@@ -154,7 +134,7 @@ export class OrderRequestsComponent {
       }))
       .subscribe((data) => {
         if (data?.data) {
-          this.toaster.showError('Match request accepted', '', {
+          this.toaster.showSuccess('Match request accepted', '', {
             duration: 3000,
           });
           const request = {
@@ -163,10 +143,10 @@ export class OrderRequestsComponent {
             email: this._auth.getEmailFromSession()
           }
           this._chatService.notifyServer(request);
-          // this.router.navigate(['/order-progress']);
+          this.router.navigate(['/pro/order-progress']);
           window.open("https://discord.gg/ztRp6xffYR", "_blank");
         } else {
-         
+
           this.toaster.showError('Could not accept at this time. Please try again later', '', {
             duration: 3000,
           });

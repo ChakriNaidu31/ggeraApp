@@ -43,11 +43,11 @@ export class HeaderProComponent implements OnInit {
     private toaster: ResponseMessageService,
     private _chatService: ChatService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
-      status: [ 'OFFLINE'],
+      status: ['OFFLINE'],
     });
     this._auth.getMyWallet().subscribe((data: any) => {
       this.walletBalance = data.data?.wallet?.currentBalance
@@ -59,6 +59,7 @@ export class HeaderProComponent implements OnInit {
     this._auth.getSelfProfile().subscribe((response: any) => {
       if (response.data?.profileImageUrl) {
         this.profileImageUrl = response.data?.profileImageUrl;
+        this.form.controls['status'].setValue(response.data?.currentStatus);
         this._auth.setUserImageInSession(this.profileImageUrl);
         this.ref.detectChanges();
       }
@@ -184,17 +185,20 @@ export class HeaderProComponent implements OnInit {
   updateBankDetails() {
     this._router.navigate(['/pro/bank-details']);
   }
+
   changeUserStatus() {
     const userStatus = this.form.controls['status'].value;
     this._auth.updateUserStatus({ status: userStatus }).subscribe((data) => {
       const response = data?.data;
       this._auth.setTokenToSession(this._auth.getTokenFromSession(), response?.email, response?.username, response?.userType, response?.userStatus);
-      window.location.reload();
+      this.closeModal('firstModal');
     });
   }
-  cancel(){
+
+  cancel() {
     this.closeModal('firstModal');
   }
+
   closeModal(modalId: string): void {
     const modalElement = document.getElementById(modalId);
     if (modalElement) {

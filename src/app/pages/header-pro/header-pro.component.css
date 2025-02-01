@@ -80,6 +80,7 @@ li.notification-item.d-flex:hover {
     background-color: #d16c0652;
     padding: 10px 15px;
 }
+
 .bell-icon {
     display: block;
     vertical-align: middle;
@@ -128,7 +129,7 @@ li.notification-item.d-flex:hover {
 /* update status */
 
 button.btn.save {
-   
+
     border-radius: 8px;
     border: 0;
     padding: 14px 24px;
@@ -140,13 +141,13 @@ button.btn.save {
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    
-  }
- 
-  .savepro{
+
+}
+
+.savepro {
     color: #d16c06;
     background: #FFFFFF;
-  }
+}
 
 .profile-box {
     background-color: #4E4E4E;
@@ -176,39 +177,39 @@ button.btn.save {
 
 .modal-content {
     border-radius: 45px;
-  }
-  
-  .modal-card>.modal-dialog>.modal-content>.modal-body {
+}
+
+.modal-card>.modal-dialog>.modal-content>.modal-body {
     background-image: url("../../../assets/images/modal-bg.png");
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 24px;
-  }
-  
-  .card.modal-cards.hovercard {
+}
+
+.card.modal-cards.hovercard {
     border-radius: 0;
     background-image: url("../../../assets/images/modal-bg-blur.png");
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
     border: 0;
-  }
-  
-  .modal-stream.streamLobbySlotTagsWrapper {
+}
+
+.modal-stream.streamLobbySlotTagsWrapper {
     flex-flow: wrap;
     align-items: center;
     gap: 16px;
     display: flex;
-  }
-  
-  
-  
-  .modal-stream {
+}
+
+
+
+.modal-stream {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     /* Center align items horizontally */
     gap: 10px;
     /* Space between items */
-  }
+}

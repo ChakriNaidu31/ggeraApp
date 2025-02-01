@@ -61,7 +61,7 @@ export class ChatService {
             window.location.reload();
           }
           if (data.message?.title === '1-1 Match Request Approved' && this._auth.getUserTypeFromSession() === 'CLIENT') {
-            window.location.pathname = 'order-progress';
+            window.location.pathname = 'client/order-progress';
           }
           this.playAudio();
           this._notification.generateNotification([{
