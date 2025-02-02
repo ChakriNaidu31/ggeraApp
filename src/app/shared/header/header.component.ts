@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
         }))
         .subscribe((data) => {
           if (data.data) {
-            this._router.navigate([`/${linkFromNotification}`]);
+            this._router.navigate([`/client/${linkFromNotification}`]);
           } else {
             this.toaster.showError('Cannot find a valid link', '', {
               duration: 10000

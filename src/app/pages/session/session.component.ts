@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { Chat } from 'src/app/models/chat';
 import { ChatMessage } from 'src/app/models/chat-message';
@@ -35,7 +34,6 @@ export class SessionComponent implements OnInit {
     private _auth: AuthService,
     private chatService: ChatService,
     private toaster: ResponseMessageService,
-    private router: Router,
     private cd: ChangeDetectorRef,
     private _notification: PushNotificationService,
     private title: Title,
@@ -154,6 +152,16 @@ export class SessionComponent implements OnInit {
     this._auth.inProgressMyOrders().subscribe((data) => {
       if (data?.data?.orders && data?.data?.orders?.length > 0) {
         this.order = data?.data?.orders[0];
+
+        let timerInSeconds = 0;
+        const timeInMillis = new Date().getTime() - new Date(this.order?.scheduledStartTime).getTime();
+        if (timeInMillis > 0) {
+          timerInSeconds = timeInMillis / 1000;
+        }
+        const timeLoggedInSeconds = Math.floor(timerInSeconds || 0);
+        const timeLoggedInMinutes = timeLoggedInSeconds > 0 ? (Math.floor(timeLoggedInSeconds / 60)) % 60 : 0;
+        const timeLoggedInHours = timeLoggedInSeconds > 0 ? (Math.floor(timeLoggedInSeconds / (60 * 60))) % 24 : 0;
+        this.order.formattedTimer = `${timeLoggedInHours}h ${timeLoggedInMinutes}m`;
       } else {
         this.order = undefined;
       }
@@ -222,7 +230,6 @@ export class SessionComponent implements OnInit {
     const timeLoggedInMinutes = timeLoggedInSeconds > 0 ? (Math.floor(timeLoggedInSeconds / 60)) % 60 : 0;
     const timeLoggedInHours = timeLoggedInSeconds > 0 ? (Math.floor(timeLoggedInSeconds / (60 * 60))) % 24 : 0;
 
-    console.log(timeLoggedInMinutes, timeLoggedInHours);
     this.form.controls['clientProfileImage'].setValue(this.order?.requestedByImage || '../../assets/img/no-profile-picture-icon.webp');
     this.form.controls['clientName'].setValue(this.order?.requestedByUser || '');
     this.form.controls['timeLogged'].setValue(timeLoggedInMinutes);

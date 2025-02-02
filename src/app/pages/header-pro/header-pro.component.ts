@@ -107,7 +107,7 @@ export class HeaderProComponent implements OnInit {
         )
         .subscribe((data) => {
           if (data.data) {
-            this._router.navigate([`/${linkFromNotification}`]);
+            this._router.navigate([`/pro/${linkFromNotification}`]);
           } else {
             this.toaster.showError('Cannot find a valid link', '', {
               duration: 10000,

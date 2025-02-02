@@ -90,8 +90,8 @@
 
       </ul>
       <div class="col-lg-3 col-xs-12 header-end">
-        <svg style="cursor: pointer;" (click)="redirectToDiscord()" class="me-3" width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg style="cursor: pointer;" (click)="redirectToDiscord()" class="me-3" width="32" height="33"
+          viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <rect y="0.332031" width="32" height="32" fill="url(#pattern0_5344_220)" />
           <defs>
             <pattern id="pattern0_5344_220" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -113,25 +113,25 @@
           <span *ngIf="unreadNotificationsLength > 0"
             class="position-absolute translate-middle badge rounded-pill"></span>
 
-            <ul class="dropdown-menu dropdown-menu-dark notiy p-0 m-0" aria-labelledby="notificationDropdown">
-              <ng-container *ngFor="let notif of notifications">
-                <li class="notification-item d-flex " (click)="navigateUser(notif.link, notif.id)">
-                  <div
-                    class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
-                    {{ notif.avatar }}
-                  </div>
-                  <div class="ms-3">
-                    <p class="mb-0 text-white">{{ notif.title }}</p>
-                    <small class="text-secondary">{{ notif.message }} • {{ notif.relativeDays }}</small>
-                  </div>
-                </li>
-                <li>
-                  <!-- <hr class="dropdown-divider"> -->
-                </li>
-              </ng-container>
-              <li><a class="dropdown-item text-center text-white f-14" href="#" (click)="markAllAsRead()">Mark all as
-                  read</a></li>
-            </ul>
+          <ul class="dropdown-menu dropdown-menu-dark notiy p-0 m-0" aria-labelledby="notificationDropdown">
+            <ng-container *ngFor="let notif of notifications">
+              <li class="notification-item d-flex " (click)="navigateUser(notif.link, notif.id)">
+                <div
+                  class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
+                  {{ notif.avatar }}
+                </div>
+                <div class="ms-3">
+                  <p class="mb-0 text-white">{{ notif.title }}</p>
+                  <small class="text-secondary">{{ notif.message }} • {{ notif.relativeDays }}</small>
+                </div>
+              </li>
+              <li>
+                <!-- <hr class="dropdown-divider"> -->
+              </li>
+            </ng-container>
+            <li><a class="dropdown-item text-center text-white f-14" href="#" (click)="markAllAsRead()">Mark all as
+                read</a></li>
+          </ul>
         </div>
 
 
@@ -157,5 +157,3 @@
     </div>
   </div>
 </nav>
-
- 
