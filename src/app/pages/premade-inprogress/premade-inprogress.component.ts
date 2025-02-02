@@ -20,10 +20,8 @@ export class PremadeInprogressComponent implements OnInit {
 
   @ViewChild('messageScroller', { static: false }) private messageScroller: ElementRef;
 
-  userType: string = '';
   order: PremadeParty | undefined;
   reloadTimer: any;
-  loggedInUserEmail: string = '';
   currentClients: any[] | undefined;
 
   messages: ChatMessage[];
@@ -44,9 +42,6 @@ export class PremadeInprogressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userType = this._auth.getUserTypeFromSession();
-    this.loggedInUserEmail = this._auth.getEmailFromSession();
-
     this.getData();
     this.setMetaInfo();
     setTimeout(() => this.loadChatList(), 3000);
@@ -197,25 +192,13 @@ export class PremadeInprogressComponent implements OnInit {
           this.toaster.showSuccess('Timer stopped and fund will be transferred when PRO stops the timer', '', {
             duration: 3000
           });
-          if (this.userType === 'ADMIN') {
-            this.router.navigate(['/admin/premade-progress']);
-          } else {
-            this.router.navigate(['/premade-completed']);
-          }
+          this.getData();
         } else {
           this.toaster.showError('Could not stop timer at this time. Please try again later', '', {
             duration: 10000
           });
         }
       });
-  }
-
-  openDialogForTimer(timeLogged: number, clientName: string | undefined, matchId: string | undefined, userEmail: string | undefined, profileImage: string | undefined) {
-    // this.dialog.open(PremadeTimerUpdateComponent, {
-    //   data: { clientName, matchId, userEmail, timeLogged, profileImage }
-    // }).afterClosed().subscribe((data) => {
-    //   this.getData();
-    // });
   }
 
   openStreamUrl(streamUrl: string | undefined) {

@@ -139,11 +139,8 @@
                                                         </div>
 
                                                     </div>
-                                                    <div>
-                                                        <span class="text-secondary"
-                                                            *ngIf="!(userType === 'CLIENT' && client.type === 'CLIENT')">
-                                                            {{ client.formattedTimer }}
-                                                        </span>
+                                                    <div *ngIf="client.type === 'YOU'">
+                                                        <span class="text-secondary">{{ client.formattedTimer }}</span>
                                                     </div>
 
                                                 </div>

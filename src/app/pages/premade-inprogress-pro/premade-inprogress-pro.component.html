@@ -48,14 +48,13 @@
 
                             <div class="col-4">
                                 <div class="session-text float-end">
-                                    <div class=" d-flex"
-                                        *ngIf="userType === 'PRO' && order?.createdBy === loggedInUserEmail">
+                                    <div class=" d-flex" *ngIf="order?.createdBy === loggedInUserEmail">
                                         <button type="button" class="btn btn-primary-ggpro p-3 border-0  w-100"
-                                            (click)="endPartyDialog(order.id)">
+                                            (click)="endPartyDialog()">
                                             <h5 class="pe-4 px-4 mb-0 f-14">END</h5>
                                         </button>
                                         <button type="button" class="btn btn-secondary p-3 border-0  w-100 mx-2"
-                                            *ngIf="!order?.endedTime" (click)="hidePartyDialog(order.id)">
+                                            *ngIf="!order?.endedTime" (click)="hidePartyDialog()">
                                             <h5 class="pe-4 px-4 mb-0 f-14">Hide</h5>
                                         </button>
                                         <button type="button" class="btn btn-secondary p-3 border-0  w-100 mx-2"
@@ -63,10 +62,6 @@
                                             <h5 class="pe-4 px-4 mb-0 f-14">Unhide</h5>
                                         </button>
                                     </div>
-                                    <button type="button" class="btn btn-primary-ggpro p-3 border-0  w-100 mx-2"
-                                        *ngIf="userType === 'CLIENT' && !order.isClientTimerStopped">
-                                        <h5 class="pe-4 px-4 mb-0 f-14" (click)="stopTimer(order.id)">STOP</h5>
-                                    </button>
                                 </div>
                             </div>
 
@@ -132,10 +127,10 @@
                                         </p>
 
                                         <div class="row align-items-center bg-lite p-2 rounded">
-                                            <div class="col-6 p-0">
+                                            <div class="col-6 p-0"
+                                                *ngIf="order?.createdBy === loggedInUserEmail && !order?.endedTime">
                                                 <button type="button" class="btn btn-secondary mb-0 p-2 w-100 me-1"
-                                                    *ngIf="userType == 'PRO' && order?.createdBy === loggedInUserEmail && !order?.endedTime"
-                                                    (click)="editPartyDialog(order.id, order.name, order.description)">
+                                                    (click)="editPartyDialog()">
                                                     Edit Description
                                                 </button>
                                             </div>
@@ -166,22 +161,19 @@
                                                         <!-- Name and Designation -->
                                                         <div class="pe-3">
                                                             <p class="mb-1">{{ client.username | truncate: 8 }}</p>
-                                                            <p class="text-white mb-0 text-start"
-                                                                *ngIf="userType === 'CLIENT'">{{ client.type }}</p>
-                                                            <p class="text-white mb-0 text-start"
-                                                                *ngIf="userType === 'PRO'">{{ client.userBalance }}</p>
+                                                            <p class="text-white mb-0 text-start">{{ client.userBalance
+                                                                }}</p>
                                                         </div>
 
                                                     </div>
                                                     <div>
-                                                        <span class="text-secondary"
-                                                            *ngIf="!(userType === 'CLIENT' && client.type === 'CLIENT')">
+                                                        <span class="text-secondary">
                                                             {{ client.formattedTimer }}
                                                         </span>
                                                     </div>
                                                     <div class="ps-5">
                                                         <button type="button"
-                                                            *ngIf="userType === 'PRO' && order?.createdBy === loggedInUserEmail"
+                                                            *ngIf="order?.createdBy === loggedInUserEmail"
                                                             class="btn btn-primary-ggpro p-3 border-0  w-100"
                                                             (click)="openDialogForTimer(client.timerInMinutes, client.username, order.id, client.email, client.profileImageUrl)">
                                                             <h5 class="mb-0 f-14">STOP</h5>
@@ -226,10 +218,8 @@
                 <div class="modal-body">
                     <div>
                         <div class="card modal-cards hovercard">
-
                             <div class="container card-body-s">
                                 <div class="modal-stream streamLobbySlotTagsWrapper text-center px-4">
-
 
                                     <div class="d-flex justify-content-center">
                                         <div class="container">
@@ -241,7 +231,7 @@
                                                     <form [formGroup]="form">
                                                         <div class="p-3 pb-1 pt-1 text-light"
                                                             style="font-size: small;color: #fff !important;">
-                                                            <label class="form-label mb-3">Zxcvfbgnhjk</label>
+                                                            <label class="form-label mb-3">{{order?.name}}</label>
                                                             <div class="row" data-bs-theme="dark">
                                                                 <div class="col-sm-12">
                                                                     <textarea class="form-control"
@@ -259,13 +249,12 @@
                                                         Update
                                                     </button>
                                                     <button class="btn btn-transparent mt-2" type="button"
-                                                        (click)="cancel()">
+                                                        (click)="closeEditParty()">
                                                         Cancel
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-
 
                                     </div>
 
@@ -274,6 +263,194 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hide Party Dialog -->
+    <div class="modal fade modal-card" id="hidePartyModal" tabindex="-1" aria-labelledby="hideModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-m">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div>
+                        <div class="card modal-cards hovercard">
+                            <div class="container card-body-s">
+                                <div class="modal-stream streamLobbySlotTagsWrapper text-center px-4">
+
+                                    <div class="d-flex justify-content-center">
+                                        <div class="container">
+                                            <div>
+                                                <div class="ps-3 text-light">
+                                                    <h4 class="card-head mt-2">Hide Premade Party</h4>
+                                                </div>
+                                                <div class="">
+                                                    <div class="p-3 pb-1 pt-1 text-light"
+                                                        style="font-size: small;color: #fff !important;">
+                                                        <label class="form-label mb-3">Are you sure?</label>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3">
+                                                    <button class="btn btn-primary-ggpro w-100" type="button"
+                                                        (click)="hidePremadeParty()">
+                                                        Hide
+                                                    </button>
+                                                    <button class="btn btn-transparent mt-2" type="button"
+                                                        (click)="closeHideParty()">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Party Dialog -->
+    <div class="modal fade modal-card" id="endPartyModal" tabindex="-1" aria-labelledby="endModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-m">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div>
+                        <div class="card modal-cards hovercard">
+                            <div class="container card-body-s">
+                                <div class="modal-stream streamLobbySlotTagsWrapper text-center px-4">
+
+                                    <div class="d-flex justify-content-center">
+                                        <div class="container">
+                                            <div>
+                                                <div class="ps-3 text-light">
+                                                    <h4 class="card-head mt-2">End the Premade Party</h4>
+                                                </div>
+                                                <div class="">
+                                                    <div class="p-3 pb-1 pt-1 text-light"
+                                                        style="font-size: small;color: #fff !important;">
+                                                        <label class="form-label mb-3">Are you sure?</label>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="p-3 pb-1 pt-1 text-light"
+                                                        style="font-size: small;color: #fff !important;">
+                                                        <label class="form-label mb-3">You will not be able to manually
+                                                            report time if you end party. For manually reporting time,
+                                                            please click on cancel and individually stop the timer for
+                                                            each client in the premade party.</label>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3">
+                                                    <button class="btn btn-primary-ggpro w-100" type="button"
+                                                        (click)="endPremadeParty()">
+                                                        Stop and End All Timers
+                                                    </button>
+                                                    <button class="btn btn-transparent mt-2" type="button"
+                                                        (click)="closeEndParty()">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Time Entry Dialog -->
+    <div class="modal fade modal-card" id="timerDialog" tabindex="-1" aria-labelledby="timerDialogLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-body p-4 modal0">
+                    <div>
+                        <div class="card  modal-cards hovercard">
+
+                            <div class="container">
+
+                                <div class="d-flex justify-content-start pt-2">
+                                    <h4 class="text-light">Report</h4>
+                                </div>
+
+                                <div class="">
+                                    <form [formGroup]="timerForm">
+                                        <div class="pb-0 pt-1">
+                                            <div class="profile-box ">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex pt-3">
+                                                        <div class="pe-2">
+                                                            <img class="rounded"
+                                                                [src]="timerForm.get('clientProfileImage')?.value"
+                                                                alt="Profile Image" srcset="" width="45" height="45"
+                                                                style="vertical-align: middle;">
+                                                        </div>
+                                                        <div class="text-light ">
+                                                            <div>
+                                                                {{ timerForm.get('clientName')?.value | truncate: 8 }}
+                                                            </div>
+                                                            <div>
+                                                                {{ timerForm.get('timeLoggedInHours')?.value }} Hours,
+                                                                {{ timerForm.get('timeLogged')?.value }} Minutes
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" pb-1 pt-3 text-light"
+                                            style="font-size: small;color: #fff !important;">
+                                            Time in 1-1 Session
+                                            <div class="row mt-2" data-bs-theme="dark">
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" placeholder="Hours"
+                                                        formControlName="timeLoggedInHours" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" placeholder="Minutes"
+                                                        formControlName="timeLogged" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 pt-3">
+                                        <button class="btn btn-primary-ggpro p-3 w-100" (click)="saveTimerForPro()">
+                                            <h5 class="mb-0 f-14"> Report and Continue</h5>
+                                        </button>
+                                    </div>
+                                    <div class="col-12 pt-3">
+                                        <button type="button" class="btn btn-outline-light p-3 w-100"
+                                            (click)="closeTimerDialogForPro()">
+                                            <h5 class=" mb-0 f-14">Cancel</h5>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

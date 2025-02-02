@@ -21,7 +21,6 @@ export class PremadeInprogressProComponent implements OnInit {
 
   @ViewChild('messageScroller', { static: false }) private messageScroller: ElementRef;
 
-  userType: string = '';
   order: PremadeParty | undefined;
   reloadTimer: any;
   loggedInUserEmail: string = '';
@@ -31,6 +30,8 @@ export class PremadeInprogressProComponent implements OnInit {
   selectedChat: Chat;
   messageTyped: string = '';
   form: UntypedFormGroup;
+  timerForm: UntypedFormGroup;
+
   constructor(
     private _auth: AuthService,
     private chatService: ChatService,
@@ -46,7 +47,6 @@ export class PremadeInprogressProComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userType = this._auth.getUserTypeFromSession();
     this.loggedInUserEmail = this._auth.getEmailFromSession();
 
     this.getData();
@@ -58,10 +58,16 @@ export class PremadeInprogressProComponent implements OnInit {
       this.getData();
     }, 10000);
 
-    // this.form = this.fb.group({
-    //   name: [this.data.matchName || ''],
-    //   description: [this.data.description || '']
-    // });
+    this.form = this.fb.group({
+      description: ['']
+    });
+    this.timerForm = this.fb.group({
+      clientProfileImage: ['/assets/images/nouser.png'],
+      clientName: [''],
+      clientEmail: [''],
+      timeLogged: [0],
+      timeLoggedInHours: [0]
+    });
   }
 
   ngOnDestroy() {
@@ -119,23 +125,23 @@ export class PremadeInprogressProComponent implements OnInit {
     if (this.messageScroller.nativeElement)
       this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
   }
+
   updateDetails() {
-    // this._auth.updateParty({ description: this.form.controls['description'].value }, this.data.matchId).subscribe((data: any) => {
-    //   if (data?.data) {
-    //     // this.snackbar.open('Party details updated', '', {
-    //     //   duration: 3000
-    //     // });
-    //     this.cancel();
-    //   } else {
-    //     // this.snackbar.open('Could not stop timer at this time. Please try again later', '', {
-    //     //   duration: 10000
-    //     // });
-    //   }
-    // })
+    this._auth.updateParty({ description: this.form.controls['description'].value }, this.order?.id ?? '').subscribe((data: any) => {
+      if (data?.data) {
+        this.toaster.showSuccess('Party details updated', '', {
+          duration: 3000
+        });
+        this.closeEditParty();
+      } else {
+        this.toaster.showError('Could not stop timer at this time. Please try again later', '', {
+          duration: 10000
+        });
+      }
+    });
   }
 
-
-  cancel() {
+  closeEditParty() {
     this.closeModal('first2Modal');
   }
 
@@ -219,9 +225,57 @@ export class PremadeInprogressProComponent implements OnInit {
     });
   }
 
-  stopTimer(matchId: string | undefined) {
-    this._auth.stopPartyTimer(matchId).pipe(
-      catchError((error: any) => {
+  openDialogForTimer(timeLoggedValue: number, clientName: string | undefined, matchId: string | undefined, userEmail: string | undefined, profileImage: string | undefined) {
+    const timeLoggedInMinutes = Math.floor(timeLoggedValue || 0);
+    const timeLogged = timeLoggedInMinutes > 0 ? timeLoggedInMinutes % 60 : 0;
+    const timeLoggedInHours = timeLoggedInMinutes > 0 ? (Math.floor(timeLoggedInMinutes / 60)) % 24 : 0;
+
+    if (profileImage) { this.timerForm.controls['clientProfileImage'].setValue(profileImage); }
+    this.timerForm.controls['clientName'].setValue(clientName);
+    this.timerForm.controls['clientEmail'].setValue(userEmail);
+    this.timerForm.controls['timeLogged'].setValue(timeLogged);
+    this.timerForm.controls['timeLoggedInHours'].setValue(timeLoggedInHours);
+
+    const modalId = 'timerDialog';
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
+
+  saveTimerForPro() {
+    try {
+      let timeLoggedInMinutes = this.timerForm.controls['timeLogged'].value;
+      let timeLoggedInHours = this.timerForm.controls['timeLoggedInHours'].value;
+      console.log(timeLoggedInMinutes, timeLoggedInHours);
+      timeLoggedInMinutes = parseInt(timeLoggedInMinutes);
+      timeLoggedInHours = parseInt(timeLoggedInHours);
+      if (isNaN(timeLoggedInMinutes) || isNaN(timeLoggedInHours)) {
+        this.toaster.showError('Invalid data found for timer. Please add time in minutes', '', {
+          duration: 10000
+        });
+      } else if (timeLoggedInMinutes < 0) {
+        console.log("More than 12 hours of play continously is not supported. Please contact admin");
+        this.toaster.showError('Invalid data found for timer. Please add time in minutes', '', {
+          duration: 10000
+        });
+      } else {
+        const timeInMinutes = (timeLoggedInHours * 60) + timeLoggedInMinutes;
+        this.stopTimerForPro(this.order?.id ?? '', this.timerForm.controls['clientEmail'].value, timeInMinutes);
+      }
+    } catch (exception) {
+      console.log(exception);
+      this.toaster.showError('Invalid data found for timer. Please add time in minutes', '', {
+        duration: 10000
+      });
+    }
+  }
+
+  stopTimerForPro(matchId: string, userEmail: string, timeLogged: number) {
+
+    this._auth.stopPartyTimerPro(matchId, userEmail, timeLogged).pipe(
+      catchError((error) => {
         this.toaster.showError(error.error?.meta?.message, '', {
           duration: 10000
         });
@@ -229,43 +283,102 @@ export class PremadeInprogressProComponent implements OnInit {
       }))
       .subscribe((data) => {
         if (data?.data) {
-          this.toaster.showSuccess('Timer stopped and fund will be transferred when PRO stops the timer', '', {
+          this.toaster.showSuccess('Timer Stopped and fund will be transferred soon', '', {
             duration: 3000
           });
-          if (this.userType === 'ADMIN') {
-            this.router.navigate(['/admin/premade-progress']);
-          } else {
-            this.router.navigate(['/premade-completed']);
-          }
+          this.closeTimerDialogForPro();
         } else {
           this.toaster.showError('Could not stop timer at this time. Please try again later', '', {
+            duration: 10000
+          });
+          this.closeTimerDialogForPro();
+        }
+      });
+
+  }
+
+  closeTimerDialogForPro() {
+    this.closeModal('timerDialog');
+  }
+
+  endPremadeParty() {
+
+    const requestBody = {
+      id: this.order?.id ?? ''
+    };
+    this._auth.endPremadeParty(requestBody).pipe(
+      catchError((error) => {
+        this.toaster.showError(error.error?.meta?.message, '', {
+          duration: 10000
+        });
+        return '';
+      }))
+      .subscribe((data) => {
+        if (data?.data) {
+          this.toaster.showSuccess('All timers Stopped and funds will be transferred soon', '', {
+            duration: 3000
+          });
+          this.closeEndParty();
+          this.router.navigate(['/pro/premade-completed']);
+        } else {
+          this.toaster.showError('Could not stop timer at this time. Please try again later', '', {
+            duration: 10000
+          });
+          this.closeEndParty();
+        }
+      });
+
+  }
+
+  closeEndParty() {
+    this.closeModal('endPartyModal');
+  }
+
+  endPartyDialog() {
+    const modalId = 'endPartyModal';
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
+
+  hidePartyDialog() {
+    const modalId = 'hidePartyModal';
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
+  }
+
+  hidePremadeParty() {
+
+    this._auth.finishPremadeParty(this.order?.id ?? '').pipe(
+      catchError((error) => {
+        this.toaster.showError(error.error?.meta?.message, '', {
+          duration: 10000
+        });
+        return '';
+      })).subscribe((data) => {
+        if (data?.data) {
+          this.toaster.showSuccess('The premade party is hidden, so no one can join now', '', {
+            duration: 3000
+          });
+          this.closeModal('hidePartyModal');
+          window.location.reload();
+        } else {
+          this.toaster.showError('Could not hide at this time. Please try again later', '', {
             duration: 10000
           });
         }
       });
   }
 
-  openDialogForTimer(timeLogged: number, clientName: string | undefined, matchId: string | undefined, userEmail: string | undefined, profileImage: string | undefined) {
-    // this.dialog.open(PremadeTimerUpdateComponent, {
-    //   data: { clientName, matchId, userEmail, timeLogged, profileImage }
-    // }).afterClosed().subscribe((data) => {
-    //   this.getData();
-    // });
+  closeHideParty() {
+    this.closeModal('hidePartyModal');
   }
 
-  endPartyDialog(matchId: string) {
-    // this.dialog.open(PremadeTimerUpdateComponent, {
-    //   data: { matchId, endParty: true }
-    // });
-  }
-
-  hidePartyDialog(matchId: string) {
-    // this.dialog.open(PremadeTimerUpdateComponent, {
-    //   data: { matchId, hideParty: true }
-    // }).afterClosed().subscribe((data) => {
-    //   this.getData();
-    // });
-  }
 
   unhidePartyDialog(matchId: string) {
     this._auth.unhidePremadeParty(matchId).pipe(
@@ -279,7 +392,7 @@ export class PremadeInprogressProComponent implements OnInit {
           this.toaster.showSuccess('The premade party is visible, so clients can join now', '', {
             duration: 3000
           });
-          this.getData();
+          window.location.reload();
         } else {
           this.toaster.showError('Could not unhide at this time. Please try again later', '', {
             duration: 10000
@@ -288,12 +401,8 @@ export class PremadeInprogressProComponent implements OnInit {
       });
   }
 
-  editPartyDialog(matchId: string, matchName: string, description: string) {
-    // this.dialog.open(PremadeEditDescriptionComponent, {
-    //   data: { matchId, matchName, description }
-    // }).afterClosed().subscribe((data) => {
-    //   this.getData();
-    // });
+  editPartyDialog() {
+    this.form.controls['description'].setValue(this.order?.description);
     const modalId = 'first2Modal';
     const modalElement = document.getElementById(modalId);
     if (modalElement) {
