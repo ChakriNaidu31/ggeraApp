@@ -131,7 +131,7 @@
   transition: all 0.3s ease;
 }
 .btn-choose:hover {
-  background-color: #5b5f70;
+  background-color: #5b5f7061;
 }
 .btn-create {
   background: linear-gradient(90deg, #6c32fa, #7d3cfc);
