@@ -1625,6 +1625,68 @@ button.btn.btn-choose.me-3.f-14.choosebtn {
   background-color: #151520;
 }
 
+.card.hovercard {
+  position: relative;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+.card.hovercard .cardheader {
+  background-size: cover;
+  height: 110px;
+}
+
+.card.hovercard .avatar {
+  position: relative;
+  top: -70px;
+  left: 30px;
+  margin-bottom: -50px;
+}
+
+.card.hovercard .avatar img,
+.card.hovercard img.profile-image {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border-radius: 50%;
+  border: 3px solid #985eff;
+  object-fit: cover;
+}
+
+.card-body-s {
+  top: -32px;
+  position: relative;
+  padding: 30px 23px 0 30px;
+}
+
+.card.hovercard .info {
+  padding: 4px 8px 10px;
+}
+
+.card.hovercard .info .title {
+  margin-bottom: 4px;
+  font-size: 24px;
+  line-height: 1;
+  color: #262626;
+  vertical-align: middle;
+}
+
+.card.hovercard .info .desc {
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 20px;
+  color: #737373;
+  text-overflow: ellipsis;
+}
+
+.card.hovercard .bottom {
+  padding: 0 20px;
+  margin-bottom: 17px;
+}
 
 /* Modal */
 
@@ -1633,8 +1695,7 @@ button.btn.btn-choose.me-3.f-14.choosebtn {
 }
 
 .modal-card>.modal-dialog>.modal-content>.modal-body {
-  /* background-image: url("../../../assets/images/modal-bg.png"); */
-  background: #1c1c26;
+  background-image: url("../../../assets/images/modal-bg.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1643,8 +1704,7 @@ button.btn.btn-choose.me-3.f-14.choosebtn {
 
 .card.modal-cards.hovercard {
   border-radius: 0;
-  /* background-image: url("../../../assets/images/modal-bg-blur.png"); */
-  background: transparent;
+  background-image: url("../../../assets/images/modal-bg-blur.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1667,4 +1727,10 @@ button.btn.btn-choose.me-3.f-14.choosebtn {
   /* Center align items horizontally */
   gap: 10px;
   /* Space between items */
+}
+
+.streamLobbySlotTagsWrapper .streamLobbySlotTag:nth-child(6),
+.streamLobbySlotTagsWrapper .streamLobbySlotTag:nth-child(7) {
+  max-width: calc(45% - 10px);
+  /* Adjust width for the second row */
 }

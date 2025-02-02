@@ -20,6 +20,7 @@ export class EliteOrdersNewComponent implements OnInit {
   addedProUsers: ProUser[] = [];
   timer: any;
   currentClientUser: any;
+  selectedProUserForMatch: ProUser;
 
   constructor(private auth: AuthService,
     private toaster: ResponseMessageService,
@@ -97,15 +98,6 @@ export class EliteOrdersNewComponent implements OnInit {
       currentPro?.region === oldPro?.region
   }
 
-  openProfile(proUser: ProUser) {
-    // this.dialog.open(ProPlayerProfileComponent, {
-    //   data: {
-    //     proUser: proUser,
-    //     isEliteOrder: true
-    //   }
-    // });
-  }
-
   createEliteOrder() {
     if (this.addedProUsers.length < 2) {
       this.toaster.showError('Please select atleast two PROs to create an elite order', '', {
@@ -177,6 +169,16 @@ export class EliteOrdersNewComponent implements OnInit {
       if (modalInstance) {
         modalInstance.hide();
       }
+    }
+  }
+
+  openProfile(selectedUser: ProUser) {
+    const modalId = 'firstModal';
+    this.selectedProUserForMatch = selectedUser;
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
     }
   }
 
