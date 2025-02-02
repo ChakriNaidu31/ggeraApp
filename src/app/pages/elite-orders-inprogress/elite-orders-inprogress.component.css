@@ -178,6 +178,10 @@ span.chat-message {
   border-top-right-radius: 16px;
 
 }
+.modal-body{
+  background-color: #151520;
+  border-radius: 5px;
+}
 .px-3.py-2.bg-real.border-radius-top-lr {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
