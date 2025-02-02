@@ -230,7 +230,7 @@ export class SessionComponent implements OnInit {
     const timeLoggedInMinutes = timeLoggedInSeconds > 0 ? (Math.floor(timeLoggedInSeconds / 60)) % 60 : 0;
     const timeLoggedInHours = timeLoggedInSeconds > 0 ? (Math.floor(timeLoggedInSeconds / (60 * 60))) % 24 : 0;
 
-    this.form.controls['clientProfileImage'].setValue(this.order?.requestedByImage || '../../assets/img/no-profile-picture-icon.webp');
+    this.form.controls['clientProfileImage'].setValue(this.order?.requestedByImage || '/assets/images/nouser.png');
     this.form.controls['clientName'].setValue(this.order?.requestedByUser || '');
     this.form.controls['timeLogged'].setValue(timeLoggedInMinutes);
     this.form.controls['timeLoggedInHours'].setValue(timeLoggedInHours);

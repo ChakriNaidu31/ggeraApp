@@ -15,7 +15,7 @@
               <div class="d-flex" *ngIf="currentClientUser">
                 <div class="d-flex align-items-center me-3">
                   <img
-                    src="{{ currentClientUser.profileImageUrl ? currentClientUser.profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                    src="{{ currentClientUser.profileImageUrl ? currentClientUser.profileImageUrl : '/assets/images/nouser.png' }}"
                     alt="Avatar" class="avatars me-2">
                   <h6 class="text-start text-white mb-0">{{ currentClientUser.username | truncate: 8 }}</h6>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="d-flex gap-1">
                   <div class="d-flex align-items-center me-3" *ngFor="let user of addedProUsers">
                     <img
-                      src="{{ user.profileImageUrl ? user.profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                      src="{{ user.profileImageUrl ? user.profileImageUrl : '/assets/images/nouser.png' }}"
                       alt="Avatar" class="avatars me-2">
                     <h6 class="text-start text-white mb-0">{{ user.username | truncate: 8 }}</h6>
                   </div>
