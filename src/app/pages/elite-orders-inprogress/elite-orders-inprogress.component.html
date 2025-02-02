@@ -76,7 +76,7 @@
                 </button>
 
                 <button class="btn btn-choose me-3 f-14 choosebtn">
-                  <div class="d-flex align-items-center ">
+                  <div class="d-flex align-items-center " (click)="openPro()">
                     <!-- Profile Picture -->
                     <img  src="../../../assets/images/nouser.png" alt="Avatar" class="avatar-dummy me-2">
               
@@ -88,7 +88,7 @@
                 </button>
 
                 <button class="btn btn-choose me-3 f-14 choosebtn">
-                  <div class="d-flex align-items-center ">
+                  <div class="d-flex align-items-center " (click)="openPro()">
                     <!-- Profile Picture -->
                     <img  src="../../../assets/images/nouser.png" alt="Avatar" class="avatar-dummy me-2">
               
@@ -393,4 +393,133 @@
        
       </div>
     </div>
+
+
+    <!-- Schoose pro -->
+<div class="modal fade modal-card" id="proModal" tabindex="-1" aria-labelledby="proModalLabel" aria-hidden="true"
+data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-dialog-centered modal-xl">
+  <div class="modal-content">
+
+    <div class="modal-body p-3">
+      <div class="d-flex justify-content-end text-light" (click)="cancel()">close</div>
+      <div>
+        <div class="card modal-cards hovercard mt-4">
+
+          <div class="container card-body-s">
+            <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
+           
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-4" *ngFor="let contact of selectedProUsers">
+                  <div class="card hovercard mt-5 rounded">
+                    <div>
+                      <div class="cardheader" [ngStyle]="{'background-image': contact.coverImageUrl ? 'url(' + contact.coverImageUrl + ')' : 'url(\'/assets/svg/session1.svg\')'}">
+                      </div>
+                      <div class="avatar">
+                        <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
+                          alt="Profile Image">
+                        <ng-template #noImage>
+                          <img src="../../../assets/images/nouser.png" alt="No Profile Image"
+                            class="img-fluid pro-log-img" />
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div class=" container card-body-s">
+                      <div >
+                        <div class="d-flex justify-content-between align-items-center">
+                          <h3 class="text-light">
+                            <span class="h1-font me-2">{{ contact.username | truncate: 8 }}</span>
+                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_5344_406)">
+                                <path
+                                  d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
+                                  fill="url(#paint0_linear_5344_406)" />
+                                <path
+                                  d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
+                                  fill="white" />
+                              </g>
+                              <defs>
+                                <linearGradient id="paint0_linear_5344_406" x1="15.708" y1="14.1194" x2="-2.09236"
+                                  y2="6.05188" gradientUnits="userSpaceOnUse">
+                                  <stop stop-color="#41067A" />
+                                  <stop offset="0.859293" stop-color="#7A06D1" />
+                                </linearGradient>
+                                <clipPath id="clip0_5344_406">
+                                  <rect width="16" height="16" fill="white" transform="translate(0.5 0.332031)" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </h3>
+                          <div>
+                            <span class="me-2 text-white">{{contact?.currentStatus}} </span>
+                            <img src="../../../assets/images/online.png" class="img-fluid mb-1"
+                              style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'ONLINE'" />
+                            <img src="../../../assets/images/offline.png" class="img-fluid mb-1"
+                              style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'OFFLINE'" />
+                            <img src="../../../assets/images/busy.png" class="img-fluid mb-1"
+                              style="width: 15px; width: 15px;"
+                              *ngIf="contact?.currentStatus === 'BOOKED' || contact?.currentStatus === 'BUSY'" />
+                          </div>
+    
+                        </div>
+    
+    
+                        <p class="text-color-light mt-2" style="min-height: 42px;">
+                          {{ contact.summary | truncate: 60 }}
+                        </p>
+                      </div>
+                      <div class=" streamLobbySlotTagsWrapper mt-3">
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Country</span>
+                          <span class="fw-bold">{{contact?.region}}</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2 ">
+                          <span class="red-letter me-2">KD</span>
+                          <span class="fw-bold">{{ contact?.kd ? contact?.kd : '0' }}</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Platform</span>
+                          <span class="fw-bold">{{contact?.platform}}</span>
+                        </div>
+    
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Kills</span>
+                          <span class="fw-bold">{{contact?.kills ? contact?.kills : '0'}}</span>
+                        </div>
+    
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Orders</span>
+                          <span class="fw-bold"><span>{{ contact?.orderCount }}</span> ⭐ <span>{{ contact?.rating
+                              }}</span></span>
+                        </div>
+                      </div>
+    
+                      <div class="session-text mt-4">
+                        <button type="button" class="btn btn-primary-gg p-3  w-100"
+                          >
+                          <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png"
+                              class="ms-2 mb-1 img-fluid" /></h5>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+    
+    
+                <!-- user not found -->
+                <div class="text-center" *ngIf="!selectedProUsers || selectedProUsers.length === 0">
+                  <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No players found</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
   </div>
