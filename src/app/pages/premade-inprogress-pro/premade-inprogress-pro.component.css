@@ -14,6 +14,7 @@
 .rounde12 {
     border-radius: 12px;
 }
+
 .form-select {
     width: 150px;
     height: 40px;
@@ -361,45 +362,45 @@ textarea::placeholder {
 
 /* description  */
 
-  .profile-box {
+.profile-box {
     background-color: #4e4e4e;
     border-radius: 10px;
-  }
-  
-  .btn-white {
+}
+
+.btn-white {
     background-color: white;
     color: #2196f3;
     border-radius: 10px;
     width: 100%;
     font-size: 1rem;
     font-weight: 600;
-  }
-  
-  .btn-transparent {
+}
+
+.btn-transparent {
     background-color: transparent;
     border: 1px solid white;
     color: #ffff;
     border-radius: 10px;
     width: 100%;
     font-weight: 600;
-  }
-  
-  .form-select {
+}
+
+.form-select {
     background-color: #4e4e4e;
-  }
-  
-  .resultsTable {
+}
+
+.resultsTable {
     position: relative;
-  }
-  
-  .close-icon {
+}
+
+.close-icon {
     position: absolute;
     top: -12px !important;
     right: 0px !important;
     color: aliceblue;
-  }
+}
 
-  .modal-body{
+.modal-body {
     background: #151520;
     border-radius: 5px;
-  }
+}
