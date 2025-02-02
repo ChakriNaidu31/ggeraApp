@@ -12,24 +12,30 @@
           <h1 class="text-start text-white mt-5">Create Elite Order</h1>
           <div class="row">
             <div class="order-card bg-darks mt-3 mb-3 d-flex justify-content-between align-items-center">
-              <div class="d-flex">
+              <div class="d-flex" *ngIf="currentClientUser">
                 <div class="d-flex align-items-center me-3">
-                  <img src="../../../assets/images/user.png" alt="Avatar" class="avatars me-2">
-                  <h6 class="text-start text-white mb-0">MUNNA</h6>
+                  <img
+                    src="{{ currentClientUser.profileImageUrl ? currentClientUser.profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                    alt="Avatar" class="avatars me-2">
+                  <h6 class="text-start text-white mb-0">{{ currentClientUser.username | truncate: 8 }}</h6>
                 </div>
 
                 <div class="d-flex gap-1">
-                  <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatars me-1"><button
-                    class="btn btn-choose me-3 f-14 choosebtn">Choose Pro</button>
-                  <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatars me-1"><button
-                    class="btn btn-choose me-3 f-14 choosebtn">Choose Pro</button>
-                  <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatars me-1"><button
-                    class="btn btn-choose me-3 f-14 choosebtn">Choose Pro</button>
+                  <div class="d-flex align-items-center me-3" *ngFor="let user of addedProUsers">
+                    <img
+                      src="{{ user.profileImageUrl ? user.profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                      alt="Avatar" class="avatars me-2">
+                    <h6 class="text-start text-white mb-0">{{ user.username | truncate: 8 }}</h6>
+                  </div>
+                  <ng-container *ngFor="let item of [].constructor(3-addedProUsers.length); let i=index">
+                    <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatars me-1">
+                    <button class="btn btn-choose me-3 f-14 choosebtn">Choose Pro</button>
+                  </ng-container>
                 </div>
 
               </div>
               <div class="session-text float-end">
-                <button type="button" class="btn btn-primary-gg p-3 border-0  w-100">
+                <button type="button" class="btn btn-primary-gg p-3 border-0  w-100" (click)="createEliteOrder()">
                   <h5 class="pe-4 px-4 mb-0 f-14">CREATE</h5>
                 </button>
               </div>
@@ -41,119 +47,118 @@
 
           <div class="row mt-3">
             <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-3" *ngFor="let contact of selectedProUsers">
-                <div class="card hovercard mt-5 rounded">
-                  <div  (click)="openModal('firstModal')">
-                    <div class="cardheader">
+              <ng-container *ngFor="let contact of proUsers">
+                <div class="col-sm-12 col-md-12 col-lg-3" *ngIf="!isPickedAlready(contact)">
+                  <div class="card hovercard mt-5 rounded">
+                    <div (click)="openModal('firstModal')">
+                      <div class="cardheader">
+                      </div>
+                      <div class="avatar avatarr">
+                        <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
+                          alt="Profile Image">
+                        <ng-template #noImage>
+                          <img src="../../../assets/images/nouser.png" alt="No Profile Image"
+                            class="img-fluid pro-log-img" />
+                        </ng-template>
+                      </div>
                     </div>
-                    <div class="avatar avatarr">
-                      <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
-                        alt="Profile Image">
-                      <ng-template #noImage>
-                        <img src="../../../assets/images/nouser.png" alt="No Profile Image" class="img-fluid pro-log-img" />
-                      </ng-template>
-                    </div>
-                  </div>
-                  <div class=" container card-body-s mt-2">
-                    <div  (click)="openModal('firstModal')">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="text-light">
-                          <span class="h1-font">{{ contact.username | truncate: 8 }}</span>
-                          <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_5344_406)">
-                              <path
-                                d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
-                                fill="url(#paint0_linear_5344_406)" />
-                              <path
-                                d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
-                                fill="white" />
-                            </g>
-                            <defs>
-                              <linearGradient id="paint0_linear_5344_406" x1="15.708" y1="14.1194" x2="-2.09236"
-                                y2="6.05188" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#41067A" />
-                                <stop offset="0.859293" stop-color="#7A06D1" />
-                              </linearGradient>
-                              <clipPath id="clip0_5344_406">
-                                <rect width="16" height="16" fill="white" transform="translate(0.5 0.332031)" />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </h3>
-                        <div>
-                          <span class="me-2 text-white">{{contact?.currentStatus}} </span>
-                          <img src="../../../assets/images/online.png" class="img-fluid mb-1"
-                            style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'ONLINE'" />
-                          <img src="../../../assets/images/offline.png" class="img-fluid mb-1"
-                            style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'OFFLINE'" />
-                          <img src="../../../assets/images/busy.png" class="img-fluid mb-1"
-                            style="width: 15px; width: 15px;"
-                            *ngIf="contact?.currentStatus === 'BOOKED' || contact?.currentStatus === 'BUSY'" />
+                    <div class=" container card-body-s mt-2">
+                      <div (click)="openModal('firstModal')">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <h3 class="text-light">
+                            <span class="h1-font">{{ contact.username | truncate: 8 }}</span>
+                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_5344_406)">
+                                <path
+                                  d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
+                                  fill="url(#paint0_linear_5344_406)" />
+                                <path
+                                  d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
+                                  fill="white" />
+                              </g>
+                              <defs>
+                                <linearGradient id="paint0_linear_5344_406" x1="15.708" y1="14.1194" x2="-2.09236"
+                                  y2="6.05188" gradientUnits="userSpaceOnUse">
+                                  <stop stop-color="#41067A" />
+                                  <stop offset="0.859293" stop-color="#7A06D1" />
+                                </linearGradient>
+                                <clipPath id="clip0_5344_406">
+                                  <rect width="16" height="16" fill="white" transform="translate(0.5 0.332031)" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </h3>
+                          <div>
+                            <span class="me-2 text-white">{{contact?.currentStatus}} </span>
+                            <img src="../../../assets/images/online.png" class="img-fluid mb-1"
+                              style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'ONLINE'" />
+                          </div>
+
                         </div>
-  
+
+
+                        <p class="text-color-light mt-2" style="min-height: 42px;">
+                          {{ contact.summary | truncate: 60 }}
+                        </p>
                       </div>
-  
-  
-                      <p class="text-color-light mt-2" style="min-height: 42px;">
-                        {{ contact.summary | truncate: 60 }}
-                      </p>
-                    </div>
-                    <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openModal('firstModal')">
-                      <div class="streamLobbySlotTag p-2">
-                        <span class="red-letter me-2">Country</span>
-                        <span class="fw-bold">{{contact?.region}}</span>
+                      <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openModal('firstModal')">
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Country</span>
+                          <span class="fw-bold">{{contact?.region}}</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2 ">
+                          <span class="red-letter me-2">KD</span>
+                          <span class="fw-bold">{{ contact?.kd ? contact?.kd : '0' }}</span>
+                        </div>
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Platform</span>
+                          <span class="fw-bold">{{contact?.platform}}</span>
+                        </div>
+
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Kills</span>
+                          <span class="fw-bold">{{contact?.kills ? contact?.kills : '0'}}</span>
+                        </div>
+
+                        <div class="streamLobbySlotTag p-2">
+                          <span class="red-letter me-2">Orders</span>
+                          <span class="fw-bold"><span>{{ contact?.orderCount }}</span> ⭐ <span>{{ contact?.rating
+                              }}</span></span>
+                        </div>
                       </div>
-                      <div class="streamLobbySlotTag p-2 ">
-                        <span class="red-letter me-2">KD</span>
-                        <span class="fw-bold">{{ contact?.kd ? contact?.kd : '0' }}</span>
+
+                      <div class="session-text mt-4">
+                        <button type="button" class="btn btn-primary-gg p-3  w-100" (click)="matchWithPro(contact, $event)">
+                          <h5 class="mb-0 f-14">Pick this PRO <img src="../../../assets/images/joystick.png"
+                              class="ms-2 mb-1 img-fluid" /></h5>
+                        </button>
                       </div>
-                      <div class="streamLobbySlotTag p-2">
-                        <span class="red-letter me-2">Platform</span>
-                        <span class="fw-bold">{{contact?.platform}}</span>
-                      </div>
-  
-                      <div class="streamLobbySlotTag p-2">
-                        <span class="red-letter me-2">Kills</span>
-                        <span class="fw-bold">{{contact?.kills ? contact?.kills : '0'}}</span>
-                      </div>
-  
-                      <div class="streamLobbySlotTag p-2">
-                        <span class="red-letter me-2">Orders</span>
-                        <span class="fw-bold"><span>{{ contact?.orderCount }}</span> ⭐ <span>{{ contact?.rating
-                            }}</span></span>
-                      </div>
-                    </div>
-  
-                    <div class="session-text mt-4">
-                      <button type="button" class="btn btn-primary-gg p-3  w-100" (click)="openModal('secondModal')">
-                        <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png"
-                            class="ms-2 mb-1 img-fluid" /></h5>
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-  
-  
-  
+              </ng-container>
+
+
+
               <!-- user not found -->
-          
-              <!-- <div class="text-center">
-                <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No user found</p>
-              </div> -->
+
+              <div class="text-center" *ngIf="proUsers.length <= 0 || proUsers.length <= addedProUsers.length">
+                <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No available PRO users found</p>
+              </div>
             </div>
-  
+
             <!-- modal -->
-  
+
             <div class="modal fade modal-card" id="first1Modal" tabindex="-1" aria-labelledby="firstModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
-  
+
                   <div class="modal-body p-5">
                     <div>
                       <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#first1Modal">
-  
+
                         <div class="text-center mt-3">
                           <img alt="" src="/assets/images/user.png">
                         </div>
@@ -164,7 +169,7 @@
                         <h3 class="text-light text-center mt-3">
                           Adam
                         </h3>
-  
+
                         <div class=" container card-body-s">
                           <div>
                             <p class="text-color-light text-center mt-2">
@@ -211,24 +216,25 @@
                         </div>
                       </div>
                     </div>
-  
-  
+
+
                   </div>
-  
+
                 </div>
               </div>
             </div>
-  
+
             <!-- Second Modal (Inside the first modal) -->
             <div class="modal fade modal-card" id="second1Modal" tabindex="-1" aria-labelledby="secondModalLabel"
               aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
-  
+
                   <div class="modal-body p-5">
                     <div>
-                      <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal" data-bs-target="#second1Modal">
-  
+                      <div class="card modal-cards hovercard mt-4" data-bs-toggle="modal"
+                        data-bs-target="#second1Modal">
+
                         <div class="container card-body-s">
                           <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
                             <h5 class="text-white">
@@ -236,7 +242,7 @@
                               for Adam to accept <br> your <span class="h1-font">1-1</span> session request
                             </h5>
                           </div>
-  
+
                           <div class="session-text my-auto mb-4 pb-4 mt-4">
                             <button type="button" class="btn btn-outline-light p-3" (click)="closeModal('first1Modal')">
                               <h5 class="pe-4 px-4 mb-0 f-14">CANCEL REQUEST</h5>
@@ -245,7 +251,7 @@
                         </div>
                       </div>
                     </div>
-  
+
                   </div>
                 </div>
               </div>
@@ -254,281 +260,285 @@
 
 
 
-        <!-- modal -->
+          <!-- modal -->
 
- <div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel"
- aria-hidden="true">
- <div class="modal-dialog modal-dialog-centered modal-xl">
-   <div class="modal-content">
+          <div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+              <div class="modal-content">
 
-     <div class="modal-body p-4">
-       <div>
-         <div class="card  modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#firstModal">
+                <div class="modal-body p-4">
+                  <div>
+                    <div class="card  modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#firstModal">
 
-          <div class="row">
-           
-            <div class=" col-6 text-center card-outer ">
-              <!-- Client Card -->
-              <div class="card mb-4 mt-5">
-                <div class="card-body text-center">
-                  <div class="avatar">
-                    <img alt="" src="/assets/images/user.png" class="mb-3">
-  
-                  </div>
-                  <h3 class="card-title mb-3 mt-4">Client <span class="icon-badge"><svg _ngcontent-doa-c26="" width="17"
-                        height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g _ngcontent-doa-c26="" clip-path="url(#clip0_5344_406)">
-                          <path _ngcontent-doa-c26=""
-                            d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
-                            fill="url(#paint0_linear_5344_406)"></path>
-                          <path _ngcontent-doa-c26=""
-                            d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
-                            fill="white"></path>
-                        </g>
-                        <defs _ngcontent-doa-c26="">
-                          <linearGradient _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708" y1="14.1194"
-                            x2="-2.09236" y2="6.05188" gradientUnits="userSpaceOnUse">
-                            <stop _ngcontent-doa-c26="" stop-color="#41067A"></stop>
-                            <stop _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1"></stop>
-                          </linearGradient>
-                          <clipPath _ngcontent-doa-c26="" id="clip0_5344_406">
-                            <rect _ngcontent-doa-c26="" width="16" height="16" fill="white"
-                              transform="translate(0.5 0.332031)"></rect>
-                          </clipPath>
-                        </defs>
-                      </svg></span></h3>
-                  <div class="info-row">
-                    <span>User Name</span>
-                    <span>Munna</span>
-                  </div>
-                  <div class="info-row">
-                    <span>Current Wallet Balance</span>
-                    <span>$68.20</span>
-                  </div>
-                  <div class="info-row">
-                    <span>Balance before order</span>
-                    <span>$68.66</span>
-                  </div>
-                  <div class="info-row">
-                    <span>Amount Transferred</span>
-                    <span>$68.66</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 text-center card-outer">
-              <!-- )rdwe Details Card -->
-              <div class="card mt-5">
-                <div class="card-body">
-                  <div class="info-rows text-center">
-                    <span class="text-white mx-auto sesheader">Order Details</span>
-                  </div>
-                  <div class="info-row bg-sec">
-                    <span>Order</span>
-                    <span>#78745147</span>
-                  </div>
-                  <div class="info-row bg-trd">
-                    <span>Cost</span>
-                    <span>$12.00/hour</span>
-                  </div>
-                  <div class="info-row bg-sec">
-                    <span>Platform</span>
-                    <span>PC</span>
-                  </div>
-                  <div class="info-row bg-trd">
-                    <span>Started Time</span>
-                    <span>30/11/2024 12:37 PM</span>
-                  </div>
-                  <div class="info-row bg-sec">
-                    <span>Closed Time</span>
-                    <span>-</span>
-                  </div>
-                  <div class="info-row bg-trd">
-                    <span>Status</span>
-                    <span>APPROVED</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class=" col-6 text-center">
-              <!-- Pro Card -->
-              <div class="card mt-5">
-                <div class="card-body text-center">
-                  <div class="avatar">
-                    <img alt="" src="/assets/images/user.png">
-                  </div>
-                  <h3 class="card-title mb-3 mt-3">Pro <span class="icon-badge"><svg _ngcontent-doa-c26="" width="17"
-                        height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g _ngcontent-doa-c26="" clip-path="url(#clip0_5344_406)">
-                          <path _ngcontent-doa-c26=""
-                            d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
-                            fill="url(#paint0_linear_5344_406)"></path>
-                          <path _ngcontent-doa-c26=""
-                            d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
-                            fill="white"></path>
-                        </g>
-                        <defs _ngcontent-doa-c26="">
-                          <linearGradient _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708" y1="14.1194"
-                            x2="-2.09236" y2="6.05188" gradientUnits="userSpaceOnUse">
-                            <stop _ngcontent-doa-c26="" stop-color="#41067A"></stop>
-                            <stop _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1"></stop>
-                          </linearGradient>
-                          <clipPath _ngcontent-doa-c26="" id="clip0_5344_406">
-                            <rect _ngcontent-doa-c26="" width="16" height="16" fill="white"
-                              transform="translate(0.5 0.332031)"></rect>
-                          </clipPath>
-                        </defs>
-                      </svg></span></h3>
-                  <div class="info-row">
-                    <span>User name</span>
-                    <span>Harry</span>
-                  </div>
-                  <div class="info-row">
-                    <span>Time Calculated by System</span>
-                    <span>37 Min</span>
-                  </div>
-                  <div class="info-row">
-                    <span>Time Logged (by PRO)</span>
-                    <span>30 Min</span>
-                  </div>
-                  <!-- <div class="info-row">
+                      <div class="row">
+
+                        <div class=" col-6 text-center card-outer ">
+                          <!-- Client Card -->
+                          <div class="card mb-4 mt-5">
+                            <div class="card-body text-center">
+                              <div class="avatar">
+                                <img alt="" src="/assets/images/user.png" class="mb-3">
+
+                              </div>
+                              <h3 class="card-title mb-3 mt-4">Client <span class="icon-badge"><svg
+                                    _ngcontent-doa-c26="" width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g _ngcontent-doa-c26="" clip-path="url(#clip0_5344_406)">
+                                      <path _ngcontent-doa-c26=""
+                                        d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
+                                        fill="url(#paint0_linear_5344_406)"></path>
+                                      <path _ngcontent-doa-c26=""
+                                        d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
+                                        fill="white"></path>
+                                    </g>
+                                    <defs _ngcontent-doa-c26="">
+                                      <linearGradient _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708"
+                                        y1="14.1194" x2="-2.09236" y2="6.05188" gradientUnits="userSpaceOnUse">
+                                        <stop _ngcontent-doa-c26="" stop-color="#41067A"></stop>
+                                        <stop _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1"></stop>
+                                      </linearGradient>
+                                      <clipPath _ngcontent-doa-c26="" id="clip0_5344_406">
+                                        <rect _ngcontent-doa-c26="" width="16" height="16" fill="white"
+                                          transform="translate(0.5 0.332031)"></rect>
+                                      </clipPath>
+                                    </defs>
+                                  </svg></span></h3>
+                              <div class="info-row">
+                                <span>User Name</span>
+                                <span>Munna</span>
+                              </div>
+                              <div class="info-row">
+                                <span>Current Wallet Balance</span>
+                                <span>$68.20</span>
+                              </div>
+                              <div class="info-row">
+                                <span>Balance before order</span>
+                                <span>$68.66</span>
+                              </div>
+                              <div class="info-row">
+                                <span>Amount Transferred</span>
+                                <span>$68.66</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6 text-center card-outer">
+                          <!-- )rdwe Details Card -->
+                          <div class="card mt-5">
+                            <div class="card-body">
+                              <div class="info-rows text-center">
+                                <span class="text-white mx-auto sesheader">Order Details</span>
+                              </div>
+                              <div class="info-row bg-sec">
+                                <span>Order</span>
+                                <span>#78745147</span>
+                              </div>
+                              <div class="info-row bg-trd">
+                                <span>Cost</span>
+                                <span>$12.00/hour</span>
+                              </div>
+                              <div class="info-row bg-sec">
+                                <span>Platform</span>
+                                <span>PC</span>
+                              </div>
+                              <div class="info-row bg-trd">
+                                <span>Started Time</span>
+                                <span>30/11/2024 12:37 PM</span>
+                              </div>
+                              <div class="info-row bg-sec">
+                                <span>Closed Time</span>
+                                <span>-</span>
+                              </div>
+                              <div class="info-row bg-trd">
+                                <span>Status</span>
+                                <span>APPROVED</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class=" col-6 text-center">
+                          <!-- Pro Card -->
+                          <div class="card mt-5">
+                            <div class="card-body text-center">
+                              <div class="avatar">
+                                <img alt="" src="/assets/images/user.png">
+                              </div>
+                              <h3 class="card-title mb-3 mt-3">Pro <span class="icon-badge"><svg _ngcontent-doa-c26=""
+                                    width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g _ngcontent-doa-c26="" clip-path="url(#clip0_5344_406)">
+                                      <path _ngcontent-doa-c26=""
+                                        d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
+                                        fill="url(#paint0_linear_5344_406)"></path>
+                                      <path _ngcontent-doa-c26=""
+                                        d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
+                                        fill="white"></path>
+                                    </g>
+                                    <defs _ngcontent-doa-c26="">
+                                      <linearGradient _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708"
+                                        y1="14.1194" x2="-2.09236" y2="6.05188" gradientUnits="userSpaceOnUse">
+                                        <stop _ngcontent-doa-c26="" stop-color="#41067A"></stop>
+                                        <stop _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1"></stop>
+                                      </linearGradient>
+                                      <clipPath _ngcontent-doa-c26="" id="clip0_5344_406">
+                                        <rect _ngcontent-doa-c26="" width="16" height="16" fill="white"
+                                          transform="translate(0.5 0.332031)"></rect>
+                                      </clipPath>
+                                    </defs>
+                                  </svg></span></h3>
+                              <div class="info-row">
+                                <span>User name</span>
+                                <span>Harry</span>
+                              </div>
+                              <div class="info-row">
+                                <span>Time Calculated by System</span>
+                                <span>37 Min</span>
+                              </div>
+                              <div class="info-row">
+                                <span>Time Logged (by PRO)</span>
+                                <span>30 Min</span>
+                              </div>
+                              <!-- <div class="info-row">
                     <span>Platform</span>
                     <span>PC</span>
                   </div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
-</div>
-       <!-- onboard modal -->
+          <!-- onboard modal -->
 
-       <div class="modal fade modal-card" id="secondModal" tabindex="-1" aria-labelledby="firstModalLabel"
-       aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-       <div class="modal-dialog modal-dialog-centered modal-xl">
-         <div class="modal-content">
-      
-           <div class="modal-body p-4">
-             <div>
-               <div class="card  modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#secondModal">
-      
-                  <div class="container">
-          
-                      <div class="d-flex justify-content-start pt-4 ps-3">
+          <div class="modal fade modal-card" id="secondModal" tabindex="-1" aria-labelledby="firstModalLabel"
+            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+              <div class="modal-content">
+
+                <div class="modal-body p-4">
+                  <div>
+                    <div class="card  modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#secondModal">
+
+                      <div class="container">
+
+                        <div class="d-flex justify-content-start pt-4 ps-3">
                           <h1 class="text-light">On Boarding</h1>
-          
-                      </div>
-                      <div class="">
+
+                        </div>
+                        <div class="">
                           <div class="text-light p-4">What to keep in mind while playing!</div>
                           <div class="text-light px-4">
-                              <ul>
-                                  <li>
-                                      Please ensure that you report the time for your clients when they exit the session
-                                  </li>
-                                  <li>
-                                      Please record the gameplay session and upload it on Youtube as a private video. This
-                                      video
-                                      will be
-                                      used in case of any disputes.
-                                  </li>
-                              </ul>
+                            <ul>
+                              <li>
+                                Please ensure that you report the time for your clients when they exit the session
+                              </li>
+                              <li>
+                                Please record the gameplay session and upload it on Youtube as a private video. This
+                                video
+                                will be
+                                used in case of any disputes.
+                              </li>
+                            </ul>
                           </div>
-                      </div>
-                      <div class="d-flex justify-content-end m-2 mb-4">
-                        <button type="button" class="btn btn-outline-light p-3 me-4">
-                          <h5 class="pe-4 px-4 mb-0 f-14">Cancel</h5>
-                        </button>
-                          <button class="btn btn-purple p-3"><h5 class="pe-4 px-4 mb-0 f-14">Proceed</h5></button>
-                      </div>
-                  </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-      </div>
-        <!-- report modal -->
-
-        <div class="modal fade modal-card" id="thirdModal" tabindex="-1" aria-labelledby="firstModalLabel"
-        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-          <div class="modal-content">
-       
-            <div class="modal-body p-4">
-              <div>
-                <div class="card  modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#thirdModal">
-       
-                   <div class="container">
-           
-                       <div class="d-flex justify-content-start pt-2">
-                           <h4 class="text-light">Report</h4>
-           
-                       </div>
-                       <div class="">
-                        <form >
-                          <div class="pb-0 pt-1">
-                              <div class="profile-box ">
-                                  <div class="d-flex justify-content-between">
-                                      <div class="d-flex pt-3">
-                                          <div class="pe-2">
-                                              <img class="rounded" src="../../../assets/images/nouser.png"
-                                                  alt="Profile Image" srcset="" width="45" height="45"
-                                                  style="vertical-align: middle;">
-                                          </div>
-                                          <div class="text-light ">
-                                              <div>
-                                                 Munnss
-
-                                              </div>
-                                              <div>
-                                                  10 Hours, 20 Minutes
-
-                                              </div>
-                                          </div>
-
-                                      </div>
-
-                                  </div>
-                              </div>
-                          </div>
-                          <div class=" pb-1 pt-3 text-light" style="font-size: small;color: #fff !important;">
-                              Time in Elite Order
-                              <div class="row" data-bs-theme="dark">
-                                  <div class="col-sm-6">
-                                      <input class="form-control" placeholder="Hours"
-                                          formControlName="timeLoggedInHours" />
-                                  </div>
-                                  <div class="col-sm-6">
-                                      <input class="form-control" placeholder="Minutes"
-                                          formControlName="timeLogged" />
-                                  </div>
-                              </div>
-                          </div>
-                      </form>
-                       </div>
-                       <div class="row">
-                        <div class="col-12 pt-3">
-                          <button class="btn btn-purple p-3 w-100"><h5 class="mb-0 f-14"> Report and Continue</h5></button>
                         </div>
-                        <div class="col-12 pt-3">
-                          <button type="button" class="btn btn-outline-light p-3 w-100">
-                            <h5 class=" mb-0 f-14">Cancel</h5>
+                        <div class="d-flex justify-content-end m-2 mb-4">
+                          <button type="button" class="btn btn-outline-light p-3 me-4">
+                            <h5 class="pe-4 px-4 mb-0 f-14">Cancel</h5>
+                          </button>
+                          <button class="btn btn-purple p-3">
+                            <h5 class="pe-4 px-4 mb-0 f-14">Proceed</h5>
                           </button>
                         </div>
-                        
-                       </div>
-                   </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-       </div>
-       
+          <!-- report modal -->
+
+          <div class="modal fade modal-card" id="thirdModal" tabindex="-1" aria-labelledby="firstModalLabel"
+            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+              <div class="modal-content">
+
+                <div class="modal-body p-4">
+                  <div>
+                    <div class="card  modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#thirdModal">
+
+                      <div class="container">
+
+                        <div class="d-flex justify-content-start pt-2">
+                          <h4 class="text-light">Report</h4>
+
+                        </div>
+                        <div class="">
+                          <form>
+                            <div class="pb-0 pt-1">
+                              <div class="profile-box ">
+                                <div class="d-flex justify-content-between">
+                                  <div class="d-flex pt-3">
+                                    <div class="pe-2">
+                                      <img class="rounded" src="../../../assets/images/nouser.png" alt="Profile Image"
+                                        srcset="" width="45" height="45" style="vertical-align: middle;">
+                                    </div>
+                                    <div class="text-light ">
+                                      <div>
+                                        Munnss
+
+                                      </div>
+                                      <div>
+                                        10 Hours, 20 Minutes
+
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                            <div class=" pb-1 pt-3 text-light" style="font-size: small;color: #fff !important;">
+                              Time in Elite Order
+                              <div class="row" data-bs-theme="dark">
+                                <div class="col-sm-6">
+                                  <input class="form-control" placeholder="Hours" formControlName="timeLoggedInHours" />
+                                </div>
+                                <div class="col-sm-6">
+                                  <input class="form-control" placeholder="Minutes" formControlName="timeLogged" />
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 pt-3">
+                            <button class="btn btn-purple p-3 w-100">
+                              <h5 class="mb-0 f-14"> Report and Continue</h5>
+                            </button>
+                          </div>
+                          <div class="col-12 pt-3">
+                            <button type="button" class="btn btn-outline-light p-3 w-100">
+                              <h5 class=" mb-0 f-14">Cancel</h5>
+                            </button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
