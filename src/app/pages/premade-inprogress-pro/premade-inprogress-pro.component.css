@@ -357,3 +357,49 @@ textarea::placeholder {
     padding: 8px;
     display: block;
 }
+
+
+/* description  */
+
+  .profile-box {
+    background-color: #4e4e4e;
+    border-radius: 10px;
+  }
+  
+  .btn-white {
+    background-color: white;
+    color: #2196f3;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .btn-transparent {
+    background-color: transparent;
+    border: 1px solid white;
+    color: #ffff;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: 600;
+  }
+  
+  .form-select {
+    background-color: #4e4e4e;
+  }
+  
+  .resultsTable {
+    position: relative;
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: -12px !important;
+    right: 0px !important;
+    color: aliceblue;
+  }
+
+  .modal-body{
+    background: #151520;
+    border-radius: 5px;
+  }

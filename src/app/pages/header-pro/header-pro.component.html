@@ -109,7 +109,7 @@
           <span *ngIf="unreadNotificationsLength > 0"
             class="position-absolute translate-middle badge rounded-pill"></span>
 
-          <ul class="dropdown-menu dropdown-menu-dark notiy" aria-labelledby="notificationDropdown">
+          <ul class="dropdown-menu dropdown-menu-dark notiy p-0 m-0" aria-labelledby="notificationDropdown">
             <ng-container *ngFor="let notif of notifications">
               <li class="notification-item d-flex" (click)="navigateUser(notif.link, notif.id)">
                 <div
@@ -122,7 +122,7 @@
                 </div>
               </li>
               <li>
-                <hr class="dropdown-divider">
+                <!-- <hr class="dropdown-divider"> -->
               </li>
             </ng-container>
             <li><a class="dropdown-item text-center text-white f-14" href="#" (click)="markAllAsRead()">Mark all as
@@ -155,7 +155,7 @@
   </div>
 </nav>
 
-<!-- Second Modal (Inside the first modal) -->
+<!-- Staus update -->
 <div class="modal fade modal-card" id="firstModal" tabindex="-1" aria-labelledby="firstModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered modal-m">
