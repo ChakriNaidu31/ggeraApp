@@ -15,7 +15,6 @@ export class PremadeCompletedComponent implements OnInit {
 
   p: number = 1;
   userType: string = '';
-  // allProUsers: any[] = [];
   premadeParties: PremadeParty[] = [];
   visibleParties: PremadeParty[] = [];
   pageSize: number = 25;
@@ -41,12 +40,6 @@ export class PremadeCompletedComponent implements OnInit {
       this.premadeParties = parties?.data?.party;
       this.paginateItems();
     });
-
-    // this._auth.fetchProUsers().subscribe((response: any) => {
-    //   this.allProUsers = [{
-    //     email: '', username: 'All'
-    //   }, ...response?.data];
-    // });
 
   }
 

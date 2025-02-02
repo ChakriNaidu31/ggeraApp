@@ -25,7 +25,6 @@ import { proUserGuard } from './guards/pro-user.guard';
 import { OrderRequestsComponent } from './pages/order-requests/order-requests.component';
 import { NewPremadeComponent } from './pages/new-premade/new-premade.component';
 import { PremadeInprogressProComponent } from './pages/premade-inprogress-pro/premade-inprogress-pro.component';
-import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
 import { EliteOrderRequestComponent } from './pages/elite-order-request/elite-order-request.component';
 import { WithdrawMoneyComponent } from './pages/withdraw-money/withdraw-money.component';
 import { BankDetailsComponent } from './pages/bank-details/bank-details.component';
@@ -67,7 +66,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'order-requests', pathMatch: 'full' },
       { path: 'premade-new', component: NewPremadeComponent },
       { path: 'premade-progress', component: PremadeInprogressProComponent },
-      { path: 'premade-completed', component: PremadeCompletedProComponent },
+      { path: 'premade-completed', component: PremadeCompletedComponent },
       { path: 'order-requests', component: OrderRequestsComponent },
       { path: 'order-progress', component: SessionComponent },
       { path: 'elite-order-request', component: EliteOrderRequestComponent },

@@ -43,7 +43,6 @@ import { WalletAddmoneyComponent } from './pages/wallet-addmoney/wallet-addmoney
 import { MessageComponent } from './pages/message/message.component';
 import { WithdrawMoneyComponent } from './pages/withdraw-money/withdraw-money.component';
 import { EliteOrderRequestComponent } from './pages/elite-order-request/elite-order-request.component';
-import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
 import { PremadeInprogressProComponent } from './pages/premade-inprogress-pro/premade-inprogress-pro.component';
 import { OrderRequestsComponent } from './pages/order-requests/order-requests.component';
 import { NewPremadeComponent } from './pages/new-premade/new-premade.component';
@@ -83,7 +82,6 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     RegisterNewUserComponent,
     WithdrawMoneyComponent,
     EliteOrderRequestComponent,
-    PremadeCompletedProComponent,
     PremadeInprogressProComponent,
     OrderRequestsComponent,
     NewPremadeComponent,
