@@ -62,7 +62,7 @@
 
                     <div class="mt-3" *ngIf="!message.isLine && message.from === 'partner'">
                       <div>
-                        <img src="{{ message.imageUrl ? message.imageUrl : '../../../assets/images/nouser.png' }}"
+                        <img src="{{ message.imageUrl ? message.imageUrl : '../../../assets/images/nouser.png' }}" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }"
                           alt="Avatar" class="avatar me-2">
                         <span class="chat-message">{{ message.message }}</span>
                       </div>

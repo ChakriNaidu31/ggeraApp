@@ -75,7 +75,7 @@ a.nav-link.text-color.me-3:hover {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-li.notification-item.d-flex.mb-3:hover {
+li.notification-item.d-flex:hover {
   background-color: #41067A;
   padding: 10px 15px;
 }
@@ -100,7 +100,8 @@ li.notification-item.d-flex.mb-3:hover {
 .notification-item {
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  padding: 12px 15px;
+  border-bottom: 1px solid #4b4b4b;
 }
 
 

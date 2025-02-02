@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-premade-inprogress-pro',
   templateUrl: './premade-inprogress-pro.component.html',
@@ -29,7 +30,7 @@ export class PremadeInprogressProComponent implements OnInit {
   messages: ChatMessage[];
   selectedChat: Chat;
   messageTyped: string = '';
-
+  form: UntypedFormGroup;
   constructor(
     private _auth: AuthService,
     private chatService: ChatService,
@@ -38,7 +39,8 @@ export class PremadeInprogressProComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private _notification: PushNotificationService,
     private title: Title,
-    private meta: Meta
+    private meta: Meta,
+    private fb: UntypedFormBuilder,
   ) {
     this._notification.requestPermission();
   }
@@ -55,6 +57,11 @@ export class PremadeInprogressProComponent implements OnInit {
     this.reloadTimer = setInterval(() => {
       this.getData();
     }, 10000);
+
+    // this.form = this.fb.group({
+    //   name: [this.data.matchName || ''],
+    //   description: [this.data.description || '']
+    // });
   }
 
   ngOnDestroy() {
@@ -112,7 +119,35 @@ export class PremadeInprogressProComponent implements OnInit {
     if (this.messageScroller.nativeElement)
       this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
   }
+  updateDetails() {
+    // this._auth.updateParty({ description: this.form.controls['description'].value }, this.data.matchId).subscribe((data: any) => {
+    //   if (data?.data) {
+    //     // this.snackbar.open('Party details updated', '', {
+    //     //   duration: 3000
+    //     // });
+    //     this.cancel();
+    //   } else {
+    //     // this.snackbar.open('Could not stop timer at this time. Please try again later', '', {
+    //     //   duration: 10000
+    //     // });
+    //   }
+    // })
+  }
 
+
+  cancel() {
+    this.closeModal('first2Modal');
+  }
+
+  closeModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
+  }
   send() {
     if (!this.selectedChat) { return; }
 
@@ -259,6 +294,12 @@ export class PremadeInprogressProComponent implements OnInit {
     // }).afterClosed().subscribe((data) => {
     //   this.getData();
     // });
+    const modalId = 'first2Modal';
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.show();
+    }
   }
 
   openStreamUrl(streamUrl: string | undefined) {

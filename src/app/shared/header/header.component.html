@@ -58,7 +58,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="dropdown-toggle nav-link text-color me-2 cursor-pointer" data-bs-toggle="dropdown"
+          <a class="dropdown-toggle nav-link text-color me-2 " data-bs-toggle="dropdown" style="cursor: pointer;"
             aria-expanded="false">Elite Orders</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
@@ -77,7 +77,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="dropdown-toggle nav-link text-color me-2 cursor-pointer" data-bs-toggle="dropdown"
+          <a class="dropdown-toggle nav-link text-color me-2" data-bs-toggle="dropdown" style="cursor: pointer;"
             aria-expanded="false">Wallet</a>
 
           <ul class="dropdown-menu dropdown-menu-dark">
@@ -113,9 +113,9 @@
           <span *ngIf="unreadNotificationsLength > 0"
             class="position-absolute translate-middle badge rounded-pill"></span>
 
-            <ul class="dropdown-menu dropdown-menu-dark notiy" aria-labelledby="notificationDropdown">
+            <ul class="dropdown-menu dropdown-menu-dark notiy p-0 m-0" aria-labelledby="notificationDropdown">
               <ng-container *ngFor="let notif of notifications">
-                <li class="notification-item d-flex mb-3" (click)="navigateUser(notif.link, notif.id)">
+                <li class="notification-item d-flex " (click)="navigateUser(notif.link, notif.id)">
                   <div
                     class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
                     {{ notif.avatar }}
@@ -126,7 +126,7 @@
                   </div>
                 </li>
                 <li>
-                  <hr class="dropdown-divider">
+                  <!-- <hr class="dropdown-divider"> -->
                 </li>
               </ng-container>
               <li><a class="dropdown-item text-center text-white f-14" href="#" (click)="markAllAsRead()">Mark all as

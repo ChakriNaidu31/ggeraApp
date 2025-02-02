@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header-pro></app-header-pro>
 <main class="body-height">
     <div class="rounded text-body-emphasis bg-body-secondary">
         <div class="col-lg-12 col-xs-12">
@@ -12,14 +12,15 @@
                         <p class="display-6 fw-bold text-white mb-4">Order <span
                                 class="red-letter">#{{order.orderId}}</span></p>
 
-                        <div class="order-card d-flex justify-content-between align-items-center">
-                            <div class="d-flex">
+                        <div class="order-card row justify-content-between align-items-center">
+                            <div class="col-8">  
+                                <div class="d-flex">
                                 <button class="btn btn-choose me-3 f-14 choosebtn" *ngFor="let user of order.slots">
                                     <div class="d-flex align-items-center ">
 
                                         <!-- Profile Picture -->
-                                        <img src="{{ user.profileImageUrl ? user.profileImageUrl : '/assets/images/nouser.png' }}"
-                                            alt="Avatar" class="avatar me-2">
+                                        <img src="{{ user.profileImageUrl ? user.profileImageUrl : '/assets/images/nouser.png' }}" class=""
+                                            alt="Avatar" class="avatar me-2 ">
 
                                         <!-- Name and Designation -->
                                         <div class="pe-3">
@@ -42,28 +43,31 @@
                                         </div>
                                     </div>
                                 </button>
-                            </div>
-
-                            <div class="session-text float-end">
-                                <div *ngIf="userType === 'PRO' && order?.createdBy === loggedInUserEmail">
-                                    <button type="button" class="btn btn-primary-gg p-3 border-0  w-100"
-                                        (click)="endPartyDialog(order.id)">
-                                        <h5 class="pe-4 px-4 mb-0 f-14">END</h5>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary p-3 border-0  w-100"
-                                        *ngIf="!order?.endedTime" (click)="hidePartyDialog(order.id)">
-                                        <h5 class="pe-4 px-4 mb-0 f-14">Hide</h5>
-                                    </button>
-                                    <button type="button" class="btn btn-secondary p-3 border-0  w-100"
-                                        *ngIf="order?.endedTime" (click)="unhidePartyDialog(order.id)">
-                                        <h5 class="pe-4 px-4 mb-0 f-14">Unhide</h5>
+                            </div></div>
+                           
+                            <div class="col-4">
+                                <div class="session-text float-end">
+                                    <div class=" d-flex" *ngIf="userType === 'PRO' && order?.createdBy === loggedInUserEmail">
+                                        <button type="button" class="btn btn-primary-ggpro p-3 border-0  w-100"
+                                            (click)="endPartyDialog(order.id)">
+                                            <h5 class="pe-4 px-4 mb-0 f-14">END</h5>
+                                        </button>
+                                        <button type="button" class="btn btn-secondary p-3 border-0  w-100 mx-2"
+                                            *ngIf="!order?.endedTime" (click)="hidePartyDialog(order.id)">
+                                            <h5 class="pe-4 px-4 mb-0 f-14">Hide</h5>
+                                        </button>
+                                        <button type="button" class="btn btn-secondary p-3 border-0  w-100 mx-2" 
+                                            *ngIf="order?.endedTime" (click)="unhidePartyDialog(order.id)">
+                                            <h5 class="pe-4 px-4 mb-0 f-14">Unhide</h5>
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-primary-ggpro p-3 border-0  w-100 mx-2"
+                                        *ngIf="userType === 'CLIENT' && !order.isClientTimerStopped">
+                                        <h5 class="pe-4 px-4 mb-0 f-14" (click)="stopTimer(order.id)">STOP</h5>
                                     </button>
                                 </div>
-                                <button type="button" class="btn btn-primary-gg p-3 border-0  w-100"
-                                    *ngIf="userType === 'CLIENT' && !order.isClientTimerStopped">
-                                    <h5 class="pe-4 px-4 mb-0 f-14" (click)="stopTimer(order.id)">STOP</h5>
-                                </button>
                             </div>
+                           
 
                         </div>
 
@@ -115,7 +119,7 @@
 
                                             <!-- Name and Designation -->
                                             <div class="pe-3">
-                                                <p class="mb-1 player-name ms-3">{{order.name}}</p>
+                                                <p class="mb-1 player-name">{{order.name}}</p>
 
                                             </div>
                                         </div>
@@ -125,16 +129,22 @@
                                             <span>{{order.serverDescription}}</span>
                                         </p>
 
-                                        <div class="d-flex align-items-center bg-lite p-2 rounded">
-                                            <button type="button" class="btn btn-secondary mb-0 p-2 mx-3"
-                                                *ngIf="userType == 'PRO' && order?.createdBy === loggedInUserEmail && !order?.endedTime"
-                                                (click)="editPartyDialog(order.id, order.name, order.description)">
-                                                Edit Description
-                                            </button>
-                                            <button type="button" class="btn btn-secondary mb-0 p-2"
-                                                (click)="openStreamUrl(order.streamLink)">
-                                                Open Stream
-                                            </button>
+                                        <div class="row align-items-center bg-lite p-2 rounded">
+                                           <div class="col-6 p-0">
+                                            <button type="button" class="btn btn-secondary mb-0 p-2 w-100 me-1"
+                                            *ngIf="userType == 'PRO' && order?.createdBy === loggedInUserEmail && !order?.endedTime"
+                                            (click)="editPartyDialog(order.id, order.name, order.description)">
+                                            Edit Description
+                                        </button>
+                                           </div>
+                                           <div class="col-6 p-0">
+                                            <button type="button" class="btn btn-secondary mb-0 p-2 w-100 mx-1"
+                                            (click)="openStreamUrl(order.streamLink)">
+                                            Open Stream
+                                        </button>
+                                           </div>
+                                            
+                                           
                                         </div>
 
 
@@ -170,7 +180,7 @@
                                                     <div class="ps-5">
                                                         <button type="button"
                                                             *ngIf="userType === 'PRO' && order?.createdBy === loggedInUserEmail"
-                                                            class="btn btn-primary-gg p-3 border-0  w-100"
+                                                            class="btn btn-primary-ggpro p-3 border-0  w-100"
                                                             (click)="openDialogForTimer(client.timerInMinutes, client.username, order.id, client.email, client.profileImageUrl)">
                                                             <h5 class="mb-0 f-14">STOP</h5>
                                                         </button>
@@ -204,4 +214,64 @@
             </div>
         </div>
     </div>
+
+<!-- Edit discription -->
+<div class="modal fade modal-card" id="first2Modal" tabindex="-1" aria-labelledby="firstModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-m">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div>
+          <div class="card modal-cards hovercard">
+
+            <div class="container card-body-s">
+              <div class="modal-stream streamLobbySlotTagsWrapper text-center px-4">
+              
+
+                <div class="d-flex justify-content-center">
+                    <div class="container">
+                        <div>
+                            <div class="ps-3 text-light">
+                                <h4 class="card-head mt-2">Edit premade party</h4>
+                            </div>
+                            <div class="">
+                                <form [formGroup]="form">
+                                    <div class="p-3 pb-1 pt-1 text-light" style="font-size: small;color: #fff !important;">
+                                        <label class="form-label mb-3">Zxcvfbgnhjk</label>
+                                        <div class="row" data-bs-theme="dark">
+                                            <div class="col-sm-12">
+                                                <textarea class="form-control" formControlName="description"
+                                                    placeholder="Description about lobby"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+        
+                            </div>
+                            <div class="p-3">
+                                <button class="btn btn-primary-ggpro w-100" type="button" (click)="updateDetails()">
+                                    Update
+                                </button>
+                                <button class="btn btn-transparent mt-2" type="button" (click)="cancel()">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </main>

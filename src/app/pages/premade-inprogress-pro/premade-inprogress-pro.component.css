@@ -14,7 +14,6 @@
 .rounde12 {
     border-radius: 12px;
 }
-
 .form-select {
     width: 150px;
     height: 40px;
@@ -64,7 +63,7 @@
 }
 
 .order-header {
-    color: #7b5eff;
+    color: #d16c06;
     font-weight: bold;
 }
 
@@ -82,7 +81,7 @@
 }
 
 .button-stop {
-    background-color: #7b5eff;
+    background-color: #d16c06;
     border: none;
     color: #fff;
     padding: 10px 20px;
@@ -90,7 +89,7 @@
 }
 
 .button-stop:hover {
-    background-color: #5a46d1;
+    background-color: #d16c06;
 }
 
 .chat-messages {
@@ -109,7 +108,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 3px solid #7a06d1;
+    border: 2px solid #d16c06;
     object-fit: cover;
 }
 
@@ -153,7 +152,7 @@
 }
 
 .btn-choose:hover {
-    background-color: #5b5f70;
+    background-color: #5b5f7061;
 }
 
 .btn-create {
@@ -173,11 +172,11 @@
 
 .choosebtn {
     font-weight: 600;
-    color: #9949ff;
+    color: #d16c06;
 }
 
 .red-letter {
-    color: #A55EFF;
+    color: #d16c06;
 }
 
 span.chat-message {
@@ -238,7 +237,7 @@ span.chat-message {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 3px solid #7a06d1;
+    border: 3px solid #d16c06;
     object-fit: cover;
     overflow: hidden;
 }
@@ -358,3 +357,49 @@ textarea::placeholder {
     padding: 8px;
     display: block;
 }
+
+
+/* description  */
+
+  .profile-box {
+    background-color: #4e4e4e;
+    border-radius: 10px;
+  }
+  
+  .btn-white {
+    background-color: white;
+    color: #2196f3;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .btn-transparent {
+    background-color: transparent;
+    border: 1px solid white;
+    color: #ffff;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: 600;
+  }
+  
+  .form-select {
+    background-color: #4e4e4e;
+  }
+  
+  .resultsTable {
+    position: relative;
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: -12px !important;
+    right: 0px !important;
+    color: aliceblue;
+  }
+
+  .modal-body{
+    background: #151520;
+    border-radius: 5px;
+  }

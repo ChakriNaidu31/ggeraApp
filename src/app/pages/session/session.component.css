@@ -103,7 +103,10 @@
 .chat-message {
   margin-bottom: 10px;
 }
-
+.modal0{
+  border-radius: 5px;
+  background: #151520;
+}
 .avatar {
   width: 40px;
   height: 40px;
@@ -152,7 +155,7 @@
 }
 
 .btn-choose:hover {
-  background-color: #5b5f70;
+  background-color: #5b5f7061;
 }
 
 .btn-create {
