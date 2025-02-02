@@ -1,525 +1,297 @@
-<app-header *ngIf="userType === 'CLIENT'"></app-header>
-<app-header-pro *ngIf="userType === 'PRO'"></app-header-pro>
-<div class="rounded text-body-emphasis bg-body-secondary">
-  <div class="col-lg-12 col-xs-12">
-    <div class="hero-bg">
-      <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
+<app-header></app-header>
+<main class="body-height">
+  <div class="rounded text-body-emphasis bg-body-secondary">
+    <div class="col-lg-12 col-xs-12">
+      <div class="hero-bg">
+        <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
 
-        <h1 class="text-start mb-5 text-white mt-5">Orders in Progress</h1>
-        <!-- <div class="row">
-          <div class="d-flex align-items-center justify-content-between p-3 rounde12 bg-darks text-light mb-5">
+          <h1 class="text-start mb-5 text-white mt-5">Order in Progress</h1>
 
-            <div class="d-flex">
-              Select 1
-              <div class="me-2">
-                <select class="form-select custom-select" aria-label="Select option">
-                  <option selected>All</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                </select>
-              </div>
+          <div class=" mt-3 bg-lite p-4 br-16" *ngIf="order && order?.id">
 
-              Select 2
-              <div class="me-2">
-                <select class="form-select custom-select" aria-label="Select option">
-                  <option selected>Date</option>
-                  <option value="1">Today</option>
-                  <option value="2">Tomorrow</option>
-                </select>
-              </div>
-            </div> 
-          </div>
-        </div> -->
+            <p class="display-6 fw-bold text-white mb-4">Order <span class="red-letter">#{{order.orderId}}</span></p>
 
-        <!-- <h1 class="text-start mb-5 text-white mt-5">In Progress</h1> -->
-        
-
-        <div class=" mt-3 bg-lite p-4 br-16">
-
-          <p class="display-6 fw-bold text-white mb-4">Order <span [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">#92888385</span></p>
-          
             <div class="order-card d-flex justify-content-between align-items-center">
               <div class="d-flex">
-                <button class="btn btn-choose me-3 f-14 choosebtn">
+                <button class="btn btn-choose me-3 f-14 choosebtn" *ngIf="order?.clientName">
                   <div class="d-flex align-items-center ">
-                    
+
                     <!-- Profile Picture -->
-                    <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                      <img
-                      src="../../../assets/images/user.png"
-                        alt="Profile Picture">
-                    </div>
-              
+                    <img
+                      src="{{ order.clientImageUrl ? order.clientImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                      alt="Avatar" class="avatar me-2">
+
                     <!-- Name and Designation -->
                     <div class="pe-3">
-                      <p class="mb-1"  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Adam</p>
-                      <p class="text-white mb-0 text-start">You</p>
-                    </div>
-                  </div>
-                </button>
-              
-                <button class="btn btn-choose me-3 f-14 choosebtn">
-                  <div class="d-flex align-items-center ">
-                    <!-- Profile Picture -->
-                    <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                      <img
-                      src="../../../assets/images/user.png"
-                        alt="Profile Picture">
-                    </div>
-              
-                    <!-- Name and Designation -->
-                    <div class="pe-3">
-                      <p class="mb-1"  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Rifat</p>
-                      <p class="text-white mb-0 text-start">You</p>
+                      <p class="mb-1">{{ order.clientName | truncate: 10 }}</p>
+                      <p class="text-white mb-0 text-start">CLIENT</p>
                     </div>
                   </div>
                 </button>
 
-                <button class="btn btn-choose me-3 f-14 choosebtn">
-                  <div class="d-flex align-items-center " (click)="openPro()">
+                <button class="btn btn-choose me-3 f-14 choosebtn" *ngFor="let user of order.inProgressProUsers">
+                  <div class="d-flex align-items-center ">
+
                     <!-- Profile Picture -->
-                    <img  src="../../../assets/images/nouser.png" alt="Avatar" class="avatar-dummy me-2">
-              
+                    <img
+                      src="{{ user.profileImageUrl ? user.profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                      alt="Avatar" class="avatar me-2">
+
                     <!-- Name and Designation -->
                     <div class="pe-3">
-                      <p class="mb-1 choosebtn " [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Choose Pro</p>
+                      <p class="mb-1">{{ user.name | truncate: 8 }}</p>
+                      <p class="text-white mb-0 text-start">PRO</p>
                     </div>
                   </div>
                 </button>
 
-                <button class="btn btn-choose me-3 f-14 choosebtn">
-                  <div class="d-flex align-items-center " (click)="openPro()">
+                <button class="btn btn-choose me-3 f-14 choosebtn"
+                  *ngFor="let item of [].constructor(order.availableSlots); let i=index" (click)="openPro()">
+                  <div class="d-flex align-items-center ">
                     <!-- Profile Picture -->
-                    <img  src="../../../assets/images/nouser.png" alt="Avatar" class="avatar-dummy me-2">
-              
+                    <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatar-dummy me-2">
+
                     <!-- Name and Designation -->
                     <div class="pe-3">
-                      <p class="mb-1 choosebtn"  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Choose Pro</p>
+                      <p class="mb-1 choosebtn">Choose PRO</p>
                     </div>
                   </div>
                 </button>
-               
-               
               </div>
-              <div class="session-text float-end">
-                <button type="button" class="btn  p-3 border-0  w-100"  [ngClass]="{ 'btn-primary-gg': userType === 'CLIENT', 'btn-primary-ggpro': userType !== 'CLIENT' }">
+
+              <div class="session-text float-end" *ngIf="userType === 'PRO'">
+                <button type="button" class="btn btn-primary-gg p-3 border-0  w-100" (click)="openDialogForTimer()">
                   <h5 class="pe-4 px-4 mb-0 f-14">STOP</h5>
                 </button>
               </div>
-              
-            </div>
-         
 
-      
-          <!-- Chat Section -->
-          <div class="row g-4 mt-4">
-            <!-- Left Section -->
-            <div class="col-lg-8">
-              
-              <div class="chat-box"> 
-                <div class="px-3 py-2 bg-real border-radius-top-lr">
-                  <div class="d-flex align-items-center ">
-                    <div class="profile-container">
-                      <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <img
-                        src="../../../assets/images/user.png"
-                          alt="Profile Picture">
-                      </div>
-                      <div class="status-indicator"><img src="../../../assets/images/online.png" class="img-fluid"/></div>
-                      
-                  </div>
-              
-              
-                    <!-- Name and Designation -->
-                    <div class="pe-3 ms-3">
-                      <p class="mb-1 player-name">Gio <span class="icon-badge ms-1"><svg _ngcontent-doa-c26="" width="17"
-                        height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g _ngcontent-doa-c26="" clip-path="url(#clip0_5344_406)">
-                          <path _ngcontent-doa-c26=""
-                            d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
-                            fill="url(#paint0_linear_5344_406)"></path>
-                          <path _ngcontent-doa-c26=""
-                            d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
-                            fill="white"></path>
-                        </g>
-                        <defs _ngcontent-doa-c26="">
-                          <linearGradient _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708" y1="14.1194"
-                            x2="-2.09236" y2="6.05188" gradientUnits="userSpaceOnUse">
-                            <stop _ngcontent-doa-c26="" stop-color="#41067A"></stop>
-                            <stop _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1"></stop>
-                          </linearGradient>
-                          <clipPath _ngcontent-doa-c26="" id="clip0_5344_406">
-                            <rect _ngcontent-doa-c26="" width="16" height="16" fill="white"
-                              transform="translate(0.5 0.332031)"></rect>
-                          </clipPath>
-                        </defs>
-                      </svg></span></p>
-                      <p class="text-secondary mb-0 text-start player-status">Active Now</p>
-                    </div>
-                  </div>
-                </div>   
-                <!-- Scrollable Chat Messages -->
-                <div class="chat-messages">
-                  <div class="mt-3">
-                    <div>
-                      <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                      <span class="chat-message">I love the game that you have sent now</span>
-                    </div>
-                  </div>
-                  
-
-                  <div class="text-end d-block mt-3">
-                    <span class="chat-message">Wow</span>
-                  </div>
-                  <div class="text-end d-block mt-3">
-                    <span class="chat-message">Really</span>
-                  </div>
-                 
-                  <div class="mt-3" >
-                    <div>
-                      <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                      <span class="chat-message">I love the game that you have sent now</span>
-                    </div>
-                  </div>
-
-                  <div class="mt-3">
-                    <div>
-                      <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                      <span class="chat-message">I love the game that you have sent now</span>
-                    </div>
-                  </div>
-                  
-
-                  <div class="text-end d-block mt-3">
-                    <span class="chat-message">Wow</span>
-                  </div>
-                  <div class="text-end d-block mt-3">
-                    <span class="chat-message">Really</span>
-                  </div>
-                 
-                  <div class="mt-3" >
-                    <div>
-                      <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                      <span class="chat-message">I love the game that you have sent now</span>
-                    </div>
-                  </div>
-
-                  <div class="mt-3" >
-                      <div>
-                        <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <span class="chat-message">I love the game that you have sent now</span>
-                      </div>
-                    </div>
-
-                    <div class="mt-3" >
-                      <div>
-                        <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <span class="chat-message">I love the game that you have sent now</span>
-                      </div>
-                    </div>
-
-                    <div class="mt-3" >
-                      <div>
-                        <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <span class="chat-message">I love the game that you have sent now</span>
-                      </div>
-                    </div>
-
-
-                    <div class="mt-3" >
-                      <div>
-                        <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <span class="chat-message">I love the game that you have sent now</span>
-                      </div>
-                    </div>
-
-
-                    <div class="mt-3" >
-                      <div>
-                        <img src="../../../assets/images/user.png" alt="Avatar" class="avatar me-2"  [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <span class="chat-message">I love the game that you have sent now</span>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="text-box pt-3 border-bottom-lr">
-                  <textarea class="form-control text-color-light" rows="2" placeholder="Type a message"></textarea>
-                <span class="text-color-light">Press enter to send the message</span>
-
-                </div>
-      
-      
-                <!-- Chat Input -->
-               
+              <div class="session-text float-end"
+                *ngIf="!order.inProgressProUsers || order.inProgressProUsers?.length === 0">
+                <button type="button" class="btn btn-primary-gg p-3 border-0  w-100" (click)="closeOrder()">
+                  <h5 class="pe-4 px-4 mb-0 f-14">Close</h5>
+                </button>
               </div>
+
             </div>
-      
-            <!-- Right Section -->
-            <div class="col-lg-4">
-              <div class="info-box">
-                <div class="p-24 bg-real br-16">
-                  <div class="d-flex align-items-center ">
-                    <!-- Profile Picture -->
-                    <div class="profile-container">
-                      <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                        <img
-                        src="../../../assets/images/user.png"
-                          alt="Profile Picture">
-                      </div>
-                      <div class="status-indicator"><img src="../../../assets/images/online.png" class="img-fluid"/></div>
-                      
-                  </div>
-                    <!-- Name and Designation -->
-                    <div class="pe-3">
-                      <p class="mb-1 player-name ms-3">Gio <span class="icon-badge ms-1"><svg _ngcontent-doa-c26="" width="17"
-                        height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g _ngcontent-doa-c26="" clip-path="url(#clip0_5344_406)">
-                          <path _ngcontent-doa-c26=""
-                            d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
-                            fill="url(#paint0_linear_5344_406)"></path>
-                          <path _ngcontent-doa-c26=""
-                            d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
-                            fill="white"></path>
-                        </g>
-                        <defs _ngcontent-doa-c26="">
-                          <linearGradient _ngcontent-doa-c26="" id="paint0_linear_5344_406" x1="15.708" y1="14.1194"
-                            x2="-2.09236" y2="6.05188" gradientUnits="userSpaceOnUse">
-                            <stop _ngcontent-doa-c26="" stop-color="#41067A"></stop>
-                            <stop _ngcontent-doa-c26="" offset="0.859293" stop-color="#7A06D1"></stop>
-                          </linearGradient>
-                          <clipPath _ngcontent-doa-c26="" id="clip0_5344_406">
-                            <rect _ngcontent-doa-c26="" width="16" height="16" fill="white"
-                              transform="translate(0.5 0.332031)"></rect>
-                          </clipPath>
-                        </defs>
-                      </svg></span></p>
-                 
+
+
+            <!-- Chat Section -->
+            <div class="row g-4 mt-4">
+              <!-- Left Section -->
+              <div class="col-lg-8">
+
+                <div class="chat-box">
+                  <!-- Scrollable Chat Messages -->
+                  <div class="chat-messages" #messageScroller>
+                    <div class="mt-3 text-center" *ngIf="selectedChat">
+                      <div class="border-bottom"></div>
+                      <span class="text-center order text-light">Order:
+                        {{selectedChat.orderId}}</span>
                     </div>
+                    <ng-container *ngIf="messages">
+                      <div class="mt-3" *ngFor="let message of messages"
+                        [ngClass]="message.from === 'me' ? 'text-end d-block' : ''">
+                        <div *ngIf="!message.isLine && message.from === 'partner'">
+                          <img src="{{ message.imageUrl ? message.imageUrl : '/assets/images/nouser.png' }}"
+                            alt="Avatar" class="avatar me-2">
+                          <span class="chat-message">{{ message.message }}</span>
+                        </div>
+                        <div *ngIf="!message.isLine && message.from === 'me'">
+                          <span class="chat-message">{{ message.message }}</span>
+                        </div>
+                      </div>
+                    </ng-container>
                   </div>
-                  <p class="my-2">Hi</p>
 
-                  <p class="my-2"><span class="red-letter">Server: </span> <span>Any Server</span></p>
+                  <div class="text-box pt-3 border-bottom-lr">
+                    <textarea class="form-control text-color-light" rows="2" (keydown)="keyDownFunction($event)"
+                      [(ngModel)]="messageTyped" placeholder="Type your message here..."></textarea>
+                    <span class="text-color-light">Press enter to send the message</span>
 
-                  <div class="d-flex align-items-center bg-lite p-2 rounded">
-                    <img src="../../../assets/images/online.png" class="me-2">
-                    <p class="mb-0 o-stream"> Open Stream</p>
                   </div>
+                  <!-- Chat Input -->
+                </div>
+              </div>
 
+              <!-- Right Section -->
+              <div class="col-lg-4">
+                <div class="info-box">
+                  <div class="p-24 bg-real br-16">
+                    <div class="d-flex align-items-center ">
 
-                  <div class="my-3">
-                    <p class="mb-0 heading-1">Clients in Premade Party</p>
-                  </div>
+                      <!-- Name and Designation -->
+                      <div class="pe-3">
+                        <p class="mb-1 player-name">#{{order.orderId}}</p>
 
+                      </div>
+                    </div>
+                    <p class="my-2">$12/hr for each PRO</p>
 
-                  <div class="mt-3">
-                    <button class="btn btn-choose f-14 choosebtn w-100">
-                      
-                      <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center ">
-                          <!-- Profile Picture -->
-                          <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
+                    <p class="my-2">
+                      <span>Started: {{order.startedTime | date: 'dd/MM/yyyy HH:mm a'}}</span>
+                    </p>
+
+                    <p class="my-2">
+                      <span>Realtime Balance: ${{ clientBalance }}</span>
+                    </p>
+
+                    <div class="my-3">
+                      <p class="mb-0 heading-1">PROs currently playing</p>
+                    </div>
+
+                    <div class="mt-3" *ngFor="let client of currentClients; let i = index">
+                      <button class="btn btn-choose f-14 choosebtn w-100">
+
+                        <div class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center ">
+                            <!-- Profile Picture -->
                             <img
-                            src="../../../assets/images/user.png"
-                              alt="Profile Picture">
+                              src="{{ order.inProgressProUsers[i].profileImageUrl ? order.inProgressProUsers[i].profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                              alt="Avatar" class="avatar me-2">
+
+                            <!-- Name and Designation -->
+                            <div class="pe-3">
+                              <p class="mb-1">{{ client.name | truncate: 8 }}</p>
+                              <p class="text-white mb-0 text-start">PRO</p>
+                            </div>
+
                           </div>
-                          
-                          
+                          <div *ngIf="!(userType === 'CLIENT' && client.type === 'CLIENT')">
+                            <span class="text-secondary">
+                              {{ client.formattedTime }}</span>
+                          </div>
+
+                        </div>
+                      </button>
+                    </div>
+                    <div class="mt-3" *ngFor="let item of [].constructor(order.availableSlots);">
+                      <button class="btn btn-choose f-14 choosebtn w-100">
+                        <div class="d-flex align-items-center justify-content-between">
                           <!-- Name and Designation -->
-                          <div class="pe-3">
-                            <p class="mb-1"  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Rifat</p>
-                            <p class="text-white mb-0 text-start">You</p>
+                          <div class="pe-5 d-flex align-items-center">
+                            <!-- Profile Picture -->
+                            <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatar me-2">
+                            <p class="mb-1 fw-bold">Free Slot</p>
                           </div>
-                          
-                        </div>
-                        <div>
-                          <span class="text-secondary">0 Minutes</span>
-                        </div>
-  
-                      </div>
-                    </button>
-                  </div>
-                  <div class="mt-3">
-                    <button class="btn btn-choose f-14 w-100">
-                      <div class="d-flex align-items-center justify-content-between">
-                        <!-- Name and Designation -->
-                        <div class="pe-5 d-flex align-items-center">
-                          <!-- Profile Picture -->
-                          <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                            <img
-                            src="../../../assets/images/nouser.png"
-                              alt="Profile Picture">
-                          </div>
-                          <p class="mb-1 fw-bold"  [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Choose Pro</p>
-                        </div>
-                        <div class="ps-5">
-                          <button type="button" class="btn p-3 border-0  w-100"  [ngClass]="{ 'btn-primary-gg': userType === 'CLIENT', 'btn-primary-ggpro': userType !== 'CLIENT' }">
-                            <h5 class="mb-0 f-14">STOP</h5>
-                          </button>
-                        </div>
-                        
-                      </div>
-                    </button>
-                  </div>
 
-                  <div class="mt-3">
-                    <button class="btn btn-choose f-14 w-100">
-                      <div class="d-flex align-items-center justify-content-between">
-                        <!-- Name and Designation -->
-                        <div class="pe-5 d-flex align-items-center">
-                         <!-- Profile Picture -->
-                         <div class="profile-image avatar me-2" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }">
-                          <img
-                          src="../../../assets/images/nouser.png"
-                            alt="Profile Picture">
                         </div>
-                          <p class="mb-1 fw-bold" [ngClass]="{ 'client-color': userType === 'CLIENT', 'pro-color': userType !== 'CLIENT' }">Choose Pro</p>
-                        </div>
-                        <div class="ps-5">
-                          <button type="button" class="btn btn-primary-gg p-3 border-0  w-100" [ngClass]="{ 'btn-primary-gg': userType === 'CLIENT', 'btn-primary-ggpro': userType !== 'CLIENT' }" >
-                            <h5 class="mb-0 f-14"  >STOP</h5>
-                          </button>
-                        </div>
-                        
-                      </div>
-                    </button>
-                  </div>
-                </div> 
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-       
-      </div>
-    </div>
-
-
-    <!-- Schoose pro -->
-<div class="modal fade modal-card" id="proModal" tabindex="-1" aria-labelledby="proModalLabel" aria-hidden="true"
-data-bs-backdrop="static" data-bs-keyboard="false">
-<div class="modal-dialog modal-dialog-centered modal-xl">
-  <div class="modal-content">
-
-    <div class="modal-body p-3">
-      <div class="d-flex justify-content-end text-light" (click)="cancel()">close</div>
-      <div>
-        <div class="card modal-cards hovercard mt-4">
-
-          <div class="container card-body-s">
-            <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
-           
-              <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-4" *ngFor="let contact of selectedProUsers">
-                  <div class="card hovercard mt-5 rounded">
-                    <div>
-                      <div class="cardheader" [ngStyle]="{'background-image': contact.coverImageUrl ? 'url(' + contact.coverImageUrl + ')' : 'url(\'/assets/svg/session1.svg\')'}">
-                      </div>
-                      <div class="avatar">
-                        <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
-                          alt="Profile Image">
-                        <ng-template #noImage>
-                          <img src="../../../assets/images/nouser.png" alt="No Profile Image"
-                            class="img-fluid pro-log-img" />
-                        </ng-template>
-                      </div>
+                      </button>
                     </div>
-                    <div class=" container card-body-s">
-                      <div >
-                        <div class="d-flex justify-content-between align-items-center">
-                          <h3 class="text-light">
-                            <span class="h1-font me-2">{{ contact.username | truncate: 8 }}</span>
-                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_5344_406)">
-                                <path
-                                  d="M16.5 8.33203C16.5 3.91375 12.9183 0.332031 8.5 0.332031C4.08172 0.332031 0.5 3.91375 0.5 8.33203C0.5 12.7503 4.08172 16.332 8.5 16.332C12.9183 16.332 16.5 12.7503 16.5 8.33203Z"
-                                  fill="url(#paint0_linear_5344_406)" />
-                                <path
-                                  d="M10.1519 7.39482L8.55719 5.05148C8.5509 5.04225 8.54245 5.03469 8.53257 5.02946C8.5227 5.02424 8.5117 5.0215 8.50052 5.02148C8.4894 5.02149 8.47844 5.02423 8.46862 5.02946C8.4588 5.0347 8.45041 5.04226 8.44419 5.05148L6.84952 7.39482C6.8449 7.40164 6.83798 7.40657 6.83003 7.40871C6.82207 7.41085 6.81361 7.41006 6.80619 7.40648L4.32386 6.16815C4.31274 6.16257 4.3003 6.16015 4.2879 6.16115C4.2755 6.16215 4.26361 6.16653 4.25352 6.17382C4.24333 6.1812 4.23532 6.1912 4.23034 6.20276C4.22535 6.21432 4.22357 6.227 4.22519 6.23948L4.76319 10.9128C4.80286 11.3168 6.46086 11.6422 8.50019 11.6422C10.5399 11.6422 12.1979 11.3168 12.2375 10.9128L12.7759 6.23948C12.7774 6.22709 12.7756 6.2145 12.7707 6.20302C12.7658 6.19154 12.7579 6.18157 12.7479 6.17415C12.7378 6.16687 12.726 6.16247 12.7137 6.16141C12.7014 6.16035 12.689 6.16268 12.6779 6.16815L10.1952 7.40482C10.188 7.40863 10.1796 7.40972 10.1717 7.40788C10.1637 7.40605 10.1567 7.40141 10.1519 7.39482Z"
-                                  fill="white" />
-                              </g>
-                              <defs>
-                                <linearGradient id="paint0_linear_5344_406" x1="15.708" y1="14.1194" x2="-2.09236"
-                                  y2="6.05188" gradientUnits="userSpaceOnUse">
-                                  <stop stop-color="#41067A" />
-                                  <stop offset="0.859293" stop-color="#7A06D1" />
-                                </linearGradient>
-                                <clipPath id="clip0_5344_406">
-                                  <rect width="16" height="16" fill="white" transform="translate(0.5 0.332031)" />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                          </h3>
-                          <div>
-                            <span class="me-2 text-white">{{contact?.currentStatus}} </span>
-                            <img src="../../../assets/images/online.png" class="img-fluid mb-1"
-                              style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'ONLINE'" />
-                            <img src="../../../assets/images/offline.png" class="img-fluid mb-1"
-                              style="width: 15px; width: 15px;" *ngIf="contact?.currentStatus === 'OFFLINE'" />
-                            <img src="../../../assets/images/busy.png" class="img-fluid mb-1"
-                              style="width: 15px; width: 15px;"
-                              *ngIf="contact?.currentStatus === 'BOOKED' || contact?.currentStatus === 'BUSY'" />
+
+                    <div class="my-3"
+                      *ngIf="userType == 'PRO' && order.completedProUsers && order.completedProUsers.length > 0">
+                      <p class="mb-0 heading-1">Reported</p>
+                    </div>
+
+                    <ng-container *ngIf="userType == 'PRO'">
+                      <div class="mt-3" *ngFor="let client of order.completedProUsers">
+                        <button class="btn btn-choose f-14 choosebtn w-100">
+
+                          <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center ">
+                              <!-- Profile Picture -->
+                              <img
+                                src="{{ client.profileImageUrl ? client.profileImageUrl : '../../assets/img/no-profile-picture-icon.webp' }}"
+                                alt="Avatar" class="avatar me-2">
+
+                              <!-- Name and Designation -->
+                              <div class="pe-3">
+                                <p class="mb-1">{{ client.name | truncate: 8 }}</p>
+                                <p class="text-white mb-0 text-start">PRO</p>
+                              </div>
+
+                            </div>
+                            <div>
+                              <span class="text-secondary">
+                                {{ client.formattedTime }}</span>
+                            </div>
+
                           </div>
-    
-                        </div>
-    
-    
-                        <p class="text-color-light mt-2" style="min-height: 42px;">
-                          {{ contact.summary | truncate: 60 }}
-                        </p>
-                      </div>
-                      <div class=" streamLobbySlotTagsWrapper mt-3">
-                        <div class="streamLobbySlotTag p-2">
-                          <span class="red-letter me-2">Country</span>
-                          <span class="fw-bold">{{contact?.region}}</span>
-                        </div>
-                        <div class="streamLobbySlotTag p-2 ">
-                          <span class="red-letter me-2">KD</span>
-                          <span class="fw-bold">{{ contact?.kd ? contact?.kd : '0' }}</span>
-                        </div>
-                        <div class="streamLobbySlotTag p-2">
-                          <span class="red-letter me-2">Platform</span>
-                          <span class="fw-bold">{{contact?.platform}}</span>
-                        </div>
-    
-                        <div class="streamLobbySlotTag p-2">
-                          <span class="red-letter me-2">Kills</span>
-                          <span class="fw-bold">{{contact?.kills ? contact?.kills : '0'}}</span>
-                        </div>
-    
-                        <div class="streamLobbySlotTag p-2">
-                          <span class="red-letter me-2">Orders</span>
-                          <span class="fw-bold"><span>{{ contact?.orderCount }}</span> ⭐ <span>{{ contact?.rating
-                              }}</span></span>
-                        </div>
-                      </div>
-    
-                      <div class="session-text mt-4">
-                        <button type="button" class="btn btn-primary-gg p-3  w-100"
-                          >
-                          <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png"
-                              class="ms-2 mb-1 img-fluid" /></h5>
                         </button>
                       </div>
-                    </div>
+                    </ng-container>
                   </div>
                 </div>
-    
-    
-    
-                <!-- user not found -->
-                <div class="text-center" *ngIf="!selectedProUsers || selectedProUsers.length === 0">
-                  <p class="mb-0 text-white" style="height: 31vh;font-family: Manrope;">No players found</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Time Entry Dialog -->
+  <div class="modal fade modal-card" id="timerDialog" tabindex="-1" aria-labelledby="timerDialogLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-body p-4 modal0">
+          <div>
+            <div class="card  modal-cards hovercard">
+
+              <div class="container">
+
+                <div class="d-flex justify-content-start pt-2">
+                  <h4 class="text-light">Report</h4>
+                </div>
+
+                <div class="">
+                  <form [formGroup]="timerForm">
+                    <div class="pb-0 pt-1">
+                      <div class="profile-box ">
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex pt-3">
+                            <div class="pe-2">
+                              <img class="rounded" [src]="timerForm.get('clientProfileImage')?.value"
+                                alt="Profile Image" srcset="" width="45" height="45" style="vertical-align: middle;">
+                            </div>
+                            <div class="text-light ">
+                              <div>
+                                {{ timerForm.get('clientName')?.value | truncate: 8 }}
+                              </div>
+                              <div>
+                                {{ timerForm.get('timeLoggedInHours')?.value }} Hours,
+                                {{ timerForm.get('timeLogged')?.value }} Minutes
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=" pb-1 pt-3 text-light" style="font-size: small;color: #fff !important;">
+                      Time in Elite Order
+                      <div class="row mt-2" data-bs-theme="dark">
+                        <div class="col-sm-6">
+                          <input class="form-control" placeholder="Hours" formControlName="timeLoggedInHours" />
+                        </div>
+                        <div class="col-sm-6">
+                          <input class="form-control" placeholder="Minutes" formControlName="timeLogged" />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="row">
+                  <div class="col-12 pt-3">
+                    <button class="btn btn-primary-ggpro p-3 w-100" (click)="saveTimerForPro()">
+                      <h5 class="mb-0 f-14"> Report and Continue</h5>
+                    </button>
+                  </div>
+                  <div class="col-12 pt-3">
+                    <button type="button" class="btn btn-outline-light p-3 w-100" (click)="closeTimerDialogForPro()">
+                      <h5 class=" mb-0 f-14">Cancel</h5>
+                    </button>
+                  </div>
+
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
-</div>
-</div>
-  </div>
+</main>
