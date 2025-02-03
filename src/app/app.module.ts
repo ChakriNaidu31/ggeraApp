@@ -48,6 +48,7 @@ import { OrderRequestsComponent } from './pages/order-requests/order-requests.co
 import { NewPremadeComponent } from './pages/new-premade/new-premade.component';
 import { HeaderProComponent } from './pages/header-pro/header-pro.component';
 import { BankDetailsComponent } from './pages/bank-details/bank-details.component';
+import { EventComponent } from './pages/event/event.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -74,7 +75,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     PremadeCompletedComponent,
     EliteOrdersNewComponent,
     EliteOrdersInprogressComponent,
-
+    EventComponent,
     UserProfileComponent,
     LoginComponent,
     SocialLoginComponent,
