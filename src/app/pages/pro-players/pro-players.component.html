@@ -62,7 +62,8 @@
             <div class="col-sm-12 col-md-12 col-lg-3" *ngFor="let contact of selectedProUsers">
               <div class="card hovercard mt-5 rounded">
                 <div (click)="openUserProfile(contact)">
-                  <div class="cardheader" [ngStyle]="{'background-image': contact.coverImageUrl ? 'url(' + contact.coverImageUrl + ')' : 'url(\'/assets/svg/session1.svg\')'}">
+                  <div class="cardheader"
+                    [ngStyle]="{'background-image': contact.coverImageUrl ? 'url(' + contact.coverImageUrl + ')' : 'url(\'/assets/svg/session1.svg\')'}">
                   </div>
                   <div class="avatar">
                     <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl"
@@ -77,7 +78,7 @@
                   <div (click)="openUserProfile(contact)">
                     <div class="d-flex justify-content-between align-items-center">
                       <h3 class="text-light">
-                        <span class="h1-font me-2">{{ contact.username | truncate: 8 }}</span>
+                        <span class="h1-font me-2">{{ contact.username | truncate: 7 }}</span>
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_5344_406)">
                             <path
@@ -117,6 +118,7 @@
                       {{ contact.summary | truncate: 60 }}
                     </p>
                   </div>
+
                   <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openUserProfile(contact)">
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Country</span>
@@ -126,16 +128,20 @@
                       <span class="red-letter me-2">KD</span>
                       <span class="fw-bold">{{ contact?.kd ? contact?.kd : '0' }}</span>
                     </div>
+                  </div>
+
+                  <div class=" streamLobbySlotTagsWrapper mt-2" (click)="openUserProfile(contact)">
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Platform</span>
                       <span class="fw-bold">{{contact?.platform}}</span>
                     </div>
-
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Kills</span>
                       <span class="fw-bold">{{contact?.kills ? contact?.kills : '0'}}</span>
                     </div>
+                  </div>
 
+                  <div class=" streamLobbySlotTagsWrapper mt-2" (click)="openUserProfile(contact)">
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Orders</span>
                       <span class="fw-bold"><span>{{ contact?.orderCount }}</span> ⭐ <span>{{ contact?.rating
@@ -144,8 +150,7 @@
                   </div>
 
                   <div class="session-text mt-4">
-                    <button type="button" class="btn btn-primary-gg p-3  w-100"
-                      (click)="openMatchWithPro(contact)">
+                    <button type="button" class="btn btn-primary-gg p-3  w-100" (click)="openMatchWithPro(contact)">
                       <h5 class="mb-0 f-14">Play with This Pro <img src="../../../assets/images/joystick.png"
                           class="ms-2 mb-1 img-fluid" /></h5>
                     </button>
@@ -240,8 +245,7 @@
                           </div>
                         </div>
                         <div class="session-text my-auto mb-4 pb-4 mt-4">
-                          <button type="button" class="btn btn-primary-gg p-3"
-                            (click)="openMatchWithPro()">
+                          <button type="button" class="btn btn-primary-gg p-3" (click)="openMatchWithPro()">
                             <h5 class="pe-4 px-4 mb-0 f-14">Play with This Pro <img
                                 src="../../../assets/images/joystick.png" class="ms-2 mb-1 img-fluid" /></h5>
                           </button>
@@ -265,20 +269,22 @@
 
                 <div class="modal-body p-5">
                   <div>
-                    <div class="card modal-cards hovercard mt-4" >
+                    <div class="card modal-cards hovercard mt-4">
 
                       <div class="container card-body-s">
                         <div class="modal-stream streamLobbySlotTagsWrapper mt-5 text-center px-4">
                           <h5 class="text-white">
                             <img src="../../../assets/images/clock.png" class="img-fluid me-1">
-                            for <span>{{selectedProUserForMatch ? (selectedProUserForMatch.username | truncate: 8) : ''}} </span> to
+                            for <span>{{selectedProUserForMatch ? (selectedProUserForMatch.username | truncate: 8) :
+                              ''}} </span> to
                             accept <br> your <span class="h1-font">1-1</span> session
                             request
                           </h5>
                         </div>
 
                         <div class="session-text my-auto mb-4 pb-4 mt-4">
-                          <button type="button" class="btn btn-outline-light p-3" (click)="cancelMatchRequest(order.requestedTo)">
+                          <button type="button" class="btn btn-outline-light p-3"
+                            (click)="cancelMatchRequest(order.requestedTo)">
                             <h5 class="pe-4 px-4 mb-0 f-14">CANCEL REQUEST</h5>
                           </button>
                         </div>

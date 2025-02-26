@@ -165,7 +165,7 @@ p {
 .hero-bg {
   background-image:
 
-    url("/assets/images/proplayershero.svg");
+    url("../src/assets/images/proplayershero.svg");
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
