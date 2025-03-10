@@ -31,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ResponseMessageService } from './services/response-message.service';
 import { LoginComponent } from './pages/login/login.component';
 import { SocialLoginComponent } from './pages/social-login/social-login.component';
@@ -103,7 +104,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
       positionClass: 'toast-top-right',
       preventDuplicates: true,
       maxOpened: 4
-    })
+    }),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [AuthService, ChatService, PushNotificationService, ResponseMessageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },

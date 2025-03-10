@@ -25,6 +25,9 @@ export class UserProfileComponent implements OnInit {
     { id: 'PC', name: 'PC' },
     { id: 'XBOX', name: 'XBox' }
   ]
+  games: any[] = [];
+  selectedGames: any[] = [];
+  dropdownSettings = {};
 
   constructor(private fb: UntypedFormBuilder,
     private auth: AuthService,
@@ -41,6 +44,16 @@ export class UserProfileComponent implements OnInit {
     });
     this.userType = this.auth.getUserTypeFromSession();
 
+    this.getAvailableGames();
+    this.dropdownSettings = {
+      idField: 'id',
+      textField: 'title',
+      enableCheckAll: false,
+      allowSearchFilter: false,
+      itemsShowLimit: 4,
+      noDataAvailablePlaceholderText: 'No games available'
+    };
+
     this.form = this.fb.group({
       gamerId: ['', Validators.required],
       activisionId: [''],
@@ -56,11 +69,21 @@ export class UserProfileComponent implements OnInit {
       discordId: [''],
       summary: [''],
       profileImage: '',
-      youtubeLink: ['']
+      youtubeLink: [''],
+      chosenGames: ['']
     });
 
     this.getUserProfile();
 
+
+  }
+  getAvailableGames() {
+    this.auth.getAvailableGames().subscribe((data) => {
+      if (data?.data?.games) {
+        this.games.push({ id: '', title: 'No game selected' });
+        this.games = data.data.games;
+      }
+    });
   }
 
   getUserProfile() {
@@ -82,6 +105,7 @@ export class UserProfileComponent implements OnInit {
         this.form.controls['discordId'].setValue(data.data?.discordId);
         this.form.controls['summary'].setValue(data.data?.summary);
         this.form.controls['youtubeLink'].setValue(data.data?.youtubeLink);
+        this.selectedGames = this.games.filter(g => data.data?.chosenGames.indexOf(g.id) > -1);
         if (data.data?.profileImageUrl) { this.profileImageUrl = data.data?.profileImageUrl; }
         if (data.data?.coverImageUrl) { this.coverImageUrl = data.data?.coverImageUrl; }
       }
@@ -105,6 +129,7 @@ export class UserProfileComponent implements OnInit {
         discordId: this.form.controls['discordId'].value,
         summary: this.form.controls['summary'].value,
         youtubeLink: this.form.controls['youtubeLink'].value,
+        chosenGames: this.selectedGames.map(game => game.id).join(','),
         profileImageUrl: '',
         coverImageUrl: ''
       }
@@ -269,6 +294,16 @@ export class UserProfileComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       await this.uploadFileEvt(input.files[0]);
+    }
+  }
+
+  onGameSelect(item: any) {
+    this.selectedGames.push(item);
+  }
+
+  onGameDeSelect(item: any) {
+    if (this.selectedGames.indexOf(item) > -1) {
+      this.selectedGames.splice(this.selectedGames.indexOf(item), 1);
     }
   }
 }

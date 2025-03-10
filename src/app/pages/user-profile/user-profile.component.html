@@ -32,11 +32,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="upgrade-banner d-flex align-items-center justify-content-center"
-                                [ngClass]="{ 'upgrade-bannerclient': userType === 'CLIENT', 'upgrade-bannerpro': userType !== 'CLIENT' }">
-                                    <h5><span class="st-1" *ngIf="userType === 'CLIENT'">Upgrade<br> to </span> <span class="st-2">PRO <svg
-                                                _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
-                                                width="24" height="24" viewBox="0 0 17 17" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                    [ngClass]="{ 'upgrade-bannerclient': userType === 'CLIENT', 'upgrade-bannerpro': userType !== 'CLIENT' }">
+                                    <h5><span class="st-1" *ngIf="userType === 'CLIENT'">Upgrade<br> to </span> <span
+                                            class="st-2">PRO <svg _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
+                                                _ngcontent-doa-c26="" width="24" height="24" viewBox="0 0 17 17"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
                                                     clip-path="url(#clip0_5344_406)">
                                                     <path _ngcontent-pnp-c34="" _ngcontent-kak-c34=""
@@ -148,6 +148,14 @@
                                 <input type="text" id="youtubelink" class="form-control" formControlName="youtubeLink">
                             </div>
 
+                            <div class="col-12  mb-3">
+                                <label for="chosenGames" class="form-label">Choose Games</label>
+                                <ng-multiselect-dropdown [placeholder]="'No Game Selected'" [data]="games"
+                                    [settings]="dropdownSettings" formControlName="chosenGames" [(ngModel)]="selectedGames"
+                                    (onSelect)="onGameSelect($event)" (onDeSelect)="onGameDeSelect($event)">
+                                </ng-multiselect-dropdown>
+                            </div>
+
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="twitch" class="form-label">Twitch ID</label>
@@ -172,7 +180,8 @@
 
 
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <div *ngIf="userType === 'CLIENT'"><button class="btn make" type="button" (click)="makeMeProRequest()">Make Me PRO <svg _ngcontent-pnp-c34=""
+                                <div *ngIf="userType === 'CLIENT'"><button class="btn make" type="button"
+                                        (click)="makeMeProRequest()">Make Me PRO <svg _ngcontent-pnp-c34=""
                                             _ngcontent-kak-c34="" _ngcontent-doa-c26="" width="15" height="15"
                                             viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g _ngcontent-pnp-c34="" _ngcontent-kak-c34="" _ngcontent-doa-c26=""
@@ -204,8 +213,12 @@
                                             </defs>
                                         </svg></button></div>
                                 <div>
-                                    <button class="btn cancel" [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }" type="button" (click)="cancel()">Cancel</button>
-                                    <button class="btn save" [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }" type="submit">Submit</button>
+                                    <button class="btn cancel"
+                                        [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }"
+                                        type="button" (click)="cancel()">Cancel</button>
+                                    <button class="btn save"
+                                        [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }"
+                                        type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
