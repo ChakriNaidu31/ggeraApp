@@ -176,10 +176,6 @@ export class AuthService {
   getAvailableGames() {
     return this.http.get<any>(`${this.apiUrl}/game`, { headers: this.getHttpHeaders() });
   }
-
-  chooseGame(gameId: string) {
-    return this.http.post<any>(`${this.apiUrl}/game/choose`, { gameId: gameId }, { headers: this.getHttpHeaders() });
-  }
   /*********************************** END OTHERS ***********************************/
 
 
