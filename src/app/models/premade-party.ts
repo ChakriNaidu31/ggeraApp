@@ -5,6 +5,7 @@ export interface PremadeParty {
     id: string;
     name: string;
     orderId: string;
+    gameId: string;
     streamLink: string;
     description: string;
     currentPlayingUsers: number;

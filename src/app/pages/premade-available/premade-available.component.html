@@ -19,7 +19,7 @@
                                 <div class="d-flex">
                                     <div class="me-2">
                                         <select class="form-select custom-select" aria-label="Select option"
-                                            formControlName="gameId">
+                                            formControlName="gameId" (change)="getData()">
                                             <option value="">All Games</option>
                                             <option *ngFor="let game of games" value="{{game.id}}">{{game.title}}
                                             </option>

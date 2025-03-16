@@ -17,7 +17,6 @@ import { ResponseMessageService } from 'src/app/services/response-message.servic
 export class PremadeAvailableComponent implements OnInit {
 
   @ViewChildren('videoPlayer') videoPlayers: QueryList<ElementRef>;
-  selectedTab: string = 'all';
   premadeParties: PremadeParty[] = [];
   selectedPremadeParties: PremadeParty[] = [];
   reloadTimer: any;
@@ -79,22 +78,20 @@ export class PremadeAvailableComponent implements OnInit {
     }
   }
 
-  private getData() {
+  getData() {
     this.premadeParties = [];
     this._auth.getAvailablePremadeParties().subscribe((data) => {
       this.premadeParties = data?.data?.party;
+      if (this.form.controls['gameId'].value) {
+        this.premadeParties = this.premadeParties.filter(party => party.gameId === this.form.controls['gameId'].value);
+      }
       this.premadeParties.map((party) => party.embedUrl = this.transformVideoUrl(party.videoUrl))
       this.filterData();
     });
   }
 
   private filterData() {
-    let selectedPartiesLocal: PremadeParty[] = [];
-    if (this.selectedTab === 'all') {
-      selectedPartiesLocal = this.premadeParties;
-    } else {
-      selectedPartiesLocal = this.premadeParties.filter(i => i.currentPlayingUsers < 3);
-    }
+    let selectedPartiesLocal: PremadeParty[] = this.premadeParties;
     if (!this.compareTwoArrayOfObjects(selectedPartiesLocal, this.selectedPremadeParties)) {
       this.selectedPremadeParties = selectedPartiesLocal;
     }
@@ -138,11 +135,6 @@ export class PremadeAvailableComponent implements OnInit {
 
   ngOnDestroy() {
     clearInterval(this.reloadTimer);
-  }
-
-  changeTab(tabName: string) {
-    this.selectedTab = tabName;
-    this.filterData();
   }
 
   joinParty(id: string) {
