@@ -85,6 +85,7 @@ export class NewPremadeComponent implements OnInit {
 
   createNewParty() {
     const dataToUpdate = {
+      gameId: this.form.controls['game'].value,
       name: this.form.controls['name'].value,
       streamLink: this.form.controls['streamLink'].value,
       description: this.form.controls['description'].value,

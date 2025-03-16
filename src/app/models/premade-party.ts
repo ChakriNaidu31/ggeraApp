@@ -28,6 +28,7 @@ export interface PremadeParty {
     isAlreadyFinishedPlaying: boolean;
     totalAmount: string;
     taxAmountForAdmin: string;
+    gameName: string;
 }
 
 interface PartyUser {

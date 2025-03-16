@@ -18,4 +18,5 @@ export interface SingleOrder {
     userBalance: string;
     requestedByImage: string;
     requestedToImage: string;
+    gameName: string;
 }
