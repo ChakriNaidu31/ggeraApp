@@ -19,4 +19,5 @@ export interface ProUser {
     registeredDate: string;
     platform: string;
     isActive: string;
+    chosenGames: [string];
 }

@@ -73,15 +73,13 @@ export class UserProfileComponent implements OnInit {
       chosenGames: ['']
     });
 
-    this.getUserProfile();
-
-
   }
   getAvailableGames() {
     this.auth.getAvailableGames().subscribe((data) => {
       if (data?.data?.games) {
         this.games.push({ id: '', title: 'No game selected' });
         this.games = data.data.games;
+        this.getUserProfile();
       }
     });
   }
@@ -297,13 +295,4 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  onGameSelect(item: any) {
-    this.selectedGames.push(item);
-  }
-
-  onGameDeSelect(item: any) {
-    if (this.selectedGames.indexOf(item) > -1) {
-      this.selectedGames.splice(this.selectedGames.indexOf(item), 1);
-    }
-  }
 }

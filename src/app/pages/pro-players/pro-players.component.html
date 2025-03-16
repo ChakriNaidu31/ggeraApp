@@ -120,6 +120,16 @@
                   </div>
 
                   <div class=" streamLobbySlotTagsWrapper mt-3" (click)="openUserProfile(contact)">
+                    <div class="streamLobbySlotTag p-2" *ngFor="let game of contact?.chosenGames">
+                      <span class="red-letter me-2">Game:</span>
+                      <span class="fw-bold">{{game}}</span>
+                    </div>
+                    <div class="streamLobbySlotTag p-2" *ngIf="!contact.chosenGames?.length">
+                      <span class="fw-bold">No Games Added</span>
+                    </div>
+                  </div>
+
+                  <div class=" streamLobbySlotTagsWrapper mt-2" (click)="openUserProfile(contact)">
                     <div class="streamLobbySlotTag p-2">
                       <span class="red-letter me-2">Country</span>
                       <span class="fw-bold">{{contact?.region}}</span>
@@ -207,6 +217,15 @@
                           <p class="text-color-light text-center mt-2">
                             {{ selectedProUserForMatch.summary | truncate: 60 }}
                           </p>
+                        </div>
+                        <div class=" modal-stream streamLobbySlotTagsWrapper mt-3 text-center px-4">
+                          <div class="streamLobbySlotTag p-2" *ngFor="let game of selectedProUserForMatch.chosenGames">
+                            <span class="red-letter me-2">Game:</span>
+                            <span class="fw-bold">{{ game }}</span>
+                          </div>
+                          <div class="streamLobbySlotTag p-2" *ngIf="!selectedProUserForMatch.chosenGames?.length">
+                            <span class="fw-bold">No Games Added</span>
+                          </div>
                         </div>
                         <div class=" modal-stream streamLobbySlotTagsWrapper mt-3 text-center px-4">
                           <div class="streamLobbySlotTag p-2">

@@ -151,8 +151,7 @@
                             <div class="col-12  mb-3">
                                 <label for="chosenGames" class="form-label">Choose Games</label>
                                 <ng-multiselect-dropdown [placeholder]="'No Game Selected'" [data]="games"
-                                    [settings]="dropdownSettings" formControlName="chosenGames" [(ngModel)]="selectedGames"
-                                    (onSelect)="onGameSelect($event)" (onDeSelect)="onGameDeSelect($event)">
+                                    [settings]="dropdownSettings" formControlName="chosenGames" [(ngModel)]="selectedGames">
                                 </ng-multiselect-dropdown>
                             </div>
 

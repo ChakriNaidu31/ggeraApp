@@ -58,8 +58,8 @@ export class AuthService {
   /*********************************** END LOGIN ***********************************/
 
   /*********************************** START 1 TO 1 ***********************************/
-  fetchProUsers(filterData: string[] = []) {
-    return this.http.get<any>(`${this.baseUrl}?platform=${filterData.join(',')}`, { headers: this.getHttpHeaders() });
+  fetchProUsers(filterData: string[] = [], gameId: string = '') {
+    return this.http.get<any>(`${this.baseUrl}?platform=${filterData.join(',')}&gameId=${gameId}`, { headers: this.getHttpHeaders() });
   }
 
   sendRequestForMatch(proUserId: string | undefined) {

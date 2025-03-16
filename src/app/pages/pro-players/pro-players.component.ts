@@ -113,6 +113,7 @@ export class ProPlayersComponent implements OnInit {
   getData() {
 
     let filterData = [];
+    let gameId = '';
     if (this.form.controls['typePs'].value === true) {
       filterData.push('PS');
     }
@@ -122,8 +123,11 @@ export class ProPlayersComponent implements OnInit {
     if (this.form.controls['typePc'].value === true) {
       filterData.push('PC');
     }
+    if (this.form.controls['gameId'].value) {
+      gameId = this.form.controls['gameId'].value;
+    }
 
-    this._auth.fetchProUsers(filterData).subscribe((data) => {
+    this._auth.fetchProUsers(filterData, gameId).subscribe((data) => {
       this.proUsers = data?.data;
       this.filterData();
     });
@@ -187,6 +191,12 @@ export class ProPlayersComponent implements OnInit {
   matchWithPro(id: string | undefined, currentStatus: string | undefined) {
     if (currentStatus !== 'ONLINE') {
       this.toaster.showError('You can only request to PRO players available Online', '', {
+        duration: 10000
+      });
+      return;
+    }
+    if (!this.selectedProUserForMatch?.chosenGames?.length) {
+      this.toaster.showError('No games added for PRO. Atleast one game is required', '', {
         duration: 10000
       });
       return;
