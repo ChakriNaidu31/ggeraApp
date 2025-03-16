@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { catchError } from 'rxjs';
 import { PremadeParty } from 'src/app/models/premade-party';
@@ -8,11 +7,11 @@ import { ResponseMessageService } from 'src/app/services/response-message.servic
 
 declare var bootstrap: any;
 @Component({
-  selector: 'app-premade-completed',
-  templateUrl: './premade-completed.component.html',
-  styleUrls: ['./premade-completed.component.css']
+  selector: 'app-premade-completed-pro',
+  templateUrl: './premade-completed-pro.component.html',
+  styleUrl: './premade-completed-pro.component.css'
 })
-export class PremadeCompletedComponent implements OnInit {
+export class PremadeCompletedProComponent implements OnInit {
 
   p: number = 1;
   userType: string = '';
@@ -21,23 +20,16 @@ export class PremadeCompletedComponent implements OnInit {
   pageSize: number = 25;
   totalPages: number = 0;
   selectedPremadeParty: any;
-  form: UntypedFormGroup;
-  currentRating: number = 0;
+  reviews: any[] = [];
 
   constructor(
     private _auth: AuthService,
     private title: Title,
     private meta: Meta,
-    private toaster: ResponseMessageService,
-    private fb: FormBuilder) {
+    private toaster: ResponseMessageService) {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      partyId: [''],
-      starRating: [0],
-      comments: ['']
-    });
     this.title.setTitle("GGera - Premade Parties - Completed");
     this.meta.updateTag({
       name: 'description',
@@ -69,7 +61,7 @@ export class PremadeCompletedComponent implements OnInit {
       .subscribe((data) => {
         if (data?.data) {
           this.selectedPremadeParty = data.data;
-          this.openModal('firstModal');
+          this.openModal('firstPremadeModal');
         } else {
           this.toaster.showError('Could not fetch details at this time', '', {
             duration: 10000
@@ -86,41 +78,19 @@ export class PremadeCompletedComponent implements OnInit {
     }
   }
 
-  addReview(order: PremadeParty) {
-    // this.dialog.open(PremadePartyReviewComponent, {
-    //   data: { partyId: order.id }
-    // }).afterClosed().subscribe((data) => {
-    //   if (data?.submitted) {
-    //     this._auth.completedPartiesList().subscribe(parties => {
-    //       this.premadeParties = parties?.data?.party;
-    //       this.paginateItems();
-    //     });
-    //   }
-    // });
-  }
-
-  updateRating(rating: number) {
-    this.currentRating = rating;
-    this.form.controls['starRating'].setValue(rating);
-  }
-
-  submitReview() {
-    this._auth.savePartyReview(this.form.value).pipe(
-      catchError((error: any) => {
+  viewReviews(order: PremadeParty) {
+    const partyId = order.id;
+    this._auth.showPartyReview(partyId).pipe(
+      catchError((error) => {
         this.toaster.showError(error.error?.meta?.message, '', {
           duration: 10000
         });
         return '';
       }))
       .subscribe((data) => {
-        if (data?.data) {
-          this.toaster.showSuccess('Thank you for adding your review', '', {
-            duration: 3000
-          });
-        } else {
-          this.toaster.showError('Could not update review at this time. Please try again later', '', {
-            duration: 10000
-          });
+        if (data?.data?.reviews) {
+          this.reviews = data.data?.reviews;
+          this.openModal('secondModal');
         }
       });
   }

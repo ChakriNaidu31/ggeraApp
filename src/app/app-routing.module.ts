@@ -28,6 +28,7 @@ import { PremadeInprogressProComponent } from './pages/premade-inprogress-pro/pr
 import { EliteOrderRequestComponent } from './pages/elite-order-request/elite-order-request.component';
 import { WithdrawMoneyComponent } from './pages/withdraw-money/withdraw-money.component';
 import { BankDetailsComponent } from './pages/bank-details/bank-details.component';
+import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
 
 const routes: Routes = [
 
@@ -66,7 +67,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'order-requests', pathMatch: 'full' },
       { path: 'premade-new', component: NewPremadeComponent },
       { path: 'premade-progress', component: PremadeInprogressProComponent },
-      { path: 'premade-completed', component: PremadeCompletedComponent },
+      { path: 'premade-completed', component: PremadeCompletedProComponent },
       { path: 'order-requests', component: OrderRequestsComponent },
       { path: 'order-progress', component: SessionComponent },
       { path: 'elite-order-request', component: EliteOrderRequestComponent },
