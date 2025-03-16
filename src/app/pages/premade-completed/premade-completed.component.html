@@ -50,7 +50,7 @@
                     <tr *ngFor="let order of visibleParties">
                       <td class="red-letter" (click)="openDetails(order?.id)">{{ order?.orderId }}</td>
                       <td class="text-white">{{ order?.name }}</td>
-                      <td class="text-white">{{ order?.clientUser?.amount }}</td>
+                      <td class="text-white">${{ order?.clientUser?.amount }}</td>
                       <td class="text-white">{{ order?.clientUser?.loggedTime }}</td>
                       <td class="text-white">{{ order?.clientUser?.completedDate | date: 'dd/MM/yyyy HH:mm' }}</td>
                       <td>
@@ -70,7 +70,7 @@
                           </svg>
                         </div>
                         <div *ngIf="!order?.clientUser?.reviewStarCount">
-                          <button class="btn btn-secondary" (click)="openModal('thirdModal')">Add Review</button>
+                          <button class="btn btn-secondary" (click)="addReview(order)">Add Review</button>
                         </div>
                       </td>
                     </tr>
@@ -292,14 +292,14 @@
           </div>
 
           <!-- Add Review modal -->
-          <div class="modal fade modal-card" id="thirdModal" tabindex="-1" aria-labelledby="firstModalLabel"
-            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+          <div class="modal fade modal-card" id="thirdModal" tabindex="-1" aria-labelledby="thirdModalLabel"
+            aria-modal="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
 
                 <div class="modal-body p-3">
                   <div>
-                    <div class="card modal-cards hovercard" data-bs-toggle="modal" data-bs-target="#thirdModal">
+                    <div class="card modal-cards hovercard">
 
                       <div class="row ">
 
@@ -309,11 +309,11 @@
                             <div class="card-body bg-darkk">
                               <div class="d-flex justify-content-center pt-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" ngClass="pe-3" width="64" height="64"
-                                  viewBox="0 0 64 64" fill="none">
+                                  viewBox="0 0 64 64" fill="none" (click)="updateRating(1)">
                                   <g clip-path="url(#clip0_540_4334)">
                                     <path
                                       d="M14.448 61.772C12.904 62.564 11.152 61.176 11.464 59.404L14.784 40.484L0.691985 27.06C-0.624015 25.804 0.0599848 23.508 1.82398 23.26L21.416 20.476L30.152 3.16805C30.94 1.60805 33.072 1.60805 33.86 3.16805L42.596 20.476L62.188 23.26C63.952 23.508 64.636 25.804 63.316 27.06L49.228 40.484L52.548 59.404C52.86 61.176 51.108 62.564 49.564 61.772L32 52.748L14.448 61.772Z"
-                                      [attr.fill]="'#FFFFFF'" />
+                                      [attr.fill]="currentRating >= 1 ? '#E0AE4B' : '#FFFFFF'" />
                                   </g>
                                   <defs>
                                     <clipPath id="clip0_540_4334">
@@ -322,11 +322,11 @@
                                   </defs>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" ngClass="pe-3" width="64" height="64"
-                                  viewBox="0 0 64 64" fill="none">
+                                  viewBox="0 0 64 64" fill="none" (click)="updateRating(2)">
                                   <g clip-path="url(#clip0_540_4334)">
                                     <path
                                       d="M14.448 61.772C12.904 62.564 11.152 61.176 11.464 59.404L14.784 40.484L0.691985 27.06C-0.624015 25.804 0.0599848 23.508 1.82398 23.26L21.416 20.476L30.152 3.16805C30.94 1.60805 33.072 1.60805 33.86 3.16805L42.596 20.476L62.188 23.26C63.952 23.508 64.636 25.804 63.316 27.06L49.228 40.484L52.548 59.404C52.86 61.176 51.108 62.564 49.564 61.772L32 52.748L14.448 61.772Z"
-                                      [attr.fill]="'#FFFFFF'" />
+                                      [attr.fill]="currentRating >= 2 ? '#E0AE4B' : '#FFFFFF'" />
                                   </g>
                                   <defs>
                                     <clipPath id="clip0_540_4334">
@@ -335,11 +335,11 @@
                                   </defs>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" ngClass="pe-3" width="64" height="64"
-                                  viewBox="0 0 64 64" fill="none">
+                                  viewBox="0 0 64 64" fill="none" (click)="updateRating(3)">
                                   <g clip-path="url(#clip0_540_4334)">
                                     <path
                                       d="M14.448 61.772C12.904 62.564 11.152 61.176 11.464 59.404L14.784 40.484L0.691985 27.06C-0.624015 25.804 0.0599848 23.508 1.82398 23.26L21.416 20.476L30.152 3.16805C30.94 1.60805 33.072 1.60805 33.86 3.16805L42.596 20.476L62.188 23.26C63.952 23.508 64.636 25.804 63.316 27.06L49.228 40.484L52.548 59.404C52.86 61.176 51.108 62.564 49.564 61.772L32 52.748L14.448 61.772Z"
-                                      [attr.fill]="'#FFFFFF'" />
+                                      [attr.fill]="currentRating >= 3 ? '#E0AE4B' : '#FFFFFF'" />
                                   </g>
                                   <defs>
                                     <clipPath id="clip0_540_4334">
@@ -348,11 +348,11 @@
                                   </defs>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" ngClass="pe-3" width="64" height="64"
-                                  viewBox="0 0 64 64" fill="none">
+                                  viewBox="0 0 64 64" fill="none" (click)="updateRating(4)">
                                   <g clip-path="url(#clip0_540_4334)">
                                     <path
                                       d="M14.448 61.772C12.904 62.564 11.152 61.176 11.464 59.404L14.784 40.484L0.691985 27.06C-0.624015 25.804 0.0599848 23.508 1.82398 23.26L21.416 20.476L30.152 3.16805C30.94 1.60805 33.072 1.60805 33.86 3.16805L42.596 20.476L62.188 23.26C63.952 23.508 64.636 25.804 63.316 27.06L49.228 40.484L52.548 59.404C52.86 61.176 51.108 62.564 49.564 61.772L32 52.748L14.448 61.772Z"
-                                      [attr.fill]="'#FFFFFF'" />
+                                      [attr.fill]="currentRating >= 4 ? '#E0AE4B' : '#FFFFFF'" />
                                   </g>
                                   <defs>
                                     <clipPath id="clip0_540_4334">
@@ -361,11 +361,11 @@
                                   </defs>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" ngClass="pe-3" width="64" height="64"
-                                  viewBox="0 0 64 64" fill="none">
+                                  viewBox="0 0 64 64" fill="none" (click)="updateRating(5)">
                                   <g clip-path="url(#clip0_540_4334)">
                                     <path
                                       d="M14.448 61.772C12.904 62.564 11.152 61.176 11.464 59.404L14.784 40.484L0.691985 27.06C-0.624015 25.804 0.0599848 23.508 1.82398 23.26L21.416 20.476L30.152 3.16805C30.94 1.60805 33.072 1.60805 33.86 3.16805L42.596 20.476L62.188 23.26C63.952 23.508 64.636 25.804 63.316 27.06L49.228 40.484L52.548 59.404C52.86 61.176 51.108 62.564 49.564 61.772L32 52.748L14.448 61.772Z"
-                                      [attr.fill]="'#FFFFFF'" />
+                                      [attr.fill]="currentRating >= 5 ? '#E0AE4B' : '#FFFFFF'" />
                                   </g>
                                   <defs>
                                     <clipPath id="clip0_540_4334">
@@ -374,7 +374,7 @@
                                   </defs>
                                 </svg>
                               </div>
-                              <form>
+                              <form [formGroup]="form" (ngSubmit)="submitReview()">
                                 <div class="d-flex justify-content-center pt-5 pb-5 box" data-bs-theme="dark">
                                   <textarea formControlName="comments" class="form-control"
                                     id="exampleFormControlTextarea1" placeholder="Review Comments" rows="5"></textarea>
@@ -383,11 +383,11 @@
                               <div class="d-flex justify-content-center pb-5">
                                 <div class="pe-4">
                                   <button type="button" class="btn btn-outline-light p-3">
-                                    <h5 class="pe-4 px-4 mb-0 f-14">Cancel</h5>
+                                    <h5 class="pe-4 px-4 mb-0 f-14" (click)="closeModal('thirdModal')">Cancel</h5>
                                   </button>
                                 </div>
                                 <div class="ps-2">
-                                  <button class="btn btn-purple">
+                                  <button class="btn btn-purple" (click)="submitReview()">
                                     <h5>Submit</h5>
                                   </button>
                                 </div>

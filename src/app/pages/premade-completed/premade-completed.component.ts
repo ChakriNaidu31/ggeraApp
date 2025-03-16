@@ -87,16 +87,9 @@ export class PremadeCompletedComponent implements OnInit {
   }
 
   addReview(order: PremadeParty) {
-    // this.dialog.open(PremadePartyReviewComponent, {
-    //   data: { partyId: order.id }
-    // }).afterClosed().subscribe((data) => {
-    //   if (data?.submitted) {
-    //     this._auth.completedPartiesList().subscribe(parties => {
-    //       this.premadeParties = parties?.data?.party;
-    //       this.paginateItems();
-    //     });
-    //   }
-    // });
+    this.currentRating = 0;
+    this.selectedPremadeParty = order;
+    this.openModal('thirdModal');
   }
 
   updateRating(rating: number) {
@@ -105,6 +98,7 @@ export class PremadeCompletedComponent implements OnInit {
   }
 
   submitReview() {
+    this.form.controls['partyId'].setValue(this.selectedPremadeParty.id)
     this._auth.savePartyReview(this.form.value).pipe(
       catchError((error: any) => {
         this.toaster.showError(error.error?.meta?.message, '', {
@@ -117,12 +111,24 @@ export class PremadeCompletedComponent implements OnInit {
           this.toaster.showSuccess('Thank you for adding your review', '', {
             duration: 3000
           });
+          this.closeModal('thirdModal');
         } else {
           this.toaster.showError('Could not update review at this time. Please try again later', '', {
             duration: 10000
           });
+          this.closeModal('thirdModal');
         }
       });
+  }
+
+  closeModal(modalId: string): void {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
   }
 
   goToPage(page: number) {
