@@ -48,12 +48,15 @@ export class SessionLadingComponent implements OnInit {
   }
 
   getDataForGame(gameId: string) {
-    this.auth.fetchProUsers().subscribe((data) => {
+    this.auth.fetchProUsers([], gameId).subscribe((data) => {
       this.proUsers = data?.data;
       const selectedProUsersLocal = this.proUsers.filter(c => c.currentStatus === 'ONLINE');
 
-      if (selectedProUsersLocal.length > 4) {
-        this.proUsers = selectedProUsersLocal.slice(0, 4);
+      if (selectedProUsersLocal.length < 4) {
+        const remainingUsers = 4 - selectedProUsersLocal.length;
+        const otherProUsersLocal = this.proUsers.filter(c => c.currentStatus !== 'ONLINE' && c.platform);
+        const usersToAdd = otherProUsersLocal.slice(0, remainingUsers);
+        this.proUsers = selectedProUsersLocal.concat(usersToAdd);
       } else {
         this.proUsers = selectedProUsersLocal;
       }

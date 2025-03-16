@@ -4,7 +4,7 @@
     unlock your gaming potential and achieve extraordinary results.</p>
 </div>
 
-<div class="premade-parties-wrapper container">
+<div class="premade-parties-wrapper container" *ngIf="proUsers && proUsers.length > 0">
   <owl-carousel-o [options]="customOptions">
 
     <ng-container>
@@ -14,7 +14,7 @@
             <div class="cardheader">
             </div>
             <div class="avatar">
-              <img *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl" alt="Profile Image">
+              <img alt="Profile Image" *ngIf="contact?.profileImageUrl; else noImage" [src]="contact.profileImageUrl">
               <ng-template #noImage>
                 <img src="../../../assets/images/nouser.png" alt="No Profile Image" class="img-fluid pro-log-img" />
               </ng-template>
@@ -22,7 +22,7 @@
             <div class=" container card-body-s">
               <div>
                 <div class="d-flex justify-content-between align-items-center">
-                  <h3 class="text-light">
+                  <h3 class="text-light h1-font">
                     {{ contact.username | truncate: 8 }}
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_5344_406)">
@@ -45,20 +45,32 @@
                       </defs>
                     </svg>
                   </h3>
-                  <span class="dot"></span>
+                  <span class="dot-grey" *ngIf="contact?.currentStatus !== 'ONLINE'"></span>
+                  <!-- <span class="dot-red"></span> -->
+                  <span class="dot" *ngIf="contact?.currentStatus === 'ONLINE'"></span>
                 </div>
 
 
-                <p class="text-color-light mt-2">
+                <p class="text-color-light mt-2" style="min-height: 40px;">
                   {{ contact.summary | truncate: 60 }}
                 </p>
               </div>
-              <div class=" streamLobbySlotTagsWrapper mt-3">
+              <div class="streamLobbySlotTagsWrapper mt-3">
+                <div class="streamLobbySlotTag p-2" *ngFor="let game of contact?.chosenGames">
+                  <span class="red-letter me-2">Game</span>
+                  <span class="fw-bold">{{game}}</span>
+                </div>
+                <div class="streamLobbySlotTag p-2" *ngIf="!contact.chosenGames?.length"
+                  style="flex: 0 0 100% !important;">
+                  <span class="fw-bold">No Games Added</span>
+                </div>
+              </div>
+              <div class="streamLobbySlotTagsWrapper mt-2">
                 <div class="streamLobbySlotTag p-2">
                   <span class="red-letter me-2">Country</span>
                   <span class="fw-bold">{{contact?.region}}</span>
                 </div>
-                <div class="streamLobbySlotTag p-2 ">
+                <div class="streamLobbySlotTag p-2">
                   <span class="red-letter me-2">KD</span>
                   <span class="fw-bold">{{ contact?.kd ? contact?.kd : '0' }}</span>
                 </div>
@@ -76,5 +88,16 @@
     </ng-container>
 
   </owl-carousel-o>
+</div>
+
+<div class="premade-parties-wrapper container" *ngIf="!proUsers || !proUsers.length">
+
+  <div class="p-2">
+    <div class="text-light d-flex justify-content-center">
+      No PRO users found
+    </div>
+
+  </div>
+
 
 </div>
