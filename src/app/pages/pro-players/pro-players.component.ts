@@ -33,10 +33,6 @@ export class ProPlayersComponent implements OnInit {
       value: "Booked"
     },
     {
-      key: "BUSY",
-      value: "Busy"
-    },
-    {
       key: "OFFLINE",
       value: "Offline"
     }
@@ -145,7 +141,7 @@ export class ProPlayersComponent implements OnInit {
       }
 
       case 'ONLINE': {
-        selectedProUsersLocal = this.proUsers.filter(c => c.currentStatus === 'ONLINE');
+        selectedProUsersLocal = this.proUsers.filter(c => (c.currentStatus === 'ONLINE' || c.currentStatus === 'BOOKED'));
         break;
       }
 

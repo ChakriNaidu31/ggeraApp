@@ -6,7 +6,7 @@
 </div>
 
 <section class="premade-parties-wrapper container">
-  <ng-container *ngIf="premadeParties.length > 0">
+  <ng-container *ngIf="premadeParties && premadeParties.length > 0">
     <div class="mt-5" *ngFor="let item of premadeParties; let i = index">
       <section class="premade-parties-wrapper container">
         <div id="premade-parties-list" class="premade-parties-list">

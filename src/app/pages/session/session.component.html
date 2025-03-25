@@ -172,7 +172,16 @@
           </div>
 
           <div class="row" *ngIf="!order">
-            <div class="table pt-5 d-flex justify-content-center">
+            <div class="col-xs-12 justify-content-center">
+              <div class="mt-5">
+                <button type="button" class="btn btn-primary-gg" (click)="navigateToPlayers()">
+                  <h6 class="m-0 p-2">PICK A PRO</h6>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="!order">
+            <div class="table d-flex justify-content-center">
               <div class="col-xl-12">
                 <div class="table-border resultsTable pb-2 pt-2">
                   <div class="d-flex justify-content-center">

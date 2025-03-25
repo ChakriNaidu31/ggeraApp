@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { Chat } from 'src/app/models/chat';
 import { ChatMessage } from 'src/app/models/chat-message';
@@ -38,7 +39,8 @@ export class SessionComponent implements OnInit {
     private _notification: PushNotificationService,
     private title: Title,
     private meta: Meta,
-    private fb: UntypedFormBuilder
+    private fb: UntypedFormBuilder,
+    private _router: Router
   ) {
     this._notification.requestPermission();
   }
@@ -146,6 +148,10 @@ export class SessionComponent implements OnInit {
     this.messageTyped = '';
     this.cd.detectChanges();
     this.scrollToBottom();
+  }
+
+  navigateToPlayers() {
+    this._router.navigate(['/client/pro-players']);
   }
 
   private getData() {
