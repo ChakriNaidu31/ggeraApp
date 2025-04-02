@@ -171,7 +171,7 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="!order">
+          <div class="row" *ngIf="!order && userType === 'CLIENT'">
             <div class="col-xs-12 justify-content-center">
               <div class="mt-5">
                 <button type="button" class="btn btn-primary-gg" (click)="navigateToPlayers()">
