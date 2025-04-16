@@ -13,13 +13,12 @@ declare var bootstrap: any;
 export class SessionLadingComponent implements OnInit {
 
   customOptions: OwlOptions = {
-    loop: false,
-    autoplay: true,
+    loop: true,
+    autoplay: false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
     dots: true,
-    navText: ['prev', 'next'],
     navSpeed: 700,
     responsive: {
       0: {
@@ -35,7 +34,7 @@ export class SessionLadingComponent implements OnInit {
         items: 4
       }
     },
-    nav: true
+    nav: false
   }
   proUsers: ProUser[] = [];
   selectedProUserForMatch: ProUser;
