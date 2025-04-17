@@ -21,10 +21,10 @@
 }
 
 @media(max-width:768px) {
-    .main-height {
+    /* .main-height {
         padding-left: 20px;
         padding-right: 20px;
-    }
+    } */
 
     .hero-bg {
         background-image: url(../assets/images/hero.svg);
