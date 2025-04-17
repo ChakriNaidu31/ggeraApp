@@ -178,7 +178,7 @@
                             </div>
 
 
-                            <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="d-md-flex justify-content-between align-items-center mt-3">
                                 <div *ngIf="userType === 'CLIENT'"><button class="btn make" type="button"
                                         (click)="makeMeProRequest()">Make Me PRO <svg _ngcontent-pnp-c34=""
                                             _ngcontent-kak-c34="" _ngcontent-doa-c26="" width="15" height="15"
@@ -211,7 +211,7 @@
                                                 </clipPath>
                                             </defs>
                                         </svg></button></div>
-                                <div>
+                                <div class="mt-2 mt-md-0">
                                     <button class="btn cancel"
                                         [ngClass]="{ 'saveclient': userType === 'CLIENT', 'savepro': userType !== 'CLIENT' }"
                                         type="button" (click)="cancel()">Cancel</button>

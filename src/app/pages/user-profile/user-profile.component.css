@@ -69,12 +69,21 @@ body {
   border-radius: 10px;
   cursor: pointer;
 }
-.upgrade-bannerpro{
-  background: linear-gradient(294.38deg, #7a3c06 7.72%, #d16c06 87.02%)
 
+.upgrade-bannerpro {
+  background: linear-gradient(294.38deg, #7a3c06 7.72%, #d16c06 87.02%);
+
+  @media(max-width: 768px) {
+    display: none !important;
+  }
 }
-.upgrade-bannerclient{
+
+.upgrade-bannerclient {
   background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
+
+  @media(max-width: 768px) {
+    display: none !important;
+  }
 }
 
 /* Cover Image Styling */
@@ -205,6 +214,10 @@ button.btn.make {
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #fff;
+
+  @media(max-width: 768px) {
+    width: 200px;
+  }
 }
 
 button.btn.cancel {
@@ -220,6 +233,10 @@ button.btn.cancel {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+
+  @media(max-width: 768px) {
+    width: 100px;
+  }
 }
 
 button.btn.save {
@@ -235,12 +252,17 @@ button.btn.save {
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  
+
+  @media(max-width: 768px) {
+    width: 100px;
+  }
 }
-.saveclient{
+
+.saveclient {
   color: #A55EFF;
 }
-.savepro{
+
+.savepro {
   color: #d16c06;
 }
 

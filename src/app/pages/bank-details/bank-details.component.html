@@ -19,7 +19,7 @@
                                             Bank Account is required
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 mt-2 mt-sm-0">
                                         <input type="text" class="form-control" id="accountNumber"
                                             placeholder="Account Number*" required formControlName="accountNumber" />
                                         <div *ngIf="form.get('accountNumber')?.invalid && (form.get('accountNumber')?.touched || formSubmitted)"
@@ -37,7 +37,7 @@
                                             Bank Name is required
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 mt-2 mt-sm-0">
                                         <input type="text" class="form-control" id="iban" placeholder="IBAN*" required
                                             formControlName="iban" />
                                         <div *ngIf="form.get('iban')?.invalid && (form.get('iban')?.touched || formSubmitted)"
