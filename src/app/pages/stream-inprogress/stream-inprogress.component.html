@@ -9,16 +9,25 @@
 
           <div class=" mt-3 bg-lite p-4 br-16" *ngIf="order">
 
-            <p class="display-6 fw-bold text-white mb-4">Order <span
-                class="red-letter">#{{order.orderId}}</span></p>
+            <p class="display-6 fw-bold text-white mb-4">Order <span class="red-letter">#{{order.orderId}}</span></p>
 
             <div class="order-card row justify-content-between align-items-center">
               <div class="col-md-8 d-none d-md-block">
                 <div class="d-flex">
-                  <button class="btn btn-choose me-3 f-14 choosebtn" *ngFor="let user of order.slots">
+                  <button class="btn btn-choose me-3 f-14 choosebtn" *ngIf="order.createdByUser">
                     <div class="d-flex align-items-center ">
-                      <img [src]="user.profileImageUrl || '/assets/images/nouser.png'"
+                      <img [src]="order.createdByUser.profileImageUrl || '/assets/images/nouser.png'"
                         class="avatar me-2" alt="Avatar">
+                      <div class="pe-3">
+                        <p class="mb-1">{{ order.createdByUser.username | truncate: 8 }}</p>
+                        <p class="text-white mb-0 text-start">{{ order.createdByUser.type }}</p>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button class="btn btn-choose me-3 f-14 choosebtn" *ngFor="let user of order.clients">
+                    <div class="d-flex align-items-center ">
+                      <img [src]="user.profileImageUrl || '/assets/images/nouser.png'" class="avatar me-2" alt="Avatar">
                       <div class="pe-3">
                         <p class="mb-1">{{ user.username | truncate: 8 }}</p>
                         <p class="text-white mb-0 text-start">{{ user.type }}</p>
@@ -29,8 +38,7 @@
                   <button class="btn btn-choose me-3 f-14 choosebtn"
                     *ngFor="let item of [].constructor(order.availableSlots); let i=index">
                     <div class="d-flex align-items-center ">
-                      <img src="../../../assets/images/nouser.png" alt="Avatar"
-                        class="avatar-dummy me-2">
+                      <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatar-dummy me-2">
                       <div class="pe-3">
                         <p class="mb-1 choosebtn">Free Slot</p>
                       </div>
@@ -42,8 +50,7 @@
               <div class="col-md-4 col-sm-12">
                 <div class="session-text float-end">
                   <div class=" d-flex" *ngIf="order?.createdBy === loggedInUserEmail">
-                    <button type="button" class="btn btn-primary-ggpro p-3 border-0  w-100"
-                      (click)="endPartyDialog()">
+                    <button type="button" class="btn btn-primary-ggpro p-3 border-0  w-100" (click)="endStreamDialog()">
                       <h5 class="pe-4 px-4 mb-0 f-14">END</h5>
                     </button>
                   </div>
@@ -65,8 +72,7 @@
                       <div class="mt-3" *ngFor="let message of messages"
                         [ngClass]="message.from === 'me' ? 'text-end d-block' : ''">
                         <div *ngIf="!message.isLine && message.from === 'partner'">
-                          <img [src]="message.imageUrl || '/assets/images/nouser.png'"
-                            alt="Avatar" class="avatar me-2">
+                          <img [src]="message.imageUrl || '/assets/images/nouser.png'" alt="Avatar" class="avatar me-2">
                           <span class="chat-message">{{ message.message }}</span>
                         </div>
                         <div *ngIf="!message.isLine && message.from === 'me'">
@@ -77,9 +83,8 @@
                   </div>
 
                   <div class="text-box pt-3 border-bottom-lr">
-                    <textarea class="form-control text-color-light" rows="2"
-                      (keydown)="keyDownFunction($event)" [(ngModel)]="messageTyped"
-                      placeholder="Type your message here..."></textarea>
+                    <textarea class="form-control text-color-light" rows="2" (keydown)="keyDownFunction($event)"
+                      [(ngModel)]="messageTyped" placeholder="Type your message here..."></textarea>
                     <span class="text-color-light">Press enter to send the message</span>
                   </div>
                 </div>
@@ -97,12 +102,14 @@
                     <p class="my-2"><span class="red-letter">Server: </span>
                       <span>{{order.serverDescription}}</span>
                     </p>
+                    <p class="my-2"><span class="red-letter">Amount: </span>
+                      <span>${{order.amount | number:'1.2-2'}}/hr</span>
+                    </p>
 
                     <div class="row align-items-center bg-lite p-2 rounded">
-                      <div class="col-6 p-0"
-                        *ngIf="order?.createdBy === loggedInUserEmail && !order?.endedTime">
+                      <div class="col-6 p-0" *ngIf="order?.createdBy === loggedInUserEmail && !order?.endedTime">
                         <button type="button" class="btn btn-secondary mb-0 p-2 w-100 me-1"
-                          (click)="editPartyDialog()">
+                          (click)="editStreamDialog()">
                           Edit Description
                         </button>
                       </div>
@@ -122,8 +129,8 @@
                       <button class="btn btn-choose f-14 choosebtn w-100">
                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                           <div class="d-flex align-items-center ">
-                            <img [src]="client.profileImageUrl || '/assets/images/nouser.png'"
-                              alt="Avatar" class="avatar me-2">
+                            <img [src]="client.profileImageUrl || '/assets/images/nouser.png'" alt="Avatar"
+                              class="avatar me-2">
                             <div class="pe-3">
                               <p class="mb-1">{{ client.username | truncate: 8 }}</p>
                               <p class="text-white mb-0 text-start">${{ client.userBalance }}</p>
@@ -133,8 +140,7 @@
                             <span class="text-secondary">{{ client.formattedTimer }}</span>
                           </div>
                           <div class="ps-5">
-                            <button type="button"
-                              *ngIf="order?.createdBy === loggedInUserEmail"
+                            <button type="button" *ngIf="order?.createdBy === loggedInUserEmail"
                               class="btn btn-primary-ggpro p-3 border-0  w-100"
                               (click)="openDialogForTimer(client.timerInMinutes, client.username, order.id, client.email, client.profileImageUrl)">
                               <h5 class="mb-0 f-14">STOP</h5>
@@ -147,8 +153,7 @@
                       <button class="btn btn-choose f-14 choosebtn w-100">
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="pe-5 d-flex align-items-center">
-                            <img src="../../../assets/images/nouser.png" alt="Avatar"
-                              class="avatar me-2">
+                            <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatar me-2">
                             <p class="mb-1 fw-bold">Free Slot</p>
                           </div>
                         </div>
@@ -158,9 +163,8 @@
                       <button class="btn btn-choose f-14 choosebtn w-100">
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="pe-5 d-flex align-items-center">
-                            <img src="../../../assets/images/nouser.png" alt="Avatar"
-                              class="avatar me-2">
-                            <p class="mb-1 fw-bold">{{ waitlistCount }} waitlist</p>
+                            <img src="../../../assets/images/nouser.png" alt="Avatar" class="avatar me-2">
+                            <p class="mb-1 fw-bold">{{ waitlistCount }} Waitlist</p>
                           </div>
                         </div>
                       </button>
@@ -185,7 +189,7 @@
   </div>
 
   <!-- Edit description -->
-  <div class="modal fade modal-card" id="first2ModalStream" tabindex="-1" aria-labelledby="firstModalLabel"
+  <div class="modal fade modal-card" id="editStreamModal" tabindex="-1" aria-labelledby="firstModalLabel"
     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-m">
       <div class="modal-content">
@@ -202,13 +206,11 @@
                         </div>
                         <div class="">
                           <form [formGroup]="form">
-                            <div class="p-3 pb-1 pt-1 text-light"
-                              style="font-size: small;color: #fff !important;">
+                            <div class="p-3 pb-1 pt-1 text-light" style="font-size: small;color: #fff !important;">
                               <label class="form-label mb-3">{{order?.name}}</label>
                               <div class="row" data-bs-theme="dark">
                                 <div class="col-sm-12">
-                                  <textarea class="form-control"
-                                    formControlName="description"
+                                  <textarea class="form-control" formControlName="description"
                                     placeholder="Description about lobby"></textarea>
                                 </div>
                               </div>
@@ -219,7 +221,7 @@
                           <button class="btn btn-primary-ggpro w-100" type="button"
                             (click)="updateDetails()">Update</button>
                           <button class="btn btn-transparent mt-2" type="button"
-                            (click)="closeEditParty()">Cancel</button>
+                            (click)="closeEditStream()">Cancel</button>
                         </div>
                       </div>
                     </div>
@@ -234,7 +236,7 @@
   </div>
 
   <!-- End Stream Dialog -->
-  <div class="modal fade modal-card" id="endPartyModalStream" tabindex="-1" aria-labelledby="endModalLabel"
+  <div class="modal fade modal-card" id="endStreamModal" tabindex="-1" aria-labelledby="endModalLabel"
     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-m">
       <div class="modal-content">
@@ -250,14 +252,12 @@
                           <h4 class="card-head mt-2">End the Stream</h4>
                         </div>
                         <div class="">
-                          <div class="p-3 pb-1 pt-1 text-light"
-                            style="font-size: small;color: #fff !important;">
+                          <div class="p-3 pb-1 pt-1 text-light" style="font-size: small;color: #fff !important;">
                             <label class="form-label mb-3">Are you sure?</label>
                           </div>
                         </div>
                         <div class="">
-                          <div class="p-3 pb-1 pt-1 text-light"
-                            style="font-size: small;color: #fff !important;">
+                          <div class="p-3 pb-1 pt-1 text-light" style="font-size: small;color: #fff !important;">
                             <label class="form-label mb-3">You will not be able to manually
                               report time if you end the stream. For manually reporting time,
                               please click on cancel and individually stop the timer for
@@ -265,10 +265,10 @@
                           </div>
                         </div>
                         <div class="p-3">
-                          <button class="btn btn-primary-ggpro w-100" type="button"
-                            (click)="endPremadeParty()">Stop and End All Timers</button>
+                          <button class="btn btn-primary-ggpro w-100" type="button" (click)="endStreamSession()">Stop
+                            and End All Timers</button>
                           <button class="btn btn-transparent mt-2" type="button"
-                            (click)="closeEndParty()">Cancel</button>
+                            (click)="closeEndStream()">Cancel</button>
                         </div>
                       </div>
                     </div>
@@ -301,10 +301,8 @@
                         <div class="d-flex justify-content-between">
                           <div class="d-flex pt-3">
                             <div class="pe-2">
-                              <img class="rounded"
-                                [src]="timerForm.get('clientProfileImage')?.value"
-                                alt="Profile Image" width="45" height="45"
-                                style="vertical-align: middle;">
+                              <img class="rounded" [src]="timerForm.get('clientProfileImage')?.value"
+                                alt="Profile Image" width="45" height="45" style="vertical-align: middle;">
                             </div>
                             <div class="text-light ">
                               <div>{{ timerForm.get('clientName')?.value | truncate: 8 }}</div>
@@ -317,17 +315,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class=" pb-1 pt-3 text-light"
-                      style="font-size: small;color: #fff !important;">
+                    <div class=" pb-1 pt-3 text-light" style="font-size: small;color: #fff !important;">
                       Time in Stream
                       <div class="row mt-2" data-bs-theme="dark">
                         <div class="col-sm-6">
-                          <input class="form-control" placeholder="Hours"
-                            formControlName="timeLoggedInHours" />
+                          <input class="form-control" placeholder="Hours" formControlName="timeLoggedInHours" />
                         </div>
                         <div class="col-sm-6 mt-2 mt-md-0">
-                          <input class="form-control" placeholder="Minutes"
-                            formControlName="timeLogged" />
+                          <input class="form-control" placeholder="Minutes" formControlName="timeLogged" />
                         </div>
                       </div>
                     </div>
@@ -340,8 +335,7 @@
                     </button>
                   </div>
                   <div class="col-12 pt-3">
-                    <button type="button" class="btn btn-outline-light p-3 w-100"
-                      (click)="closeTimerDialogForPro()">
+                    <button type="button" class="btn btn-outline-light p-3 w-100" (click)="closeTimerDialogForPro()">
                       <h5 class=" mb-0 f-14">Cancel</h5>
                     </button>
                   </div>

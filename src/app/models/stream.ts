@@ -7,15 +7,11 @@ export class Stream {
     gameId: string;
     streamLink: string;
     description: string;
-    currentPlayingUsers: number;
-    proName: string; // display only
-    videoUrl: string;
-    embedUrl: string; // display only
-    clientUser: StreamUser;
+    amount: string;
     userList: [StreamUser];
     waitlistUsers: [StreamUser];
     createdBy: string;
-    createdByUser: string;
+    createdByUser: StreamUser;
     serverDescription: string;
     platform: string;
     startedTime: Date;

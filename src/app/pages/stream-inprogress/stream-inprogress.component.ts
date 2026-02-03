@@ -6,7 +6,7 @@ import { catchError, of } from 'rxjs';
 import { Chat } from 'src/app/models/chat';
 import { ChatMessage } from 'src/app/models/chat-message';
 import { NotificationTypes } from 'src/app/models/notification-types';
-import { PremadeParty } from 'src/app/models/premade-party';
+import { Stream } from 'src/app/models/stream';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { PushNotificationService } from 'src/app/services/push-notification.service';
@@ -22,7 +22,7 @@ declare var bootstrap: any;
 export class StreamInprogressComponent implements OnInit {
   @ViewChild('messageScroller', { static: false }) private messageScroller: ElementRef;
 
-  order: PremadeParty | undefined;
+  order: Stream | undefined;
   reloadTimer: any;
   loggedInUserEmail: string = '';
   currentClients: any[] | undefined;
@@ -139,14 +139,14 @@ export class StreamInprogressComponent implements OnInit {
 
   updateDetails() {
     this._auth
-      .updateParty(
+      .updateStream(
         { description: this.form.controls['description'].value },
         this.order?.id ?? ''
       )
       .subscribe((data: any) => {
         if (data?.data) {
           this.toaster.showSuccess('Stream details updated', '', { duration: 3000 });
-          this.closeEditParty();
+          this.closeEditStream();
         } else {
           this.toaster.showError('Could not update. Please try again later', '', {
             duration: 10000,
@@ -155,8 +155,8 @@ export class StreamInprogressComponent implements OnInit {
       });
   }
 
-  closeEditParty() {
-    this.closeModal('first2ModalStream');
+  closeEditStream() {
+    this.closeModal('editStreamModal');
   }
 
   closeModal(modalId: string): void {
@@ -198,29 +198,25 @@ export class StreamInprogressComponent implements OnInit {
   }
 
   private getData() {
-    this._auth.inProgressPartiesList().subscribe((data) => {
-      if (data?.data?.party) {
-        if (data.data.party?.isAlreadyFinishedPlaying) {
+    this._auth.inProgressStreamsList().subscribe((data) => {
+      const stream = data?.data?.stream;
+      if (stream) {
+        if (stream?.isAlreadyFinishedPlaying) {
           this.order = undefined;
           this.currentClients = [];
           this.waitlistCount = 0;
         } else {
-          if (!this.dataChanged(data?.data?.party)) {
-            this.order = data?.data?.party;
+          if (!this.dataChanged(stream)) {
+            this.order = stream;
             this.currentClients = this.order?.clients;
-            const party = data?.data?.party;
-            if (party && typeof party.waitlistCount === 'number') {
-              this.waitlistCount = party.waitlistCount;
-            }
+            this.waitlistCount = stream.waitlistUsers?.length ?? 0;
             if (this.order?.id) {
               this.fetchWaitlistCount();
             }
           } else {
-            this.currentClients = data?.data?.party?.clients;
-            const party = data?.data?.party;
-            if (party && typeof party.waitlistCount === 'number') {
-              this.waitlistCount = party.waitlistCount;
-            } else if (this.order?.id) {
+            this.currentClients = stream?.clients;
+            this.waitlistCount = stream.waitlistUsers?.length ?? this.waitlistCount;
+            if (this.order?.id) {
               this.fetchWaitlistCount();
             }
           }
@@ -247,15 +243,15 @@ export class StreamInprogressComponent implements OnInit {
       });
   }
 
-  private dataChanged(premadeParty: PremadeParty) {
+  private dataChanged(stream: Stream) {
     if (!this.order) return false;
     return (
-      this.order?.userList?.length === premadeParty?.userList?.length &&
-      this.order?.reportedUsers?.length === premadeParty.reportedUsers?.length &&
-      this.order?.slots?.length === premadeParty?.slots?.length &&
-      this.order?.isClientTimerStopped === premadeParty.isClientTimerStopped &&
-      this.order?.description === premadeParty.description &&
-      this.order?.status === premadeParty.status
+      this.order?.userList?.length === stream?.userList?.length &&
+      this.order?.reportedUsers?.length === stream.reportedUsers?.length &&
+      this.order?.slots?.length === stream?.slots?.length &&
+      this.order?.isClientTimerStopped === stream.isClientTimerStopped &&
+      this.order?.description === stream.description &&
+      this.order?.status === stream.status
     );
   }
 
@@ -323,9 +319,9 @@ export class StreamInprogressComponent implements OnInit {
     }
   }
 
-  stopTimerForPro(matchId: string, userEmail: string, timeLogged: number) {
+  stopTimerForPro(streamId: string, userEmail: string, timeLogged: number) {
     this._auth
-      .stopPartyTimerPro(matchId, userEmail, timeLogged)
+      .stopStreamTimerStreamer(streamId, userEmail, timeLogged)
       .pipe(
         catchError((error) => {
           this.toaster.showError(error.error?.meta?.message ?? 'Failed', '', {
@@ -354,10 +350,10 @@ export class StreamInprogressComponent implements OnInit {
     this.closeModal('timerDialogStream');
   }
 
-  endPremadeParty() {
+  endStreamSession() {
     const requestBody = { id: this.order?.id ?? '' };
     this._auth
-      .endPremadeParty(requestBody)
+      .endStream(requestBody)
       .pipe(
         catchError((error) => {
           this.toaster.showError(error.error?.meta?.message ?? 'Failed', '', {
@@ -371,32 +367,32 @@ export class StreamInprogressComponent implements OnInit {
           this.toaster.showSuccess('All timers stopped and funds will be transferred soon', '', {
             duration: 3000,
           });
-          this.closeEndParty();
+          this.closeEndStream();
           this.router.navigate(['/streamer/stream-completed']);
         } else {
           this.toaster.showError('Could not end stream. Please try again later', '', {
             duration: 10000,
           });
-          this.closeEndParty();
+          this.closeEndStream();
         }
       });
   }
 
-  closeEndParty() {
-    this.closeModal('endPartyModalStream');
+  closeEndStream() {
+    this.closeModal('endStreamModal');
   }
 
-  endPartyDialog() {
-    const modalElement = document.getElementById('endPartyModalStream');
+  endStreamDialog() {
+    const modalElement = document.getElementById('endStreamModal');
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
       modalInstance.show();
     }
   }
 
-  editPartyDialog() {
+  editStreamDialog() {
     this.form.controls['description'].setValue(this.order?.description);
-    const modalElement = document.getElementById('first2ModalStream');
+    const modalElement = document.getElementById('editStreamModal');
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
       modalInstance.show();
