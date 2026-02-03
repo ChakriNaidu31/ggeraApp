@@ -1,0 +1,284 @@
+<app-header-streamer></app-header-streamer>
+<main class="body-height">
+    <div class="rounded text-body-emphasis bg-body-secondary">
+        <div class="col-lg-12 col-xs-12">
+            <div class="hero-bg">
+                <div class="hero-sec mb-4 p-4 rounded text-body-emphasis container">
+
+                    <h1 class="text-start mb-5 text-white mt-5">Completed Streams</h1>
+
+                    <div class="row mt-3">
+                        <div class="table-responsive">
+                            <table class="table text-light">
+                                <thead class="bg-transparent">
+                                    <tr>
+                                        <th scope="col">Order#</th>
+                                        <th scope="col">Game</th>
+                                        <th scope="col">Stream Name</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Completed Date</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <ng-container
+                                        *ngIf="visibleStreams && visibleStreams.length > 0; else noItemsFound">
+                                        <tr *ngFor="let order of visibleStreams">
+                                            <td class="red-letter" (click)="openDetails(order?.id)">{{ order?.orderId }}
+                                            </td>
+                                            <td class="text-white">{{ order?.gameName }}</td>
+                                            <td class="text-white">{{ order?.name }}</td>
+                                            <td class="text-white">${{ order?.amount | number:'1.2-2' }}/hr</td>
+                                            <td class="text-white">{{ order?.endedTime | date:
+                                                'dd/MM/yyyy HH:mm' }}</td>
+                                            <td>
+                                                <div *ngIf="order?.clients?.[0]?.rating">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                        viewBox="0 0 18 18" fill="none"
+                                                        *ngFor="let item of [].constructor(order?.clients?.[0]?.rating || 0)">
+                                                        <g clip-path="url(#clip0_534_3375)">
+                                                            <path
+                                                                d="M4.06345 17.3734C3.6292 17.5962 3.13645 17.2058 3.2242 16.7074L4.15795 11.3862L0.194575 7.6107C-0.17555 7.25745 0.0168249 6.6117 0.51295 6.54195L6.0232 5.75895L8.4802 0.891074C8.70183 0.452324 9.30145 0.452324 9.52308 0.891074L11.9801 5.75895L17.4903 6.54195C17.9865 6.6117 18.1788 7.25745 17.8076 7.6107L13.8453 11.3862L14.7791 16.7074C14.8668 17.2058 14.3741 17.5962 13.9398 17.3734L8.99995 14.8354L4.06345 17.3734Z"
+                                                                fill="#E0AE4B" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_534_3375">
+                                                                <rect width="18" height="18" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <div *ngIf="!order?.clients?.[0]?.rating">
+                                                    <button class="btn btn-secondary" (click)="viewReviews(order)">View
+                                                        Reviews</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <ng-template #noItemsFound>
+                                        <tr>
+                                            <td colspan="6" class="text-white">No Streams Found</td>
+                                        </tr>
+                                    </ng-template>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination-container text-center mt-4"
+                            *ngIf="visibleStreams && visibleStreams.length > 0">
+                            <span class="page-numbers">Page <span class="fw-bold red-letter">{{ p }}</span> of {{
+                                totalPages }}</span>
+                            <button class="btn btn-secondary" [disabled]="p === 1"
+                                (click)="goToPage(p - 1)">Previous</button>
+
+                            <button class="btn btn-secondary" [disabled]="p === totalPages"
+                                (click)="goToPage(p + 1)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Stream details modal -->
+                    <div class="modal fade modal-card" id="firstStreamModal" tabindex="-1"
+                        aria-labelledby="firstStreamModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+
+                                <div class="modal-body p-4">
+                                    <div>
+                                        <div class="card modal-cards hovercard">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-xs-12 text-center card-outer">
+                                                    <div class="card mt-5">
+                                                        <div class="card-body text-center">
+                                                            <div class="avatar">
+                                                                <img alt="" src="{{ selectedStreamDetails?.creator?.imageUrl
+                                  ? selectedStreamDetails.creator.imageUrl
+                                  : '/assets/images/nouser.png'}}">
+                                                            </div>
+                                                            <h3 class="card-title mb-3 mt-3">STREAMER</h3>
+                                                            <div class="info-row">
+                                                                <span>Username</span>
+                                                                <span>{{ selectedStreamDetails?.creator?.username }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Current Wallet Balance</span>
+                                                                <span>{{ selectedStreamDetails?.creator?.currentWalletBalance }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Amount Accumulated</span>
+                                                                <span>{{ selectedStreamDetails?.creator?.amountAccumulated }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-xs-12 text-center card-outer" style="margin-bottom: 22px;">
+                                                    <div class="card mt-5">
+                                                        <div class="card-body">
+                                                            <div class="info-row text-center bg-trd">
+                                                                <span class="text-white mx-auto sesheader">Stream
+                                                                    Details</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Order</span>
+                                                                <span># {{ selectedStreamDetails?.match?.orderNumber }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Cost</span>
+                                                                <span>{{ selectedStreamDetails?.match?.cost }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Platform</span>
+                                                                <span>{{ selectedStreamDetails?.match?.platform }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Started Time</span>
+                                                                <span>{{ selectedStreamDetails?.match?.startedTime | date
+                                                                    : "dd/MM/yyyy hh:mm a" }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Closed Time</span>
+                                                                <span>{{ selectedStreamDetails?.match?.endedTime | date :
+                                                                    "dd/MM/yyyy hh:mm a" }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Status</span>
+                                                                <span>{{ selectedStreamDetails?.match?.status }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-xs-12 text-center"
+                                                    *ngFor="let currentUser of selectedStreamDetails?.users"
+                                                    style="margin-bottom: 22px;">
+                                                    <div class="card mb-4 mt-5">
+                                                        <div class="card-body text-center">
+                                                            <div class="avatar">
+                                                                <img alt="" src="{{
+                                  currentUser?.imageUrl
+                                    ? currentUser.imageUrl
+                                    : '/assets/images/nouser.png'
+                                }}" class="mb-3">
+                                                            </div>
+                                                            <h3 class="card-title mb-3 mt-4">CLIENT</h3>
+                                                            <div class="info-row">
+                                                                <span>Username</span>
+                                                                <span>{{ currentUser?.username }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Current Wallet Balance</span>
+                                                                <span>${{ currentUser?.currentWalletBalance }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Balance before stream</span>
+                                                                <span>${{ currentUser?.balanceBeforeOrder }}</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Time Calculated by System</span>
+                                                                <span>{{ currentUser?.systemCalculatedCompletionTimeInMinutes
+                                                                    | number : "2.0-0" }} Min</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Time Logged (by Streamer)</span>
+                                                                <span>{{ currentUser?.loggedTimeInMinutes | number :
+                                                                    "2.0-0" }} Min</span>
+                                                            </div>
+                                                            <div class="info-row">
+                                                                <span>Amount Transferred</span>
+                                                                <span>${{ currentUser?.amountTransferred }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review modal -->
+                    <div class="modal fade modal-card" id="secondStreamModal" tabindex="-1" aria-labelledby="secondStreamModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-body p-3">
+                                    <div>
+                                        <div class="card modal-cards hovercard">
+
+                                            <div *ngIf="reviews.length > 0">
+                                                <div class="row" *ngFor="let review of reviews">
+
+                                                    <div class=" col-12 text-center card-outer ">
+                                                        <div class="card mb-4 mt-5">
+                                                            <div class="card-body text-center">
+                                                                <div class="avatar">
+                                                                    <img alt=""
+                                                                        src="{{ review.profileImageUrl ? review.profileImageUrl : '/assets/images/nouser.png' }}"
+                                                                        class="mb-3">
+                                                                </div>
+                                                                <h3 class="card-title mb-3 mt-4">{{ review.creator }}</h3>
+                                                                <div class="info-row">
+                                                                    <span>Date</span>
+                                                                    <span>{{ review.date | date: 'dd/MM/yyyy HH:mm' }}</span>
+                                                                </div>
+                                                                <div class="info-row">
+                                                                    <span>Rating</span>
+                                                                    <span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="18" height="18" viewBox="0 0 18 18"
+                                                                            fill="none"
+                                                                            *ngFor="let item of [].constructor(review?.rating)">
+                                                                            <g clip-path="url(#clip0_534_3375)">
+                                                                                <path
+                                                                                    d="M4.06345 17.3734C3.6292 17.5962 3.13645 17.2058 3.2242 16.7074L4.15795 11.3862L0.194575 7.6107C-0.17555 7.25745 0.0168249 6.6117 0.51295 6.54195L6.0232 5.75895L8.4802 0.891074C8.70183 0.452324 9.30145 0.452324 9.52308 0.891074L11.9801 5.75895L17.4903 6.54195C17.9865 6.6117 18.1788 7.25745 17.8076 7.6107L13.8453 11.3862L14.7791 16.7074C14.8668 17.2058 14.3741 17.5962 13.9398 17.3734L8.99995 14.8354L4.06345 17.3734Z"
+                                                                                    fill="#E0AE4B" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_534_3375">
+                                                                                    <rect width="18" height="18"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="info-row">
+                                                                    <span>Comment</span>
+                                                                    <span>{{ review.comments }}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!reviews.length">
+                                                <div class="row">
+                                                    <div class=" col-12 text-center card-outer ">
+                                                        <div class="card mb-4 mt-5">
+                                                            <div class="card-body text-light">
+                                                                No reviews available for this stream
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

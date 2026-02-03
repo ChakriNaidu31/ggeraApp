@@ -55,6 +55,7 @@ import { PremadeCompletedProComponent } from './pages/premade-completed-pro/prem
 import { UpdateRateComponent } from './pages/update-rate/update-rate.component';
 import { NewStreamComponent } from './pages/new-stream/new-stream.component';
 import { StreamInprogressComponent } from './pages/stream-inprogress/stream-inprogress.component';
+import { StreamCompletedComponent } from './pages/stream-completed/stream-completed.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -98,6 +99,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     UpdateRateComponent,
     NewStreamComponent,
     StreamInprogressComponent,
+    StreamCompletedComponent,
     BankDetailsComponent,
     TruncatePipe
   ],

@@ -33,6 +33,7 @@ import { PremadeCompletedProComponent } from './pages/premade-completed-pro/prem
 import { UpdateRateComponent } from './pages/update-rate/update-rate.component';
 import { NewStreamComponent } from './pages/new-stream/new-stream.component';
 import { StreamInprogressComponent } from './pages/stream-inprogress/stream-inprogress.component';
+import { StreamCompletedComponent } from './pages/stream-completed/stream-completed.component';
 
 const routes: Routes = [
 
@@ -91,7 +92,7 @@ const routes: Routes = [
       { path: 'home', redirectTo: 'new-stream', pathMatch: 'full' },
       { path: 'new-stream', component: NewStreamComponent },
       { path: 'stream-progress', component: StreamInprogressComponent },
-      { path: 'stream-completed', component: PremadeCompletedProComponent },
+      { path: 'stream-completed', component: StreamCompletedComponent },
       { path: 'message', component: MessageComponent },
       { path: 'transactions', component: WalletTransactionComponent },
       { path: 'withdraw-money', component: WithdrawMoneyComponent },
