@@ -48,9 +48,12 @@ import { PremadeInprogressProComponent } from './pages/premade-inprogress-pro/pr
 import { OrderRequestsComponent } from './pages/order-requests/order-requests.component';
 import { NewPremadeComponent } from './pages/new-premade/new-premade.component';
 import { HeaderProComponent } from './pages/header-pro/header-pro.component';
+import { HeaderStreamerComponent } from './pages/header-streamer/header-streamer.component';
 import { BankDetailsComponent } from './pages/bank-details/bank-details.component';
 import { EventComponent } from './pages/event/event.component';
 import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
+import { UpdateRateComponent } from './pages/update-rate/update-rate.component';
+import { NewStreamComponent } from './pages/new-stream/new-stream.component';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 @NgModule({
@@ -90,6 +93,9 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     OrderRequestsComponent,
     NewPremadeComponent,
     HeaderProComponent,
+    HeaderStreamerComponent,
+    UpdateRateComponent,
+    NewStreamComponent,
     BankDetailsComponent,
     TruncatePipe
   ],

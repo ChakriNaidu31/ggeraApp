@@ -11,6 +11,10 @@ import { Socket } from 'ngx-socket-io';
 })
 export class ChatService {
 
+  private readonly NOTIFICATION_AUDIO_PATH = "assets/audio/notification.mp3";
+  private readonly USER_JOINED_AUDIO_PATH = "assets/audio/user-joined-notification.mp3";
+  private readonly AUDIO_VOLUME = 0.4;
+
   constructor(private _auth: AuthService, private _notification: PushNotificationService, private socket: Socket) { }
 
   getChatList(): Observable<Chat[]> {
@@ -136,7 +140,8 @@ export class ChatService {
 
   playAudio() {
     let audio = new Audio();
-    audio.src = "assets/audio/notification.mp3";
+    audio.src = this.NOTIFICATION_AUDIO_PATH;
+    audio.volume = this.AUDIO_VOLUME;
     const promise = audio.play();
 
     if (promise !== undefined) {
@@ -146,7 +151,8 @@ export class ChatService {
 
   playJoiningAudio() {
     let audio = new Audio();
-    audio.src = "assets/audio/user-joined-notification.mp3";
+    audio.src = this.USER_JOINED_AUDIO_PATH;
+    audio.volume = this.AUDIO_VOLUME;
     const promise = audio.play();
 
     if (promise !== undefined) {

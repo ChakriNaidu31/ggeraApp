@@ -12,6 +12,7 @@ import { ResponseMessageService } from 'src/app/services/response-message.servic
 export class BankDetailsComponent implements OnInit {
 
   form: UntypedFormGroup;
+  userType: string = '';
   formSubmitted = false;  // Add a flag to indicate if the form has been submitted
 
   constructor(
@@ -21,6 +22,7 @@ export class BankDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userType = this.auth.getUserTypeFromSession();
     this.form = this.fb.group({
       name: ['', Validators.required],
       accountNumber: ['', Validators.required],

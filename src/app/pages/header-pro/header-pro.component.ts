@@ -130,6 +130,14 @@ export class HeaderProComponent implements OnInit {
     }
   }
 
+  get unreadNotifications() {
+    if (!this.notifications) {
+      return [];
+    } else {
+      return this.notifications.filter((notification) => !notification.isRead);
+    }
+  }
+
   markAllAsRead() {
     this._auth
       .markAllNotificationsAsRead()

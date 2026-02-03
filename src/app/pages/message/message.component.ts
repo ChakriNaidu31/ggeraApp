@@ -23,6 +23,7 @@ export class MessageComponent implements OnInit {
   selectedChat: Chat | undefined;
   messageTyped: string = '';
   searchValue: string = '';
+  selectedFilter: string = 'All';
 
   constructor(private chatService: ChatService,
     private title: Title,
@@ -49,7 +50,7 @@ export class MessageComponent implements OnInit {
   loadChatList() {
     this._auth.getChatList().subscribe((response: any) => {
       this.chatList = response.data?.chats;
-      this.filteredChatList = response.data?.chats;
+      this.applyFilters();
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         if (params['orderId']) {
           this.searchValue = params['orderId'];
@@ -88,13 +89,42 @@ export class MessageComponent implements OnInit {
   }
 
   searchChats(searchValue: any) {
-    if (!searchValue) {
-      this.filteredChatList = this.chatList;
+    this.applyFilters();
+  }
+
+  filterByType(filterType: string) {
+    this.selectedFilter = filterType;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    if (!this.chatList) {
+      return;
     }
-    this.filteredChatList = this.chatList.filter(item => item.name.indexOf(searchValue) > -1);
-    if (this.filteredChatList.length === 1) {
+
+    let filtered = [...this.chatList];
+
+    // Apply conversation type filter
+    if (this.selectedFilter === '1-1 Session') {
+      filtered = filtered.filter(item => item.conversationType === '1-1');
+    } else if (this.selectedFilter === 'Premade Parties') {
+      filtered = filtered.filter(item => item.conversationType === 'premade');
+    } else if (this.selectedFilter === 'Elite Orders') {
+      filtered = filtered.filter(item => item.conversationType === 'elite-order');
+    }
+    // 'All' shows everything, so no filter needed
+
+    // Apply search filter
+    if (this.searchValue) {
+      filtered = filtered.filter(item => item.name.indexOf(this.searchValue) > -1);
+    }
+
+    this.filteredChatList = filtered;
+    
+    if (this.filteredChatList.length === 1 && this.searchValue) {
       this.loadMessages(this.filteredChatList[0].id);
     }
+    this.cd.detectChanges();
   }
 
   send() {
@@ -144,6 +174,17 @@ export class MessageComponent implements OnInit {
         this.scrollToBottom();
       }
     });
+  }
+
+  getConversationTypeLabel(conversationType: string): string {
+    if (conversationType === '1-1') {
+      return '1-1 Session';
+    } else if (conversationType === 'elite-order') {
+      return 'Elite Order';
+    } else if (conversationType === 'premade') {
+      return 'Premade Party';
+    }
+    return '';
   }
 
 }

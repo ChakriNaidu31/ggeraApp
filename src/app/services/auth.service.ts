@@ -11,6 +11,7 @@ export class AuthService {
   baseUrl: string = `${this.apiUrl}/user`;
   walletBaseUrl: string = `${this.apiUrl}/wallet`;
   partyBaseUrl: string = `${this.apiUrl}/party`;
+  streamBaseUrl: string = `${this.apiUrl}/streamer`;
   eliteOrderBaseUrl: string = `${this.apiUrl}/elite-order`;
   couponBaseUrl: string = `${this.apiUrl}/coupon`;
   chatUrl: string = `${this.apiUrl}/chat`;
@@ -125,6 +126,18 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/request`, data, { headers: this.getHttpHeaders() });
   }
 
+  streamerUserRequest(data: any) {
+    return this.http.post<any>(`${this.baseUrl}/streamer/request`, data, { headers: this.getHttpHeaders() });
+  }
+
+  getStreamerRate() {
+    return this.http.get<any>(`${this.baseUrl}/streamer/rate`, { headers: this.getHttpHeaders() });
+  }
+
+  updateStreamerRate(data: { rate: number }) {
+    return this.http.post<any>(`${this.baseUrl}/streamer/updateRate`, data, { headers: this.getHttpHeaders() });
+  }
+
   updateUserStatus(data: any) {
     return this.http.post<any>(`${this.baseUrl}/changeStatus`, data, { headers: this.getHttpHeaders() });
   }
@@ -236,6 +249,60 @@ export class AuthService {
     return this.http.post<any>(`${this.partyBaseUrl}/stop`, { matchId: matchId, email: email, timeLogged: timeLogged }, { headers: this.getHttpHeaders() });
   }
   /*********************************** END PREMADE PARTY ***********************************/
+
+  /*********************************** START STREAMS ***********************************/
+  addNewStream(streamData: any) {
+    return this.http.post<any>(`${this.streamBaseUrl}`, streamData, { headers: this.getHttpHeaders() });
+  }
+
+  updateStream(dataToUpdate: any, streamId: string) {
+    return this.http.patch<any>(`${this.streamBaseUrl}/${streamId}`, dataToUpdate, { headers: this.getHttpHeaders() });
+  }
+
+  getAvailableStreams() {
+    return this.http.get<any>(`${this.streamBaseUrl}`, { headers: this.getHttpHeaders() });
+  }
+
+  inProgressStreamsList() {
+    return this.http.get<any>(`${this.streamBaseUrl}/inprogress`, { headers: this.getHttpHeaders() });
+  }
+
+  completedStreamsList() {
+    return this.http.get<any>(`${this.streamBaseUrl}/completed`, { headers: this.getHttpHeaders() });
+  }
+
+  fetchStreamDetails(streamId: string) {
+    return this.http.get<any>(`${this.streamBaseUrl}/details/${streamId}`, { headers: this.getHttpHeaders() });
+  }
+
+  joinStream(streamId: string) {
+    return this.http.post<any>(`${this.streamBaseUrl}/join`, { streamId: streamId }, { headers: this.getHttpHeaders() });
+  }
+
+  joinStreamWaitlist(streamId: string) {
+    return this.http.post<any>(`${this.streamBaseUrl}/join-waitlist`, { streamId: streamId }, { headers: this.getHttpHeaders() });
+  }
+
+  endStream(dataToPost: any) {
+    return this.http.post<any>(`${this.streamBaseUrl}/end`, dataToPost, { headers: this.getHttpHeaders() });
+  }
+
+  saveStreamReview(data: any) {
+    return this.http.post<any>(`${this.streamBaseUrl}/review`, data, { headers: this.getHttpHeaders() });
+  }
+
+  showStreamReview(streamId: string) {
+    return this.http.get<any>(`${this.streamBaseUrl}/review?streamId=${streamId}`, { headers: this.getHttpHeaders() });
+  }
+
+  stopStreamTimer(streamId: string | undefined) {
+    return this.http.post<any>(`${this.streamBaseUrl}/stop`, { streamId: streamId }, { headers: this.getHttpHeaders() });
+  }
+
+  stopStreamTimerStreamer(streamId: string, email: string, timeLogged: number) {
+    return this.http.post<any>(`${this.streamBaseUrl}/stop`, { streamId: streamId, email: email, timeLogged: timeLogged }, { headers: this.getHttpHeaders() });
+  }
+  /*********************************** END STREAMS ***********************************/
 
 
   /*********************************** START ELITE ORDER ***********************************/

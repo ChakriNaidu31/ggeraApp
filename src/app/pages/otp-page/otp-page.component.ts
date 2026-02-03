@@ -45,7 +45,7 @@ export class OtpPageComponent implements OnInit {
     const token = this._auth.getTokenFromSession();
     const userType = this._auth.getUserTypeFromSession();
     if (token) {
-      if (userType === 'CLIENT' || userType === 'PRO') {
+      if (userType === 'CLIENT' || userType === 'PRO' || userType === 'STREAMER') {
         this.router.navigate(['/register']);
       } else {
         this.router.navigate(['/admin/home']);
@@ -74,6 +74,8 @@ export class OtpPageComponent implements OnInit {
                 this.router.navigate(['/client/home']);
               } else if (data.data?.userType === 'PRO') {
                 this.router.navigate(['/pro/order-progress']);
+              } else if (data.data?.userType === 'STREAMER') {
+                this.router.navigate(['/streamer/home']);
               }
             } else {
               this.router.navigate(['/register']);

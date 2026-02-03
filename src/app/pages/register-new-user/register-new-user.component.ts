@@ -59,6 +59,8 @@ export class RegisterNewUserComponent {
             this.router.navigate(['/client/home']);
           } else if (data.data?.userType === 'PRO') {
             this.router.navigate(['/pro/order-progress']);
+          } else if (data.data?.userType === 'STREAMER') {
+            this.router.navigate(['/streamer/home']);
           }
         }
       })

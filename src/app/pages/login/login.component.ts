@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     const token = this._auth.getTokenFromSession();
     const userType = this._auth.getUserTypeFromSession();
     if (token) {
-      if (userType === 'CLIENT' || userType === 'PRO') {
+      if (userType === 'CLIENT' || userType === 'PRO' || userType === 'STREAMER') {
         this.router.navigate(['/register']);
       } else {
         this.router.navigate(['/admin/home']);

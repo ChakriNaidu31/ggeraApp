@@ -13,7 +13,7 @@ import { ResponseMessageService } from 'src/app/services/response-message.servic
 export class WithdrawMoneyComponent implements OnInit {
 
   form: UntypedFormGroup;
-
+  userType: string = '';
   formSubmitted = false;
   modes = [
     { id: '', name: 'Choose One' },
@@ -30,6 +30,7 @@ export class WithdrawMoneyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userType = this.auth.getUserTypeFromSession();
     this.form = this.fb.group({
       amount: ['0.00', [Validators.required, Validators.min(1)]],
       mode: ['', Validators.required]

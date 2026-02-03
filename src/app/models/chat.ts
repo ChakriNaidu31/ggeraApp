@@ -9,4 +9,5 @@ export interface Chat {
     isLastMessageRead: boolean;
     unreadCount: number;
     isActiveChat: boolean;
+    conversationType: string;
 }

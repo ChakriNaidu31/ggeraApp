@@ -200,6 +200,10 @@ label.form-label {
   color: #E9E9EA;
 }
 
+.client-action-buttons {
+  gap: 12px;
+}
+
 button.btn.make {
   background: linear-gradient(294.38deg, #41067A 7.72%, #7A06D1 87.02%);
   border-radius: 8px;

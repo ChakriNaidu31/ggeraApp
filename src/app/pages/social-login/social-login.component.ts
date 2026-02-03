@@ -24,6 +24,8 @@ export class SocialLoginComponent implements OnInit {
         this.router.navigate(['/client/home']);
       } else if (userType === 'PRO') {
         this.router.navigate(['/pro/order-progress']);
+      } else if (userType === 'STREAMER') {
+        this.router.navigate(['/streamer/home']);
       } else {
         this.router.navigate(['/admin/home']);
       }
@@ -46,6 +48,8 @@ export class SocialLoginComponent implements OnInit {
                   this.router.navigate(['/client/home']);
                 } else if (userType === 'PRO') {
                   this.router.navigate(['/pro/order-progress']);
+                } else if (userType === 'STREAMER') {
+                  this.router.navigate(['/streamer/home']);
                 } else {
                   this.router.navigate(['/admin/home']);
                 }

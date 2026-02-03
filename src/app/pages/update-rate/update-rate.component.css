@@ -1,0 +1,108 @@
+/* Match Update Status popup styling (PRO theme) */
+.update-rate-card {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.update-rate-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background-color: #4e4e4e;
+  border-radius: 8px;
+  padding-left: 16px;
+}
+
+.update-rate-dollar {
+  color: #ffffff;
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.update-rate-input {
+  background-color: transparent;
+  color: #ffffff;
+  border: 0;
+  padding: 14px 16px 14px 0;
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.update-rate-input::placeholder {
+  color: #999;
+}
+
+.update-rate-input:focus {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #d16c06;
+  box-shadow: none;
+  outline: none;
+}
+
+.update-rate-input-wrap:focus-within {
+  box-shadow: 0 0 0 0.2rem rgba(209, 108, 6, 0.25);
+}
+
+.update-rate-actions {
+  gap: 16px;
+  padding-bottom: 2rem !important;
+}
+
+/* Remove number input spinners if desired */
+.update-rate-input::-webkit-outer-spin-button,
+.update-rate-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.update-rate-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+button.btn.save {
+  border-radius: 8px;
+  border: 0;
+  padding: 14px 24px;
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.86px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.savepro {
+  color: #d16c06;
+  background: #ffffff;
+}
+
+.card.modal-cards.hovercard {
+  border-radius: 12px;
+  background-image: url("../../../assets/images/modal-bg-blur.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 0;
+}
+
+.modal-stream.streamLobbySlotTagsWrapper {
+  flex-flow: wrap;
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+.modal-stream {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}

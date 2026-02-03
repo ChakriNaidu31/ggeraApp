@@ -22,6 +22,7 @@ import { RegisterNewUserComponent } from './pages/register-new-user/register-new
 import { clientUserGuard } from './guards/client-user.guard';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { proUserGuard } from './guards/pro-user.guard';
+import { streamerUserGuard } from './guards/streamer-user.guard';
 import { OrderRequestsComponent } from './pages/order-requests/order-requests.component';
 import { NewPremadeComponent } from './pages/new-premade/new-premade.component';
 import { PremadeInprogressProComponent } from './pages/premade-inprogress-pro/premade-inprogress-pro.component';
@@ -29,6 +30,8 @@ import { EliteOrderRequestComponent } from './pages/elite-order-request/elite-or
 import { WithdrawMoneyComponent } from './pages/withdraw-money/withdraw-money.component';
 import { BankDetailsComponent } from './pages/bank-details/bank-details.component';
 import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
+import { UpdateRateComponent } from './pages/update-rate/update-rate.component';
+import { NewStreamComponent } from './pages/new-stream/new-stream.component';
 
 const routes: Routes = [
 
@@ -79,6 +82,22 @@ const routes: Routes = [
       { path: 'bank-details', component: BankDetailsComponent },
     ],
     canActivate: [proUserGuard]
+  },
+
+  {
+    path: 'streamer', children: [
+      { path: '', redirectTo: 'new-stream', pathMatch: 'full' },
+      { path: 'home', redirectTo: 'new-stream', pathMatch: 'full' },
+      { path: 'new-stream', component: NewStreamComponent },
+      { path: 'stream-progress', component: PremadeInprogressProComponent },
+      { path: 'stream-completed', component: PremadeCompletedProComponent },
+      { path: 'message', component: MessageComponent },
+      { path: 'transactions', component: WalletTransactionComponent },
+      { path: 'withdraw-money', component: WithdrawMoneyComponent },
+      { path: 'bank-details', component: BankDetailsComponent },
+      { path: 'update-rate', component: UpdateRateComponent },
+    ],
+    canActivate: [streamerUserGuard]
   },
 
   { path: '**', component: PagenotfoundComponent }

@@ -194,6 +194,8 @@ export class UserProfileComponent implements OnInit {
       this.router.navigate(['/pro/order-requests']);
     } else if (this.userType == 'CLIENT') {
       this.router.navigate(['/client/pro-players']);
+    } else if (this.userType == 'STREAMER') {
+      this.router.navigate(['/streamer/home']);
     }
   }
 
@@ -266,6 +268,44 @@ export class UserProfileComponent implements OnInit {
           });
         }
 
+      });
+  }
+
+  makeMeStreamerRequest() {
+    this.auth.getSelfProfile()
+      .pipe(
+        catchError((error) => {
+          this.toaster.showError(error.error?.meta?.message, '', {
+            duration: 10000
+          });
+          return '';
+        }))
+      .subscribe((data: any) => {
+        if (data?.data?.gamerId && data?.data?.isActive && data?.data?.platform && data?.data?.activisionId && data?.data?.region && data?.data?.winRatio && data?.data?.kd && data?.data?.wins && data?.data?.kills) {
+          this.auth.streamerUserRequest({})
+            .pipe(
+              catchError((error) => {
+                this.toaster.showError(error.error?.meta?.message, '', {
+                  duration: 10000
+                });
+                return '';
+              }))
+            .subscribe((streamerData: any) => {
+              if (streamerData?.data) {
+                this.toaster.showSuccess('Make me Streamer request sent to admin. After approval, you will have Streamer features', '', {
+                  duration: 5000
+                });
+              } else {
+                this.toaster.showError('Request could not be sent at this time. Please try again later', '', {
+                  duration: 10000
+                });
+              }
+            });
+        } else {
+          this.toaster.showError('Please fill your complete profile before requesting to be Streamer', '', {
+            duration: 10000
+          });
+        }
       });
   }
 
