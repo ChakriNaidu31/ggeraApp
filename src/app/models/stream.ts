@@ -19,6 +19,8 @@ export class Stream {
     endedTime: Date;
     slots: StreamUser[];
     clients: StreamUser[];
+    /** When >= 3, show "Join waitlist" instead of "Join the stream". API may send this; otherwise use clients?.length */
+    currentPlayingUsers?: StreamUser[];
     reportedUsers: StreamUser[];
     availableSlots: number;
     isClientTimerStopped: boolean;
@@ -26,6 +28,7 @@ export class Stream {
     totalAmount: string;
     taxAmountForAdmin: string;
     gameName: string;
+    embedUrl?: any; // display only, set by component
 }
 
 interface StreamUser {
@@ -46,4 +49,5 @@ interface StreamUser {
     profileImageUrl: string;
     orderCount: number;
     rating: string;
+    userType: string;
 }

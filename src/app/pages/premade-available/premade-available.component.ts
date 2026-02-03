@@ -2,12 +2,21 @@ import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { catchError } from 'rxjs';
 import { NotificationTypes } from 'src/app/models/notification-types';
 import { PremadeParty } from 'src/app/models/premade-party';
+import { Stream } from 'src/app/models/stream';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
+
+export type AvailableItemType = 'party' | 'stream';
+export interface AvailableItem {
+  type: AvailableItemType;
+  party?: PremadeParty;
+  stream?: Stream;
+}
 
 @Component({
   selector: 'app-premade-available',
@@ -18,7 +27,9 @@ export class PremadeAvailableComponent implements OnInit {
 
   @ViewChildren('videoPlayer') videoPlayers: QueryList<ElementRef>;
   premadeParties: PremadeParty[] = [];
-  selectedPremadeParties: PremadeParty[] = [];
+  availableStreams: Stream[] = [];
+  /** Combined list for display: parties and streams in one list */
+  selectedItems: AvailableItem[] = [];
   reloadTimer: any;
   searchTerm: string = '';
   fallbackVideoUrl: string = '';
@@ -43,13 +54,12 @@ export class PremadeAvailableComponent implements OnInit {
         this.games = data.data.games;
       }
     });
+    this.fallbackVideoUrl = this.transformVideoUrl('https://www.youtube.com/embed/V08UPqchVgQ');
     this.setMetaInfo();
     this.getData();
     this.reloadTimer = setInterval(() => {
       this.getData();
     }, 10000);
-    this.fallbackVideoUrl = this.transformVideoUrl('https://www.youtube.com/embed/V08UPqchVgQ');
-
   }
 
   transformVideoUrl(value: string): any {
@@ -80,49 +90,56 @@ export class PremadeAvailableComponent implements OnInit {
 
   getData() {
     this.premadeParties = [];
-    this._auth.getAvailablePremadeParties().subscribe((data) => {
-      this.premadeParties = data?.data?.party;
-      if (this.form.controls['gameId'].value) {
-        this.premadeParties = this.premadeParties.filter(party => party.gameId === this.form.controls['gameId'].value);
-      }
-      this.premadeParties.map((party) => party.embedUrl = this.transformVideoUrl(party.videoUrl))
+    this.availableStreams = [];
+    forkJoin({
+      parties: this._auth.getAvailablePremadeParties(),
+      streams: this._auth.getAvailableStreams()
+    }).subscribe(({ parties: partyRes, streams: streamRes }) => {
+      const parties: PremadeParty[] = partyRes?.data?.party ?? [];
+      const streams: Stream[] = streamRes?.data?.stream ?? [];
+      const gameId = this.form?.controls['gameId']?.value;
+      this.premadeParties = gameId ? parties.filter(p => p.gameId === gameId) : parties;
+      this.premadeParties.forEach((party) => (party as any).embedUrl = this.transformVideoUrl(party.videoUrl));
+      this.availableStreams = gameId ? streams.filter(s => s.gameId === gameId) : streams;
       this.filterData();
     });
   }
 
   private filterData() {
-    let selectedPartiesLocal: PremadeParty[] = this.premadeParties;
-    if (!this.compareTwoArrayOfObjects(selectedPartiesLocal, this.selectedPremadeParties)) {
-      this.selectedPremadeParties = selectedPartiesLocal;
-    }
-
+    let items: AvailableItem[] = [
+      ...this.premadeParties.map(party => ({ type: 'party' as AvailableItemType, party })),
+      ...this.availableStreams.map(stream => ({ type: 'stream' as AvailableItemType, stream }))
+    ];
     if (this.searchTerm) {
-      this.searchParties();
+      const term = this.searchTerm.toLowerCase();
+      items = items.filter(item => {
+        const name = (item.party?.createdByUser ?? item.stream?.createdByUser?.username ?? '').toLowerCase();
+        return name.indexOf(term) !== -1;
+      });
+    }
+    if (!this.compareAvailableItems(items, this.selectedItems)) {
+      this.selectedItems = items;
     }
   }
 
   searchParties() {
-    const selectedPartiesLocal = this.premadeParties.filter(party => party.createdByUser === this.searchTerm);
-    if (!this.compareTwoArrayOfObjects(selectedPartiesLocal, this.selectedPremadeParties)) {
-      this.selectedPremadeParties = selectedPartiesLocal;
-    }
+    this.filterData();
   }
 
-  private compareTwoArrayOfObjects(left: PremadeParty[], right: PremadeParty[]) {
-    return (
-      left.length === right.length &&
-      left.every((element_1) =>
-        right.some(
-          (element_2) =>
-            element_1.videoUrl === element_2.videoUrl &&
-            element_1.id === element_2.id &&
-            element_1.currentPlayingUsers === element_2.currentPlayingUsers &&
-            element_1.description === element_2.description &&
-            element_1.orderId === element_2.orderId &&
-            element_1.status === element_2.status
-        )
-      )
-    );
+  private compareAvailableItems(left: AvailableItem[], right: AvailableItem[]) {
+    if (left.length !== right.length) return false;
+    return left.every((el, i) => {
+      const r = right[i];
+      if (el.type !== r.type) return false;
+      if (el.type === 'party' && r.party) return el.party!.id === r.party!.id && el.party!.orderId === r.party!.orderId;
+      if (el.type === 'stream' && r.stream) return el.stream!.id === r.stream!.id && el.stream!.orderId === r.stream!.orderId;
+      return false;
+    });
+  }
+
+  /** Single display object for template (party or stream). */
+  getDisplayItem(item: AvailableItem): PremadeParty | Stream {
+    return item.party ?? item.stream!;
   }
 
   private setMetaInfo() {
@@ -138,51 +155,81 @@ export class PremadeAvailableComponent implements OnInit {
   }
 
   joinParty(id: string) {
-    // Check if the user has enough balance to do this operation
+    this.checkWalletAndJoin(() => this._auth.joinPremadeParty(id), id, 'party');
+  }
+
+  joinStream(id: string) {
+    this.checkWalletAndJoin(() => this._auth.joinStream(id), id, 'stream');
+  }
+
+  /** For streams only: when current playing count >= 3, join waitlist instead. */
+  joinStreamWaitlist(streamId: string) {
+    this._auth.joinStreamWaitlist(streamId).pipe(
+      catchError((error) => {
+        this.toaster.showError(error.error?.meta?.message ?? 'Request failed', '', {
+          duration: 10000
+        });
+        return [];
+      })
+    ).subscribe((res: any) => {
+      if (res?.data) {
+        this.toaster.showSuccess('Joined the waitlist', '', { duration: 3000 });
+        this.getData();
+      } else {
+        this.toaster.showError('Could not join waitlist. Please try again later', '', {
+          duration: 10000
+        });
+      }
+    });
+  }
+
+  /** True only for stream items when current playing users >= 3. */
+  isStreamFull(item: AvailableItem): boolean {
+    if (item.type !== 'stream' || !item.stream) return false;
+    const count = item.stream.currentPlayingUsers?.length ?? 0;
+    return count >= 3;
+  }
+
+  private checkWalletAndJoin(joinFn: () => any, id: string, kind: 'party' | 'stream') {
     let walletBalance = "0.00";
     this._auth.getMyWallet().pipe(
       catchError((error: any) => {
         this.toaster.showError("Wallet is empty. Please subscribe to proceed", '', {
           duration: 10000
         });
-        return '';
+        return [];
       }))
       .subscribe((data: any) => {
-        walletBalance = data.data?.wallet?.currentBalance ? data.data?.wallet?.currentBalance : "0.00";
+        const balance = data?.data?.wallet?.currentBalance ?? "0.00";
+        walletBalance = balance;
         if (parseFloat(walletBalance) < this._auth.minBalanceForMatch) {
           this.toaster.showError("A minimum of $12 is required to start playing. Please add money to your wallet", '', {
             duration: 10000
           });
           this.router.navigate(['/client/pricing']);
           return;
-        } else {
-          this._auth.joinPremadeParty(id).pipe(
-            catchError((error) => {
-              this.toaster.showError(error.error?.meta?.message, '', {
-                duration: 10000
-              });
-              return '';
-            })).subscribe((data) => {
-              if (data?.data) {
-                this.toaster.showSuccess('Joined the premade party', '', {
-                  duration: 3000
-                });
-
-                // Notify user
-                const request = {
-                  id: id,
-                  type: NotificationTypes.PREMADE_JOINED,
-                  email: this._auth.getEmailFromSession()
-                }
-                this._chatService.notifyServer(request);
-                this.router.navigate(['/client/premade-progress']);
-              } else {
-                this.toaster.showError('Could not join at this time. Please try again later', '', {
-                  duration: 10000
-                });
-              }
-            });
         }
+        joinFn().pipe(
+          catchError((error) => {
+            this.toaster.showError(error.error?.meta?.message ?? 'Request failed', '', {
+              duration: 10000
+            });
+            return [];
+          })
+        ).subscribe((res: any) => {
+          if (res?.data) {
+            const message = kind === 'party' ? 'Joined the premade party' : 'Joined the stream';
+            this.toaster.showSuccess(message, '', { duration: 3000 });
+            const notifType = kind === 'party' ? NotificationTypes.PREMADE_JOINED : NotificationTypes.STREAM_JOINED;
+            const request = { id, type: notifType, email: this._auth.getEmailFromSession() };
+            this._chatService.notifyServer(request);
+            this.router.navigate(['/client/premade-progress']);
+          } else {
+            this.toaster.showError('Could not join at this time. Please try again later', '', {
+              duration: 10000
+            });
+          }
+        });
       });
   }
 

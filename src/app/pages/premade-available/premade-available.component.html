@@ -30,13 +30,13 @@
                         </div>
 
                         <div class="premade-parties-wrapper d-flex text-white"
-                            *ngIf="selectedPremadeParties.length === 0">
-                            No premade parties available
+                            *ngIf="selectedItems.length === 0">
+                            No premade parties or streams available
                         </div>
                     </div>
 
-                    <ng-container *ngIf="selectedPremadeParties.length > 0">
-                        <div class="mt-5" *ngFor="let item of selectedPremadeParties; let i = index">
+                    <ng-container *ngIf="selectedItems.length > 0">
+                        <div class="mt-5" *ngFor="let item of selectedItems; let i = index">
                             <section class="premade-parties-wrapper container">
                                 <div id="premade-parties-list" class="premade-parties-list">
                                     <div class="streamLobbyItem">
@@ -44,7 +44,7 @@
                                             <div class="logo-vdo">
                                                 <div class="d-flex mx-3 vdo-block">
                                                     <div>
-                                                        <h4 class="text-white mt-3 vdo-h1">{{ item.gameName }}</h4>
+                                                        <h4 class="text-white mt-3 vdo-h1">{{ getDisplayItem(item).gameName }}</h4>
                                                         <!-- <p class="text-white vdo-p">A fun battle by Fortnite Official
                                                             Game
                                                             Corp.</p> -->
@@ -52,14 +52,14 @@
                                                 </div>
                                             </div>
                                             <div class="streamLobbyItemVideoCover">
-                                                <div class="video-container" style="width: 100%" *ngIf="item.embedUrl">
-                                                    <iframe height="400" width="100%" [src]="item.embedUrl"
+                                                <div class="video-container" style="width: 100%" *ngIf="getDisplayItem(item).embedUrl">
+                                                    <iframe height="400" width="100%" [src]="getDisplayItem(item).embedUrl"
                                                         title="YouTube video player" frameborder="0"
                                                         referrerpolicy="strict-origin-when-cross-origin" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowfullscreen></iframe>
                                                 </div>
-                                                <div class="video-container" style="width: 100%" *ngIf="!item.embedUrl">
+                                                <div class="video-container" style="width: 100%" *ngIf="!getDisplayItem(item).embedUrl">
                                                     <iframe height="400" width="100%" [src]="fallbackVideoUrl"
                                                         title="YouTube video player" frameborder="0"
                                                         referrerpolicy="strict-origin-when-cross-origin" frameborder="0"
@@ -78,7 +78,7 @@
                                             <div class="d-flex justify-content-between opac-bg">
                                                 <div class="p-4">
                                                     <h1 class="text-light h1-font">
-                                                        {{ item?.name }}
+                                                        {{ getDisplayItem(item).name }}
                                                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <g clip-path="url(#clip0_5344_406)">
@@ -104,16 +104,16 @@
                                                         </svg>
                                                     </h1>
                                                     <p class="text-color-light pb-4">
-                                                        {{ item?.serverDescription ?? '' | truncate: 100 }}
+                                                        {{ getDisplayItem(item).serverDescription | truncate: 100 }}
                                                         <br /><span class="opacity-5">
-                                                            {{ item?.description ?? '' | truncate: 100 }}
+                                                            {{ getDisplayItem(item).description | truncate: 100 }}
                                                         </span>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row premade-card">
-                                            <div class="col-lg-3 col-xs-12" *ngFor="let user of item.slots">
+                                            <div class="col-lg-3 col-xs-12" *ngFor="let user of getDisplayItem(item).slots">
                                                 <div class="d-flex justify-content-center fj">
                                                     <div class="streamLobbyItemProSlotWrapper swiper-slide"
                                                         aria-label="1 / 3"
@@ -199,9 +199,16 @@
                             </section>
 
                             <div class="session-text my-auto mb-4 pb-4">
-                                <button type="button" class="btn btn-primary-gg p-3" (click)="joinParty(item.id)">
+                                <button type="button" class="btn btn-primary-gg p-3" *ngIf="item.type === 'party'" (click)="joinParty(item.party!.id)">
                                     <h5 class="pe-4 px-4 mb-0">Join the party <span class="h1-font">$ 12/1</span> hour
                                     </h5>
+                                </button>
+                                <button type="button" class="btn btn-primary-gg p-3" *ngIf="item.type === 'stream' && !isStreamFull(item)" (click)="joinStream(item.stream!.id)">
+                                    <h5 class="pe-4 px-4 mb-0">Join the stream <span class="h1-font">$ {{ item.stream?.amount ?? '12' }}/1</span> hour
+                                    </h5>
+                                </button>
+                                <button type="button" class="btn btn-primary-gg p-3" *ngIf="item.type === 'stream' && isStreamFull(item)" (click)="joinStreamWaitlist(item.stream!.id)">
+                                    <h5 class="pe-4 px-4 mb-0">Join waitlist <span class="h1-font">$ {{ item.stream?.amount ?? '12' }}/1</span> hour</h5>
                                 </button>
                             </div>
                         </div>

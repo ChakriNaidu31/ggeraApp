@@ -210,15 +210,9 @@ export class StreamInprogressComponent implements OnInit {
             this.order = stream;
             this.currentClients = this.order?.clients;
             this.waitlistCount = stream.waitlistUsers?.length ?? 0;
-            if (this.order?.id) {
-              this.fetchWaitlistCount();
-            }
           } else {
             this.currentClients = stream?.clients;
             this.waitlistCount = stream.waitlistUsers?.length ?? this.waitlistCount;
-            if (this.order?.id) {
-              this.fetchWaitlistCount();
-            }
           }
         }
       } else {
@@ -227,20 +221,6 @@ export class StreamInprogressComponent implements OnInit {
         this.waitlistCount = 0;
       }
     });
-  }
-
-  private fetchWaitlistCount() {
-    if (!this.order?.id) return;
-    this._auth
-      .getStreamWaitlistCount(this.order.id)
-      .pipe(
-        catchError(() => of({ data: { count: 0 } }))
-      )
-      .subscribe((res: any) => {
-        const count = res?.data?.count;
-        this.waitlistCount = typeof count === 'number' && !isNaN(count) ? count : 0;
-        this.cd.detectChanges();
-      });
   }
 
   private dataChanged(stream: Stream) {
