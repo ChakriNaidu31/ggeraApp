@@ -32,6 +32,7 @@ import { BankDetailsComponent } from './pages/bank-details/bank-details.componen
 import { PremadeCompletedProComponent } from './pages/premade-completed-pro/premade-completed-pro.component';
 import { UpdateRateComponent } from './pages/update-rate/update-rate.component';
 import { NewStreamComponent } from './pages/new-stream/new-stream.component';
+import { StreamInprogressComponent } from './pages/stream-inprogress/stream-inprogress.component';
 
 const routes: Routes = [
 
@@ -89,7 +90,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'new-stream', pathMatch: 'full' },
       { path: 'home', redirectTo: 'new-stream', pathMatch: 'full' },
       { path: 'new-stream', component: NewStreamComponent },
-      { path: 'stream-progress', component: PremadeInprogressProComponent },
+      { path: 'stream-progress', component: StreamInprogressComponent },
       { path: 'stream-completed', component: PremadeCompletedProComponent },
       { path: 'message', component: MessageComponent },
       { path: 'transactions', component: WalletTransactionComponent },

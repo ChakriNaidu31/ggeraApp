@@ -209,6 +209,10 @@ export class AuthService {
     return this.http.get<any>(`${this.partyBaseUrl}/inprogress`, { headers: this.getHttpHeaders() });
   }
 
+  getStreamWaitlistCount(streamId: string) {
+    return this.http.get<{ data?: { count?: number } }>(`${this.streamBaseUrl}/${streamId}/waitlist`, { headers: this.getHttpHeaders() });
+  }
+
   completedPartiesList() {
     return this.http.get<any>(`${this.partyBaseUrl}/completed`, { headers: this.getHttpHeaders() });
   }
