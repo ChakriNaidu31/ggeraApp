@@ -106,7 +106,7 @@ export class HeaderStreamerComponent implements OnInit {
     if (!this.notifications) {
       return [];
     }
-    return this.notifications.filter((notification) => !notification.isRead);
+    return this.notifications;
   }
 
   markAllAsRead() {
@@ -135,6 +135,28 @@ export class HeaderStreamerComponent implements OnInit {
             '',
             { duration: 10000 }
           );
+        }
+      });
+  }
+
+  onNotificationBellClick() {
+    if (this.unreadNotificationsLength === 0) {
+      return;
+    }
+
+    this._auth
+      .markAllNotificationsAsRead()
+      .pipe(
+        catchError(() => {
+          return '';
+        })
+      )
+      .subscribe((data) => {
+        if (data.data) {
+          this.notifications = this.notifications.map((n) => {
+            n.isRead = true;
+            return n;
+          });
         }
       });
   }

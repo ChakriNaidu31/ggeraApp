@@ -134,7 +134,7 @@ export class HeaderProComponent implements OnInit {
     if (!this.notifications) {
       return [];
     } else {
-      return this.notifications.filter((notification) => !notification.isRead);
+      return this.notifications;
     }
   }
 
@@ -166,6 +166,28 @@ export class HeaderProComponent implements OnInit {
               duration: 10000,
             }
           );
+        }
+      });
+  }
+
+  onNotificationBellClick() {
+    if (this.unreadNotificationsLength === 0) {
+      return;
+    }
+
+    this._auth
+      .markAllNotificationsAsRead()
+      .pipe(
+        catchError(() => {
+          return '';
+        })
+      )
+      .subscribe((data) => {
+        if (data.data) {
+          this.notifications = this.notifications.map((n) => {
+            n.isRead = true;
+            return n;
+          });
         }
       });
   }

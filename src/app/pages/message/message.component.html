@@ -129,6 +129,7 @@
                         <img src="{{ message.imageUrl ? message.imageUrl : '../../../assets/images/nouser.png' }}" [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }"
                           alt="Avatar" class="avatar me-2">
                         <span class="chat-message">{{ message.message }}</span>
+                        <div class="message-time message-time-left">{{ message.sentTime | date: 'dd MMM yyyy, hh:mm a' }}</div>
                       </div>
                     </div>
 
@@ -139,6 +140,7 @@
 
                     <div class="text-end d-block mt-3" *ngIf="!message.isLine && message.from === 'me'">
                       <span class="chat-message">{{ message.message }}</span>
+                      <div class="message-time message-time-right">{{ message.sentTime | date: 'dd MMM yyyy, hh:mm a' }}</div>
                     </div>
                   </ng-container>
                 </div>
