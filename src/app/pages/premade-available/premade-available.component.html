@@ -53,14 +53,14 @@
                                             </div>
                                             <div class="streamLobbyItemVideoCover">
                                                 <div class="video-container" style="width: 100%" *ngIf="getDisplayItem(item).embedUrl">
-                                                    <iframe height="400" width="100%" [src]="getDisplayItem(item).embedUrl"
+                                                    <iframe height="360" width="100%" [src]="getDisplayItem(item).embedUrl"
                                                         title="YouTube video player" frameborder="0"
                                                         referrerpolicy="strict-origin-when-cross-origin" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowfullscreen></iframe>
                                                 </div>
                                                 <div class="video-container" style="width: 100%" *ngIf="!getDisplayItem(item).embedUrl">
-                                                    <iframe height="400" width="100%" [src]="fallbackVideoUrl"
+                                                    <iframe height="360" width="100%" [src]="fallbackVideoUrl"
                                                         title="YouTube video player" frameborder="0"
                                                         referrerpolicy="strict-origin-when-cross-origin" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
