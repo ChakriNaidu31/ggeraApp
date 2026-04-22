@@ -6,6 +6,7 @@ import { Chat } from 'src/app/models/chat';
 import { ChatMessage } from 'src/app/models/chat-message';
 import { NotificationTypes } from 'src/app/models/notification-types';
 import { PremadeParty } from 'src/app/models/premade-party';
+import { Stream } from 'src/app/models/stream';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { PushNotificationService } from 'src/app/services/push-notification.service';
@@ -20,7 +21,7 @@ export class PremadeInprogressComponent implements OnInit {
 
   @ViewChild('messageScroller', { static: false }) private messageScroller: ElementRef;
 
-  order: PremadeParty | undefined;
+  order: PremadeParty | Stream | undefined;
   reloadTimer: any;
   currentClients: any[] | undefined;
 
@@ -138,37 +139,45 @@ export class PremadeInprogressComponent implements OnInit {
   }
 
   private getData() {
-    this._auth.inProgressPartiesList().subscribe((data) => {
-      if (data?.data?.party) {
-        if (data.data.party?.isAlreadyFinishedPlaying) {
+    this._auth.inProgressPartiesList().subscribe((partyData) => {
+      const party = partyData?.data?.party;
+      if (party && !party?.isAlreadyFinishedPlaying) {
+        this.updateInProgressOrder(party);
+        return;
+      }
+
+      this._auth.inProgressStreamsList().subscribe((streamData) => {
+        const stream = streamData?.data?.stream;
+        if (stream && !stream?.isAlreadyFinishedPlaying) {
+          this.updateInProgressOrder(stream);
+        } else {
           this.order = undefined;
           this.currentClients = [];
-        } else {
-          if (!this.dataChanged(data?.data?.party)) {
-            this.order = data?.data?.party;
-            this.currentClients = this.order?.clients;
-          } else {
-            this.currentClients = data?.data?.party?.clients;
-          }
         }
-      } else {
-        this.order = undefined;
-        this.currentClients = [];
-      }
+      });
     });
   }
 
-  private dataChanged(premadeParty: PremadeParty) {
+  private updateInProgressOrder(orderData: PremadeParty | Stream) {
+    if (!this.dataChanged(orderData)) {
+      this.order = orderData;
+      this.currentClients = orderData?.clients;
+    } else {
+      this.currentClients = orderData?.clients;
+    }
+  }
+
+  private dataChanged(orderData: PremadeParty | Stream) {
     if (!this.order) {
       return false;
     }
 
-    return this.order?.userList?.length === premadeParty?.userList?.length &&
-      this.order?.reportedUsers?.length === premadeParty.reportedUsers?.length &&
-      this.order?.slots?.length === premadeParty?.slots?.length &&
-      this.order?.isClientTimerStopped === premadeParty.isClientTimerStopped &&
-      this.order?.description === premadeParty.description &&
-      this.order?.status === premadeParty.status
+    return this.order?.userList?.length === orderData?.userList?.length &&
+      this.order?.reportedUsers?.length === orderData.reportedUsers?.length &&
+      this.order?.slots?.length === orderData?.slots?.length &&
+      this.order?.isClientTimerStopped === orderData.isClientTimerStopped &&
+      this.order?.description === orderData.description &&
+      this.order?.status === orderData.status
   }
 
   private setMetaInfo() {
