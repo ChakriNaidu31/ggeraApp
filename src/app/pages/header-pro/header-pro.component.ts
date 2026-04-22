@@ -140,7 +140,7 @@ export class HeaderProComponent implements OnInit {
 
   markAllAsRead() {
     this._auth
-      .markAllNotificationsAsRead()
+      .removeReadNotifications()
       .pipe(
         catchError((error: any) => {
           this.toaster.showError(error.error?.meta?.message, '', {

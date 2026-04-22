@@ -186,6 +186,10 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/notification/read`, {}, { headers: this.getHttpHeaders() });
   }
 
+  removeReadNotifications() {
+    return this.http.post<any>(`${this.apiUrl}/notification/remove`, {}, { headers: this.getHttpHeaders() });
+  }
+
   getAvailableGames() {
     return this.http.get<any>(`${this.apiUrl}/game`, { headers: this.getHttpHeaders() });
   }

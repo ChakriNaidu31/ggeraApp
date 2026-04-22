@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit {
   }
 
   markAllAsRead() {
-    this._auth.markAllNotificationsAsRead().pipe(
+    this._auth.removeReadNotifications().pipe(
       catchError((error: any) => {
         this.toaster.showError(error.error?.meta?.message, '', {
           duration: 10000
