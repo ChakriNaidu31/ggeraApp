@@ -209,10 +209,10 @@ export class StreamInprogressComponent implements OnInit {
           if (!this.dataChanged(stream)) {
             this.order = stream;
             this.currentClients = this.order?.clients;
-            this.waitlistCount = stream.waitlistUsers?.length ?? 0;
+            this.waitlistCount = stream.waitListUsers?.length ?? 0;
           } else {
             this.currentClients = stream?.clients;
-            this.waitlistCount = stream.waitlistUsers?.length ?? this.waitlistCount;
+            this.waitlistCount = stream.waitListUsers?.length ?? this.waitlistCount;
           }
         }
       } else {

@@ -193,6 +193,21 @@ span.chat-message {
   font-weight: 500;
 }
 
+.message-time {
+  font-size: 10px;
+  color: #8f939a;
+  margin-top: 4px;
+}
+
+.message-time-left {
+  margin-left: 52px;
+  text-align: left;
+}
+
+.message-time-right {
+  text-align: right;
+}
+
 .text-box {
   padding: 0px 45px 30px 30px;
   background-color: #151520;

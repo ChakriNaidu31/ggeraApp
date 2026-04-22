@@ -23,7 +23,7 @@
 }
 
 .red-letter {
-    color: #A55EFF;
+    color: #d16c06;
     cursor: pointer;
 }
 
@@ -161,7 +161,7 @@ thead.bg-transparent>tr>th {
 }
 
 button.btn.btn-secondary {
-    background: linear-gradient(217deg, #41067A, #7A06D1) !important;
+    background: linear-gradient(217deg, #7a3c06, #d16c06) !important;
     border: 0 !important;
 }
 

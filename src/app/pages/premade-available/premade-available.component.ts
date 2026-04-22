@@ -186,7 +186,7 @@ export class PremadeAvailableComponent implements OnInit {
   /** True only for stream items when current playing users >= 3. */
   isStreamFull(item: AvailableItem): boolean {
     if (item.type !== 'stream' || !item.stream) return false;
-    const count = item.stream.currentPlayingUsers?.length ?? 0;
+    const count = item.stream.currentPlayingUsers ?? 0;
     return count >= 3;
   }
 

@@ -90,9 +90,11 @@
                             [ngClass]="{ 'profile-image-client': userType === 'CLIENT', 'profile-image-pro': userType !== 'CLIENT' }"
                             alt="Avatar" class="avatar me-2">
                           <span class="chat-message">{{ message.message }}</span>
+                          <div class="message-time message-time-left">{{ message.sentTime | date: 'dd MMM yyyy, hh:mm a' }}</div>
                         </div>
                         <div *ngIf="!message.isLine && message.from === 'me'">
                           <span class="chat-message">{{ message.message }}</span>
+                          <div class="message-time message-time-right">{{ message.sentTime | date: 'dd MMM yyyy, hh:mm a' }}</div>
                         </div>
                       </div>
                     </ng-container>

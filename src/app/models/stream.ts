@@ -9,7 +9,7 @@ export class Stream {
     description: string;
     amount: string;
     userList: [StreamUser];
-    waitlistUsers: [StreamUser];
+    waitListUsers: [StreamUser];
     createdBy: string;
     createdByUser: StreamUser;
     serverDescription: string;
@@ -20,7 +20,7 @@ export class Stream {
     slots: StreamUser[];
     clients: StreamUser[];
     /** When >= 3, show "Join waitlist" instead of "Join the stream". API may send this; otherwise use clients?.length */
-    currentPlayingUsers?: StreamUser[];
+    currentPlayingUsers?: number;
     reportedUsers: StreamUser[];
     availableSlots: number;
     isClientTimerStopped: boolean;
