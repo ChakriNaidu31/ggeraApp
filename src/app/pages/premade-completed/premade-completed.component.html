@@ -48,7 +48,7 @@
                 <tbody class="text-center">
                   <ng-container *ngIf="visibleParties && visibleParties.length > 0; else noItemsFound">
                     <tr *ngFor="let order of visibleParties">
-                      <td class="red-letter" (click)="openDetails(order?.id)">{{ order?.orderId }}</td>
+                      <td class="red-letter" (click)="openDetails(order)">{{ order?.orderId }}</td>
                       <td class="text-white">{{ order?.name }}</td>
                       <td class="text-white">${{ order?.clientUser?.amount }}</td>
                       <td class="text-white">{{ order?.clientUser?.loggedTime }}</td>
@@ -77,7 +77,7 @@
                   </ng-container>
                   <ng-template #noItemsFound>
                     <tr>
-                      <td colspan="6" class="text-white">No Parties Found</td>
+                      <td colspan="6" class="text-white">No Parties or Streams Found</td>
                     </tr>
                   </ng-template>
                 </tbody>

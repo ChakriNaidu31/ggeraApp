@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
-import { catchError } from 'rxjs';
+import { catchError, forkJoin } from 'rxjs';
 import { PremadeParty } from 'src/app/models/premade-party';
+import { Stream } from 'src/app/models/stream';
 import { AuthService } from 'src/app/services/auth.service';
 import { ResponseMessageService } from 'src/app/services/response-message.service';
 
@@ -23,6 +24,7 @@ export class PremadeCompletedComponent implements OnInit {
   selectedPremadeParty: any;
   form: UntypedFormGroup;
   currentRating: number = 0;
+  selectedItemType: 'party' | 'stream' = 'party';
 
   constructor(
     private _auth: AuthService,
@@ -45,16 +47,22 @@ export class PremadeCompletedComponent implements OnInit {
     });
     this.userType = this._auth.getUserTypeFromSession();
 
-    this._auth.completedPartiesList().subscribe(parties => {
-      this.premadeParties = parties?.data?.party;
+    forkJoin({
+      parties: this._auth.completedPartiesList(),
+      streams: this._auth.completedStreamsList()
+    }).subscribe(({ parties, streams }) => {
+      const completedParties: PremadeParty[] = parties?.data?.party ?? [];
+      const completedStreams: Stream[] = streams?.data?.stream ?? [];
+      const streamsWithPremadeShape = completedStreams.map((stream) => this.mapStreamToPremadeShape(stream));
+      this.premadeParties = [...streamsWithPremadeShape, ...completedParties];
       this.paginateItems();
     });
 
   }
 
-  openDetails(partyId: string = '') {
-    if (partyId) {
-      this.fetchDetails(partyId);
+  openDetails(order: any) {
+    if (order?.id && !order?.isStream) {
+      this.fetchDetails(order.id);
     }
   }
 
@@ -88,6 +96,7 @@ export class PremadeCompletedComponent implements OnInit {
 
   addReview(order: PremadeParty) {
     this.currentRating = 0;
+    this.selectedItemType = (order as any)?.isStream ? 'stream' : 'party';
     this.selectedPremadeParty = order;
     this.openModal('thirdModal');
   }
@@ -98,8 +107,21 @@ export class PremadeCompletedComponent implements OnInit {
   }
 
   submitReview() {
-    this.form.controls['partyId'].setValue(this.selectedPremadeParty.id)
-    this._auth.savePartyReview(this.form.value).pipe(
+    const reviewPayload = {
+      starRating: this.form.controls['starRating'].value,
+      comments: this.form.controls['comments'].value
+    };
+    const reviewRequest = this.selectedItemType === 'stream'
+      ? this._auth.saveStreamReview({
+        ...reviewPayload,
+        streamId: this.selectedPremadeParty?.id
+      })
+      : this._auth.savePartyReview({
+        ...reviewPayload,
+        partyId: this.selectedPremadeParty?.id
+      });
+
+    reviewRequest.pipe(
       catchError((error: any) => {
         this.toaster.showError(error.error?.meta?.message, '', {
           duration: 10000
@@ -119,6 +141,21 @@ export class PremadeCompletedComponent implements OnInit {
           this.closeModal('thirdModal');
         }
       });
+  }
+
+  private mapStreamToPremadeShape(stream: Stream): PremadeParty {
+    const loggedInEmail = this._auth.getEmailFromSession();
+    const streamClient = stream?.clients?.find((client: any) => client?.email === loggedInEmail) ?? stream?.clients?.[0];
+    return {
+      ...(stream as any),
+      isStream: true,
+      clientUser: {
+        amount: stream?.amount,
+        loggedTime: (streamClient as any)?.loggedTimeInMinutes ?? streamClient?.timerInMinutes ?? 0,
+        completedDate: stream?.endedTime,
+        reviewStarCount: (streamClient as any)?.rating ?? 0
+      }
+    } as PremadeParty;
   }
 
   closeModal(modalId: string): void {
