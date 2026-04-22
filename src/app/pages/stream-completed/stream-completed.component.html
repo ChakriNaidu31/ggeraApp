@@ -103,7 +103,7 @@
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Current Wallet Balance</span>
-                                                                <span>{{ selectedStreamDetails?.creator?.currentWalletBalance }}</span>
+                                                                <span>$ {{ selectedStreamDetails?.creator?.currentWalletBalance }}</span>
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Amount Accumulated</span>
@@ -122,29 +122,27 @@
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Order</span>
-                                                                <span># {{ selectedStreamDetails?.match?.orderNumber }}</span>
+                                                                <span># {{ selectedStreamDetails?.stream?.orderNumber }}</span>
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Cost</span>
-                                                                <span>{{ selectedStreamDetails?.match?.cost }}</span>
+                                                                <span>{{ selectedStreamDetails?.stream?.cost }}</span>
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Platform</span>
-                                                                <span>{{ selectedStreamDetails?.match?.platform }}</span>
+                                                                <span>{{ selectedStreamDetails?.stream?.platform }}</span>
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Started Time</span>
-                                                                <span>{{ selectedStreamDetails?.match?.startedTime | date
-                                                                    : "dd/MM/yyyy hh:mm a" }}</span>
+                                                                <span>{{ selectedStreamDetails?.stream?.startedTime | date: "dd/MM/yyyy hh:mm a" }}</span>
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Closed Time</span>
-                                                                <span>{{ selectedStreamDetails?.match?.endedTime | date :
-                                                                    "dd/MM/yyyy hh:mm a" }}</span>
+                                                                <span>{{ selectedStreamDetails?.stream?.endedTime | date: "dd/MM/yyyy hh:mm a" }}</span>
                                                             </div>
                                                             <div class="info-row">
                                                                 <span>Status</span>
-                                                                <span>{{ selectedStreamDetails?.match?.status }}</span>
+                                                                <span>{{ selectedStreamDetails?.stream?.status }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
